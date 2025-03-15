@@ -1,0 +1,314 @@
+/* General Admin Panel Styles */
+.admin-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.adminhdd{
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+.abouthdd{
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+.profilehdd {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Dropdown Styling */
+.section-dropdown {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: white;
+  cursor: pointer;
+}
+
+/* About Section */
+#about-section {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile Section */
+.profile-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-preview {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  border: 3px solid #007bff;
+}
+
+.profile-section input {
+  display: block;
+  margin: 10px auto;
+}
+
+.profile-section button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.profile-section button:hover {
+  background: darkred;
+}
+
+/* Skills Section */
+.skills-section {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.skills-section h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.skills-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.skills-section li {
+  background: #eef;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skills-section li button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.skills-section li button:hover {
+  background: darkred;
+}
+
+/* Add Skill Form */
+.skills-section input {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.skills-section button {
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.skills-section button:hover {
+  background: #0056b3;
+}
+
+/* Gallery Section */
+#gallery-section {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+#gallery-section p {
+  color: #555;
+}
+
+/* Project Section */
+#project-section {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.project-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.project-form input,
+.project-form textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.project-form button {
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.project-form button:disabled {
+  background: gray;
+  cursor: not-allowed;
+}
+
+/* Image Preview */
+.image-preview {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.image-preview img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* Spinner Animation */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #fff;
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Projects List */
+.projects-list {
+  margin-top: 20px;
+}
+
+.project-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background: #f9f9f9;
+}
+
+.project-item img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.project-item .buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.project-item button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.project-item button.edit-btn {
+  background: #28a745;
+}
+
+.project-item button.edit-btn:hover {
+  background: #218838;
+}
+
+.project-item button.delete-btn:hover {
+  background: darkred;
+}
+.prjt_name{
+  color: black;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .admin-container {
+    padding: 15px;
+  }
+
+  .profile-preview {
+    width: 100px;
+    height: 100px;
+  }
+
+  .skills-section li {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .skills-section li button {
+    margin-top: 5px;
+  }
+
+  .project-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .project-item img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .project-item .buttons {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+  }
+}

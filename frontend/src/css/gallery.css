@@ -1,0 +1,26 @@
+.gallery-container {
+    padding: 50px;
+    text-align: center;
+    background-color: #000;
+    color: #fff;
+  }
+  
+  h2 {
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  
+  .gallery-grid {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .gallery-grid img {
+    width: 250px;
+    height: 250px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 3px solid #fff;
+  }
+  
