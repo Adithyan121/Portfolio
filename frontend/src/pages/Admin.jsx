@@ -63,44 +63,9 @@ const Admin = () => {
     }
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setLoading(true);
 
-  //   const form = new FormData();
-  //   form.append("name", formData.name);
-  //   form.append("description", formData.description);
-  //   form.append("technologies", JSON.stringify(formData.technologies.split(",")));
-  //   form.append("previewLink", formData.previewLink);
-  //   form.append("gitLink", formData.gitLink);
-  //   form.append("image", formData.image);
-  //   console.log("bss",formData);
-    
 
-  //   try {
-  //     if (editMode) {
-  //       await axios.put(`http://localhost:5000/api/projects/${editId}`, form, {
-  //         headers: { "Content-Type": "multipart/form-data" },
-  //       });
-  //       alert("Project updated successfully!");
-  //     } else {
-  //       await axios.post("http://localhost:5000/api/projects", form, {
-  //         headers: { "Content-Type": "multipart/form-data" },
-  //       });
-  //       alert("Project added successfully!");
-        
-  //     }
-
-  //     fetchProjects();
-  //     setImagePreview(null);
-  //     setEditMode(false);
-  //     setFormData({ name: "", description: "", technologies: "", previewLink: "",gitLink: "",image: null });
-  //   } catch (error) {
-  //     console.error("Error saving project", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
