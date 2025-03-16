@@ -52,7 +52,7 @@ const Verify = () => {
 
     try {
       setResendDisabled(true);
-      const response = await axios.post("http://localhost:5000/api/resend-otp", { userId });
+      const response = await api.post("/resend-otp", { userId });
 
       if (response.data.success) {
         setError("OTP resent successfully");
