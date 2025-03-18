@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams} from 'react-router-dom';
 import '../css/projectdetails.css';
 import api from "../assets/api"
+import { IoLogoGithub } from "react-icons/io";
+import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 
 const ProjectDetails = () => {
   const { id } = useParams();
@@ -42,13 +44,24 @@ const ProjectDetails = () => {
         </ul>
 
         {/* Button to Open Preview Page */}
-        <a href={project.previewLink} target="_blank" rel="noopener noreferrer" className="preview-btn">
-          Preview Project
-        </a>
-        <br/>
-        <a href={project.gitLink} target="_blank" rel="noopener noreferrer" className="preview-btn">
-          git
-        </a>
+      
+
+<div className="btn-div">
+  <a href={project.previewLink} target="_blank" rel="noopener noreferrer">
+    <button className="btn">
+      Live Website
+      <FaArrowUpRightFromSquare className="git-icon" />
+    </button>
+  </a>
+
+  <a href={project.gitLink} target="_blank" rel="noopener noreferrer">
+    <button className="btn">
+      <IoLogoGithub className="git-icon" />
+      Source Code
+    </button>
+  </a>
+</div>
+
       </div>
     </section>
   );

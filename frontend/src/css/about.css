@@ -3,8 +3,8 @@
   align-items: center;
   justify-content: center;
   padding: 60px;
-  background-color: #000; /* Black background */
-  color: #fff; /* White text */
+  background-color: #000;
+  color: #fff;
   flex-wrap: wrap;
 }
 
@@ -119,8 +119,63 @@ p {
   background-color: #ccc;
   transform: scale(1.05);
 }
-.contact-list a{
+
+.contact-list a {
   text-decoration: none;
   color: white;
   text-align: left;
 }
+
+/* RESPONSIVE DESIGN */
+@media screen and (max-width: 768px) {
+  .about-container {
+    flex-direction: column;
+    padding: 30px;
+    text-align: center;
+  }
+
+  .about-image img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .about-content {
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  h2, h3 {
+    font-size: 22px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .contact-list {
+    text-align: center;
+  }
+
+  .contact-list li {
+    justify-content: center;
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+
+  .skills {
+    justify-content: center;
+  }
+
+  .buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .resume-btn, .gallery-btn {
+    width: 80%;
+    text-align: center;
+  }
+}
+

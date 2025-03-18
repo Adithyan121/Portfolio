@@ -65,3 +65,31 @@
 .preview-btn{
    color: #000;
 }
+.btn-div {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.btn {
+  margin: 12px;
+  width: 200px;
+  height: 50px;
+  background: #000;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 10px;
+  border: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Space between icon and text */
+  cursor: pointer;
+}
+
+.git-icon {
+  width: 20px;
+  height: 20px;
+}
