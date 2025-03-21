@@ -23,13 +23,22 @@ const Projects = () => {
     <div className="projects-container">
       <h2>My Projects</h2>
       <div className="projects-grid">
-        {projects.map((project) => (
-          <Link to={`/project/${project._id}`} key={project._id} className="project-card">
-            <img src={project.image} alt={project.name} />
-            <h3>{project.name}</h3>
-            <p>{project.summary}</p>
-          </Link>
-        ))}
+      {projects.length > 0 ? (
+  projects.map((project) => (
+    <Link to={`/project/${project._id}`} key={project._id} className="project-card">
+      <img src={project.image} alt={project.name} />
+      <h3>{project.name}</h3>
+      <p>{project.summary}</p>
+    </Link>
+  ))
+) : (
+  <div className="project-card skeleton">
+    <div className="skeleton-img"></div>
+    <h3 className="skeleton-text"></h3>
+    <p className="skeleton-text"></p>
+  </div>
+)}
+
       </div>
     </div>
   );

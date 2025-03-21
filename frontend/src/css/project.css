@@ -52,3 +52,21 @@
 .project-card:hover {
   transform: scale(1.05);
 }
+.skeleton {
+  background: #e0e0e0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.skeleton-img {
+  width: 100%;
+  height: 150px;
+  background: #ccc;
+}
+
+.skeleton-text {
+  width: 80%;
+  height: 20px;
+  background: #bbb;
+  margin: 10px 0;
+}

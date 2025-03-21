@@ -1,48 +1,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
 #project-details {
-  background-color: #fff;
-  color: #000;
-  padding: 80px 10%;
+  background-color: #f4f4f4;
+  color: #333;
+  padding: 60px 5%;
   font-family: 'Poppins', sans-serif;
   text-align: center;
 }
 
 .project-details-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: auto;
-  background: #f8f8f8;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease-in-out;
 }
 
-.project-details-container img {
+.project-details-container:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.project-image {
   width: 100%;
-  max-height: 350px;
+  max-height: 400px;
   object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
 }
 
-.project-details-container h2 {
-  font-size: 2.5rem;
+.project-title {
+  font-size: 2.2rem;
+  font-weight: 700;
   margin-bottom: 15px;
+  color: #222;
 }
 
-.project-details-container p {
+.project-description {
   font-size: 1.2rem;
   margin: 15px 0;
-  line-height: 1.5;
+  line-height: 1.6;
+  color: #444;
 }
 
-.project-details-container h3 {
+.tech-heading {
   font-size: 1.8rem;
-  margin-top: 20px;
-  color: #333;
+  margin-top: 25px;
+  color: #555;
 }
 
-.project-details-container ul {
+.tech-list {
   list-style: none;
   padding: 0;
   display: flex;
@@ -51,45 +59,92 @@
   gap: 10px;
 }
 
-.project-details-container ul li {
+.tech-item {
   font-size: 1rem;
-  background: black;
+  background: #222;
   color: white;
-  padding: 8px 15px;
-  display: inline-block;
-  border-radius: 5px;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: 0.3s ease-in-out;
 }
-.project-title{
-  color: black;
+
+.tech-item:hover {
+  background: #444;
 }
-.preview-btn{
-   color: #000;
-}
+
+/* Buttons */
 .btn-div {
   display: flex;
   justify-content: center;
-  position: relative;
+  gap: 15px;
+  margin-top: 20px;
 }
 
 .btn {
-  margin: 12px;
-  width: 200px;
-  height: 50px;
-  background: #000;
+  width: 220px;
+  height: 55px;
+  background: linear-gradient(to right, #333, #111);
   color: white;
   font-weight: bold;
-  border-radius: 5px;
-  padding: 10px;
+  border-radius: 8px;
+  padding: 12px;
   border: none;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px; /* Space between icon and text */
+  gap: 10px; /* Space between icon and text */
   cursor: pointer;
+  transition: 0.3s ease-in-out;
+  font-size: 1rem;
+}
+
+.btn:hover {
+  background: linear-gradient(to right, #555, #222);
 }
 
 .git-icon {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #project-details {
+    padding: 40px 5%;
+  }
+
+  .project-details-container {
+    padding: 20px;
+  }
+
+  .project-title {
+    font-size: 2rem;
+  }
+
+  .project-description {
+    font-size: 1.1rem;
+  }
+
+  .tech-heading {
+    font-size: 1.5rem;
+  }
+
+  .btn {
+    width: 180px;
+    height: 50px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn-div {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn {
+    width: 100%;
+  }
 }
