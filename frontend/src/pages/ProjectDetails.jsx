@@ -10,7 +10,7 @@ const ProjectDetails = () => {
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  console.log("uff",project);
+  
   
 
   useEffect(() => {
