@@ -12,6 +12,8 @@ const Admin = () => {
     gitLink: "",
     image: null,
   });
+  const [resume, setResume] = useState(null);
+  const [resumeUrl, setResumeUrl] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -26,7 +28,19 @@ const Admin = () => {
     fetchProjects();
     fetchProfileImage();
     fetchSkills();
+    fetchResume();
   }, []);
+
+  // Fetch resume
+  const fetchResume = async () => {
+    try {
+      const res = await api.get("/resume");
+      setResumeUrl(res.data.resumeUrl);
+    } catch (error) {
+      console.error("Error fetching resume:", error);
+    }
+  }
+
 
   // Fetch Projects
  const fetchProjects = async () => {
@@ -207,6 +221,33 @@ const Admin = () => {
     }
   };
 
+  // Upload Resume
+  const handleResumeUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+  
+    // Check if file is PDF
+    if (file.type !== 'application/pdf') {
+      alert('Please upload a PDF file');
+      return;
+    }
+  
+    const formData = new FormData();
+    formData.append("resume", file); // Field name must match the multer expectation
+  
+    try {
+      const res = await api.post("/resume", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      setResumeUrl(res.data.resumeUrl);
+      alert("Resume updated successfully!");
+    } catch (error) {
+      console.error("Error uploading resume:", error);
+      alert("Error uploading resume. Please try again.");
+    }
+  };
+
+
   return (
     <div className="admin-container">
       <h2 className="adminhdd">Admin Panel</h2>
@@ -260,6 +301,18 @@ const Admin = () => {
               onChange={(e) => setNewSkill({ ...newSkill, proficiency: e.target.value })}
             />
             <button onClick={handleAddSkill}>Add Skill</button>
+          </div>
+
+          <div className="resume-section">
+          <h3>Update Resume</h3>
+            <input type="file" accept="application/pdf" onChange={handleResumeUpload} />
+            {resumeUrl && (
+              <p>
+                <a href={resumeUrl} target="_blank" rel="noopener noreferrer">
+                  View Current Resume
+                </a>
+              </p>
+            )}
           </div>
         </section>
       )}

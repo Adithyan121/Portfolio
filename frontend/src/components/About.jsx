@@ -1,27 +1,39 @@
 import React, { useEffect, useState } from "react";
 import "../css/about.css";
-import api from "../assets/api"
+import api from "../assets/api";
 
 const About = () => {
   const [profileImage, setProfileImage] = useState("");
   const [skills, setSkills] = useState([]);
+  const [resumeUrl, setResumeUrl] = useState(""); // ✅ Added missing state
   const [loading, setLoading] = useState(true);
-
   
 
   // Fetch Profile Image
-  const fetchProfileImage = async () => {
-    try {
-      const response = await api.get("/profile");
-      setProfileImage(response.data.imageUrl); // Use the correct key
+  useEffect(() => {
+    const fetchProfileImage = async () => {
+      try {
+        const response = await api.get("/profile");
+        setProfileImage(response.data.imageUrl);
+      } catch (error) {
+        console.error("Error fetching profile image:", error);
+      }
+    };
+    fetchProfileImage();
+  }, []);
 
-    } catch (error) {
-      console.error("Error fetching profile image:", error);
-    }
-  };
-  
-  fetchProfileImage();
-  
+  // Fetch Resume
+  useEffect(() => {
+    const fetchResume = async () => {
+      try {
+        const res = await api.get("/resume");
+        setResumeUrl(res.data.resumeUrl);
+      } catch (error) {
+        console.error("Error fetching resume:", error);
+      }
+    };
+    fetchResume();
+  }, []);
 
   // Fetch Skills
   useEffect(() => {
@@ -35,7 +47,6 @@ const About = () => {
         setLoading(false);
       }
     };
-
     fetchSkills();
   }, []);
 
@@ -105,19 +116,9 @@ const About = () => {
           )}
 
           <div className="buttons">
-            <a 
-              href={import.meta.env.VITE_CLOUDINARY_RESUME} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              download
-              className="resume-btn"
-            >
+            <a href={resumeUrl} target="_blank" rel="noopener noreferrer" className="resume-btn">
               Download Resume
             </a>
-
-            {/* <Link to="/gallery" className="gallery-btn">
-              Gallery
-            </Link> */}
           </div>
         </div>
       </div>

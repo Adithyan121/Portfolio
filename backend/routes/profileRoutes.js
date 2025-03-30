@@ -1,6 +1,6 @@
 const express = require("express");
 const { getProfileImage, uploadProfileImage, deleteProfileImage } = require("../controllers/profileController");
-const upload = require("../middleware/upload");
+const {upload} = require("../middleware/upload");
 
 const router = express.Router();
 

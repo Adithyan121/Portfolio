@@ -2,7 +2,8 @@ const multer = require("multer");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("../config/cloudinary");
 
-const storage = new CloudinaryStorage({
+// Image Storage Configuration
+const imageStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "portfolio_images",
@@ -11,6 +12,29 @@ const storage = new CloudinaryStorage({
   },
 });
 
-const upload = multer({ storage });
+const upload = multer({ storage: imageStorage });
 
-module.exports = upload;
+// Resume Storage Configuration
+const resumeStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "portfolio_resumes",
+    format: async (req, file) => "pdf",
+    public_id: (req, file) => `resume_${Date.now()}`,
+    resource_type: "raw",
+  },
+});
+
+const uploadResume = multer({ 
+  storage: resumeStorage,
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype === 'application/pdf') {
+      cb(null, true);
+    } else {
+      cb(new Error("Only PDF files are allowed!"), false);
+    }
+  }
+});
+
+// Corrected Export
+module.exports = { upload, uploadResume };
