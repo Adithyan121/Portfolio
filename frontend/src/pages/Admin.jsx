@@ -250,7 +250,7 @@ const Admin = () => {
 
   return (
     <div className="admin-container">
-      <h2 className="adminhdd">Admin Panel</h2>
+      <h1 className="adminhdd">Admin Panel</h1>
       <select onChange={(e) => setActiveSection(e.target.value)}>
         <option value="about">About Section</option>
         <option value="gallery">Gallery Section</option>
@@ -263,11 +263,31 @@ const Admin = () => {
           <p>Manage About Section Content Here</p>
 
           <div className="profile-section">
-            <h3 className="profilehdd">Profile Image</h3>
-            {profileImage && <img src={profileImage} alt="Profile" className="profile-preview" />}
-            <input type="file" accept="image/*" onChange={handleProfileImageChange} />
-            {profileImage && <button onClick={handleDeleteProfileImage}>Delete Profile Image</button>}
+            <h4 className="profilehdd">Profile Image</h4>
+            
+            {profileImage && (
+              <img src={profileImage} alt="Profile" className="profile-preview" />
+            )}
+
+            {/* Hidden file input */}
+            <input 
+              type="file" 
+              id="profile-upload" 
+              className="file_input" 
+              accept="image/*" 
+              onChange={handleProfileImageChange} 
+            />
+
+            {/* Custom Upload Button */}
+            <label htmlFor="profile-upload" className="custom-file-label">
+              <i className="fas fa-upload"></i> Upload Profile Pic
+            </label>
+
+            {profileImage && (
+              <button onClick={handleDeleteProfileImage}>Delete Profile Image</button>
+            )}
           </div>
+
 
           {/* Skills Section */}
           <div className="skills-section">
@@ -281,7 +301,7 @@ const Admin = () => {
               ))}
             </ul>
 
-            <h4>Add New Skill</h4>
+            <h4 className="profilehdd">Add New Skill</h4>
             <input
               type="text"
               placeholder="Skill Name"
@@ -303,9 +323,9 @@ const Admin = () => {
             <button onClick={handleAddSkill}>Add Skill</button>
           </div>
 
-          <div className="resume-section">
-          <h3>Update Resume</h3>
-            <input type="file" accept="application/pdf" onChange={handleResumeUpload} />
+          {/* <div className="resume-section">
+          <h3 className="profilehdd">Update Resume</h3>
+            <input className="file_input" type="file" accept="application/pdf" onChange={handleResumeUpload} />
             {resumeUrl && (
               <p>
                 <a href={resumeUrl} target="_blank" rel="noopener noreferrer">
@@ -313,7 +333,30 @@ const Admin = () => {
                 </a>
               </p>
             )}
-          </div>
+          </div> */}
+          <div className="resume-section">
+  <h4 className="profilehdd">Update Resume</h4>
+  <div className="file-input-container">
+    <label htmlFor="file-upload" className="file-label">
+      <i className="fas fa-upload"></i> Upload Resume
+    </label>
+    <input 
+      id="file-upload" 
+      className="file_input" 
+      type="file" 
+      accept="application/pdf" 
+      onChange={handleResumeUpload} 
+    />
+    {resumeUrl && (
+      <p>
+        <a href={resumeUrl} target="_blank" rel="noopener noreferrer" className="view-resume-link">
+          View Current Resume
+        </a>
+      </p>
+    )}
+  </div>
+</div>
+
         </section>
       )}
 
@@ -328,21 +371,71 @@ const Admin = () => {
         <section id="project-section">
           <h2>Project Section</h2>
           <form onSubmit={handleSubmit} className="project-form">
-            <input type="text" name="name" placeholder="Project Name" value={formData.name} required onChange={handleInputChange} />
-            <textarea name="description" placeholder="Project Description" value={formData.description} required onChange={handleInputChange}></textarea>
-            <input type="text" name="technologies" placeholder="Technologies (comma separated)" value={formData.technologies} required onChange={handleInputChange} />
-            <input type="text" name="previewLink" placeholder="Preview Link" value={formData.previewLink} required onChange={handleInputChange} />
-            <input type="text" name="gitLink" placeholder="git Link" value={formData.gitLink} required onChange={handleInputChange} />
-            <input type="file" accept="image/*" onChange={handleFileChange} />
-            {imagePreview && (
-              <div className="image-preview">
-                <img src={imagePreview} alt="Selected" />
-              </div>
-            )}
-            <button type="submit" disabled={loading}>
-              {loading ? <span className="spinner"></span> : editMode ? "Update Project" : "Add Project"}
-            </button>
-          </form>
+  <input
+    type="text"
+    name="name"
+    placeholder="Project Name"
+    value={formData.name}
+    required
+    onChange={handleInputChange}
+  />
+  <textarea
+    name="description"
+    placeholder="Project Description"
+    value={formData.description}
+    required
+    onChange={handleInputChange}
+  ></textarea>
+  <input
+    type="text"
+    name="technologies"
+    placeholder="Technologies (comma separated)"
+    value={formData.technologies}
+    required
+    onChange={handleInputChange}
+  />
+  <input
+    type="text"
+    name="previewLink"
+    placeholder="Preview Link"
+    value={formData.previewLink}
+    required
+    onChange={handleInputChange}
+  />
+  <input
+    type="text"
+    name="gitLink"
+    placeholder="GitHub Link"
+    value={formData.gitLink}
+    required
+    onChange={handleInputChange}
+  />
+
+  <div className="file-upload-container">
+    <input
+      type="file"
+      accept="image/*"
+      id="fileInput"
+      onChange={handleFileChange}
+      hidden
+    />
+    <label htmlFor="fileInput" className="custom-file-button">
+      Choose Image
+    </label>
+    <span>{formData.image ? formData.image.name : "No file chosen"}</span>
+  </div>
+
+  {imagePreview && (
+    <div className="image-preview">
+      <img src={imagePreview} alt="Selected" />
+    </div>
+  )}
+
+  <button type="submit" disabled={loading}>
+    {loading ? <span className="spinner"></span> : editMode ? "Update Project" : "Add Project"}
+  </button>
+</form>
+
           <div className="projects-list">
             {projects.map((project) => (
               <div key={project._id} className="project-item">
@@ -358,7 +451,7 @@ const Admin = () => {
           </div>
         </section>
       )}
-      <button onClick={handleLogout}>Logout</button>
+      <button className="logout" onClick={handleLogout}>Logout</button>
     </div>
   );
 };

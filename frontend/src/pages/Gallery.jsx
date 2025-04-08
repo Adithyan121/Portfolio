@@ -23,6 +23,30 @@ const Gallery = () => {
           ))}
         </div>
       </div>
+
+  <div className="file-input-container">
+    <label htmlFor="file-upload" className="file-label">
+      <i className="fas fa-upload"></i> Upload Profile pic
+    </label>
+    <input 
+      id="file-upload" 
+      className="file_input" 
+      type="file" 
+      accept="application/pdf" 
+      onChange={handleResumeUpload} 
+    />
+    {resumeUrl && (
+      <p>
+        <a href={resumeUrl} target="_blank" rel="noopener noreferrer">
+          View Current Resume
+        </a>
+      </p>
+    )}
+  </div>
+
+   
+
+
     </section>
   );
 };
