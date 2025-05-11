@@ -10,7 +10,7 @@
 }
 
 /* Section Heading */
-h2, h4 {
+.hd, h4 {
   color: #121212;
   margin-bottom: 10px;
 }
@@ -332,3 +332,5 @@ button:hover {
     transform: rotate(360deg);
   }
 }
+
+

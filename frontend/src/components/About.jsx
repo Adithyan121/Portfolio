@@ -35,6 +35,24 @@ const About = () => {
     fetchResume();
   }, []);
 
+  const handleDownload = async () => {
+    try {
+      const response = await fetch(resumeUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "Adithyan_G_Resume.pdf";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error downloading resume:", error);
+    }
+  };
+  
+
   // Fetch Skills
   useEffect(() => {
     const fetchSkills = async () => {
@@ -115,11 +133,20 @@ const About = () => {
             </div>
           )}
 
-          <div className="buttons">
-            <a href={resumeUrl} target="_blank" rel="noopener noreferrer" className="resume-btn">
-              Download Resume
-            </a>
-          </div>
+<div className="buttons">
+  {/* <a
+    href={resumeUrl}
+    download="Adithyan_G_Resume.pdf"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="resume-btn"
+  >
+    Download Resume
+  </a> */}
+  <button onClick={handleDownload} className="resume-btn">Download Resume</button>
+
+</div>
+
         </div>
       </div>
     </section>

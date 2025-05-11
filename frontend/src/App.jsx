@@ -19,17 +19,17 @@ function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/login" element={<Login />} />
         <Route path="/verify" element={<Verify />} />
-        {/* <Route path="/admin" element={<Admin />} /> */}
+        <Route path="/admin" element={<Admin />} />
 
         {/* Protect /admin route */}
-        <Route
+        {/* <Route
           path="/admin"
           element={
             <ProtectedRoute>
               <Admin />
             </ProtectedRoute>
           }
-        />
+        /> */}
       </Routes>
     </BrowserRouter>
   );

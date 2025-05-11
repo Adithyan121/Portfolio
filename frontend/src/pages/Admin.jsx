@@ -259,7 +259,7 @@ const Admin = () => {
 
       {activeSection === "about" && (
         <section id="about-section">
-          <h2 className="abouthdd">About Section</h2>
+          <h2 className="hd">About Section</h2>
           <p>Manage About Section Content Here</p>
 
           <div className="profile-section">
@@ -362,14 +362,14 @@ const Admin = () => {
 
       {activeSection === "gallery" && (
         <section id="gallery-section">
-          <h2>Gallery Section</h2>
+          <h2 className="hd">Gallery Section</h2>
           <p>Manage Gallery Images Here</p>
         </section>
       )}
 
       {activeSection === "projects" && (
         <section id="project-section">
-          <h2>Project Section</h2>
+          <h2 className="hd">Project Section</h2>
           <form onSubmit={handleSubmit} className="project-form">
   <input
     type="text"
