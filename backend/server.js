@@ -1,6 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const compression = require("compression");
+const helmet = require("helmet");
 const connectDB = require("./config/db");
 const resumeRoutes = require("./routes/resumeRoutes")
 
@@ -10,6 +12,11 @@ const profileRoutes = require("./routes/profileRoutes");
 const authRoutes = require("./routes/authRoutes")
 
 const app = express();
+
+// Security and Optimization Middleware
+app.use(helmet());
+app.use(compression());
+
 app.use(express.json());
 app.use(cors());
 

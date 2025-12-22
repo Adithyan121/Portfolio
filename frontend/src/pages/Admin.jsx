@@ -10,6 +10,10 @@ const Admin = () => {
     technologies: "",
     previewLink: "",
     gitLink: "",
+    adminLink: "",
+    adminLabel: "", // New Field
+    appLink: "",
+    appLabel: "",   // New Field
     image: null,
   });
   const [resume, setResume] = useState(null);
@@ -43,14 +47,14 @@ const Admin = () => {
 
 
   // Fetch Projects
- const fetchProjects = async () => {
-  try {
-    const res = await api.get("/projects");
-    setProjects(res.data);
-  } catch (error) {
-    console.error("Error fetching projects", error);
-  }
-};
+  const fetchProjects = async () => {
+    try {
+      const res = await api.get("/projects");
+      setProjects(res.data);
+    } catch (error) {
+      console.error("Error fetching projects", error);
+    }
+  };
 
 
   const handleLogout = () => {
@@ -79,25 +83,24 @@ const Admin = () => {
 
 
 
- 
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-  
+
     const form = new FormData();
     form.append("name", formData.name);
     form.append("description", formData.description);
     form.append("technologies", JSON.stringify(formData.technologies.split(","))); // Stringify technologies
     form.append("previewLink", formData.previewLink);
     form.append("gitLink", formData.gitLink);
+    form.append("adminLink", formData.adminLink);
+    form.append("adminLabel", formData.adminLabel); // Append label
+    form.append("appLink", formData.appLink);
+    form.append("appLabel", formData.appLabel);     // Append label
     form.append("image", formData.image);
-  
-    // Log the form data being sent
-    // for (let [key, value] of form.entries()) {
-    //   console.log(key, value);
-    // }
-  
+
     try {
       if (editMode) {
         await api.put(`/projects/${editId}`, form, {
@@ -110,11 +113,22 @@ const Admin = () => {
         });
         alert("Project added successfully!");
       }
-  
+
       fetchProjects();
       setImagePreview(null);
       setEditMode(false);
-      setFormData({ name: "", description: "", technologies: "", previewLink: "", gitLink: "", image: null });
+      setFormData({
+        name: "",
+        description: "",
+        technologies: "",
+        previewLink: "",
+        gitLink: "",
+        adminLink: "",
+        adminLabel: "",
+        appLink: "",
+        appLabel: "",
+        image: null
+      });
     } catch (error) {
       console.error("Error saving project", error);
     } finally {
@@ -128,6 +142,10 @@ const Admin = () => {
       technologies: project.technologies.join(", "),
       previewLink: project.previewLink,
       gitLink: project.gitLink,
+      adminLink: project.adminLink || "",
+      adminLabel: project.adminLabel || "", // Handle optional fields
+      appLink: project.appLink || "",
+      appLabel: project.appLabel || "",     // Handle optional fields
       image: null,
     });
     setImagePreview(project.image);
@@ -225,16 +243,16 @@ const Admin = () => {
   const handleResumeUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-  
+
     // Check if file is PDF
     if (file.type !== 'application/pdf') {
       alert('Please upload a PDF file');
       return;
     }
-  
+
     const formData = new FormData();
     formData.append("resume", file); // Field name must match the multer expectation
-  
+
     try {
       const res = await api.post("/resume", formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -264,18 +282,18 @@ const Admin = () => {
 
           <div className="profile-section">
             <h4 className="profilehdd">Profile Image</h4>
-            
+
             {profileImage && (
               <img src={profileImage} alt="Profile" className="profile-preview" />
             )}
 
             {/* Hidden file input */}
-            <input 
-              type="file" 
-              id="profile-upload" 
-              className="file_input" 
-              accept="image/*" 
-              onChange={handleProfileImageChange} 
+            <input
+              type="file"
+              id="profile-upload"
+              className="file_input"
+              accept="image/*"
+              onChange={handleProfileImageChange}
             />
 
             {/* Custom Upload Button */}
@@ -335,27 +353,27 @@ const Admin = () => {
             )}
           </div> */}
           <div className="resume-section">
-  <h4 className="profilehdd">Update Resume</h4>
-  <div className="file-input-container">
-    <label htmlFor="file-upload" className="file-label">
-      <i className="fas fa-upload"></i> Upload Resume
-    </label>
-    <input 
-      id="file-upload" 
-      className="file_input" 
-      type="file" 
-      accept="application/pdf" 
-      onChange={handleResumeUpload} 
-    />
-    {resumeUrl && (
-      <p>
-        <a href={resumeUrl} target="_blank" rel="noopener noreferrer" className="view-resume-link">
-          View Current Resume
-        </a>
-      </p>
-    )}
-  </div>
-</div>
+            <h4 className="profilehdd">Update Resume</h4>
+            <div className="file-input-container">
+              <label htmlFor="file-upload" className="file-label">
+                <i className="fas fa-upload"></i> Upload Resume
+              </label>
+              <input
+                id="file-upload"
+                className="file_input"
+                type="file"
+                accept="application/pdf"
+                onChange={handleResumeUpload}
+              />
+              {resumeUrl && (
+                <p>
+                  <a href={resumeUrl} target="_blank" rel="noopener noreferrer" className="view-resume-link">
+                    View Current Resume
+                  </a>
+                </p>
+              )}
+            </div>
+          </div>
 
         </section>
       )}
@@ -371,70 +389,107 @@ const Admin = () => {
         <section id="project-section">
           <h2 className="hd">Project Section</h2>
           <form onSubmit={handleSubmit} className="project-form">
-  <input
-    type="text"
-    name="name"
-    placeholder="Project Name"
-    value={formData.name}
-    required
-    onChange={handleInputChange}
-  />
-  <textarea
-    name="description"
-    placeholder="Project Description"
-    value={formData.description}
-    required
-    onChange={handleInputChange}
-  ></textarea>
-  <input
-    type="text"
-    name="technologies"
-    placeholder="Technologies (comma separated)"
-    value={formData.technologies}
-    required
-    onChange={handleInputChange}
-  />
-  <input
-    type="text"
-    name="previewLink"
-    placeholder="Preview Link"
-    value={formData.previewLink}
-    required
-    onChange={handleInputChange}
-  />
-  <input
-    type="text"
-    name="gitLink"
-    placeholder="GitHub Link"
-    value={formData.gitLink}
-    required
-    onChange={handleInputChange}
-  />
+            <input
+              type="text"
+              name="name"
+              placeholder="Project Name"
+              value={formData.name}
+              required
+              onChange={handleInputChange}
+            />
+            <textarea
+              name="description"
+              placeholder="Project Description"
+              value={formData.description}
+              required
+              onChange={handleInputChange}
+            ></textarea>
+            <input
+              type="text"
+              name="technologies"
+              placeholder="Technologies (comma separated)"
+              value={formData.technologies}
+              required
+              onChange={handleInputChange}
+            />
+            <input
+              type="text"
+              name="previewLink"
+              placeholder="Preview Link"
+              value={formData.previewLink}
+              required
+              onChange={handleInputChange}
+            />
+            <input
+              type="text"
+              name="gitLink"
+              placeholder="GitHub Link"
+              value={formData.gitLink}
+              required
+              onChange={handleInputChange}
+            />
+            <div className="link-group" style={{ display: 'flex', gap: '10px' }}>
+              <input
+                type="text"
+                name="adminLink"
+                placeholder="Optional Link 1 (e.g. Admin Panel)"
+                value={formData.adminLink}
+                onChange={handleInputChange}
+                style={{ flex: 1 }}
+              />
+              <input
+                type="text"
+                name="adminLabel"
+                placeholder="Label (Default: Admin Panel)"
+                value={formData.adminLabel}
+                onChange={handleInputChange}
+                style={{ flex: 1 }}
+              />
+            </div>
 
-  <div className="file-upload-container">
-    <input
-      type="file"
-      accept="image/*"
-      id="fileInput"
-      onChange={handleFileChange}
-      hidden
-    />
-    <label htmlFor="fileInput" className="custom-file-button">
-      Choose Image
-    </label>
-    <span>{formData.image ? formData.image.name : "No file chosen"}</span>
-  </div>
+            <div className="link-group" style={{ display: 'flex', gap: '10px' }}>
+              <input
+                type="text"
+                name="appLink"
+                placeholder="Optional Link 2 (e.g. Mobile App)"
+                value={formData.appLink}
+                onChange={handleInputChange}
+                style={{ flex: 1 }}
+              />
+              <input
+                type="text"
+                name="appLabel"
+                placeholder="Label (Default: Mobile App)"
+                value={formData.appLabel}
+                onChange={handleInputChange}
+                style={{ flex: 1 }}
+              />
+            </div>
 
-  {imagePreview && (
-    <div className="image-preview">
-      <img src={imagePreview} alt="Selected" />
-    </div>
-  )}
+            <div className="file-upload-container">
+              <input
+                type="file"
+                accept="image/*"
+                id="fileInput"
+                onChange={handleFileChange}
+                hidden
+              />
+              <label htmlFor="fileInput" className="custom-file-button">
+                Choose Image
+              </label>
+              <span>{formData.image ? formData.image.name : "No file chosen"}</span>
+            </div>
 
-  <button type="submit" disabled={loading}>
-    {loading ? <span className="spinner"></span> : editMode ? "Update Project" : "Add Project"}
-  </button>
-</form>
+            {imagePreview && (
+              <div className="image-preview">
+                <img src={imagePreview} alt="Selected" />
+              </div>
+            )}
+
+            <button type="submit" disabled={loading}>
+              {loading ? <span className="spinner"></span> : editMode ? "Update Project" : "Add Project"}
+            </button>
+          </form>
 
           <div className="projects-list">
             {projects.map((project) => (

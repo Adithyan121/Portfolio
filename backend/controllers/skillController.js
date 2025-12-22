@@ -5,6 +5,7 @@ exports.getSkills = async (req, res) => {
     const skills = await Skill.find();
     res.json(skills);
   } catch (error) {
+    console.error("Error fetching skills:", error);
     res.status(500).json({ error: "Failed to fetch skills" });
   }
 };
@@ -16,6 +17,7 @@ exports.createSkill = async (req, res) => {
     await newSkill.save();
     res.json({ message: "Skill added successfully", skill: newSkill });
   } catch (error) {
+    console.error("Error adding skill:", error);
     res.status(500).json({ error: "Failed to add skill" });
   }
 };

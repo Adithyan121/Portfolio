@@ -1,320 +1,288 @@
 /* General Admin Container */
 .admin-container {
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  text-align: center;
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 40px 5%;
+  background: var(--bg-color);
 }
 
 /* Section Heading */
-.hd, h4 {
-  color: #121212;
-  margin-bottom: 10px;
+.adminhdd {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  text-align: center;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
 }
-.view-resume-link{
-  color: black;
+
+.hd {
+  font-size: 1.5rem;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+  color: var(--text-primary);
+  text-align: left;
+  font-weight: 600;
+}
+
+.view-resume-link {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.view-resume-link:hover {
   text-decoration: underline;
+}
+
+h4,
+h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: var(--text-primary);
+  text-align: left;
+  font-weight: 600;
 }
 
 /* 🔹 Styled Select Dropdown */
 select {
   width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
+  padding: 15px;
+  border: 1px solid #cbd5e1;
   background: white;
-  font-size: 16px;
-  transition: 0.3s ease;
+  font-size: 1rem;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  font-family: inherit;
+  color: var(--text-primary);
   cursor: pointer;
+  transition: 0.3s;
 }
 
 select:hover {
-  border-color: #666;
+  border-color: var(--accent-color);
 }
 
-/* 🔹 Button Styles */
+select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* 🔹 Inputs & Forms */
+input,
+textarea {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #cbd5e1;
+  background: white;
+  border-radius: 12px;
+  font-family: inherit;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  transition: 0.3s;
+  color: var(--text-primary);
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* 🔹 Buttons */
 button {
-  background: #007bff;
+  background: var(--accent-color);
   color: white;
   border: none;
-  padding: 10px 16px;
-  border-radius: 5px;
-  font-size: 14px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: 500;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s;
+  transition: 0.3s;
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2);
 }
 
 button:hover {
-  background: #0056b3;
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+  opacity: 0.95;
 }
 
-/* 🔹 Delete and Edit Button Styling */
 .edit-btn {
-  background: #ffc107;
+  background: #facc15;
+  color: black;
+  box-shadow: 0 4px 10px rgba(250, 204, 21, 0.3);
 }
 
 .edit-btn:hover {
-  background: #e0a800;
+  background: #eab308;
 }
 
 .delete-btn {
-  background: #dc3545;
+  background: #ef4444;
+  color: white;
+  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
 }
 
 .delete-btn:hover {
-  background: #c82333;
+  background: #dc2626;
 }
 
-/* 🔹 Logout Button */
 .logout {
-  background: #ff4d4d;
-  font-weight: bold;
-  margin-top: 20px;
+  margin-top: 60px;
+  background: white;
+  color: #ef4444;
+  border: 2px solid #ef4444;
+  width: 100%;
+  box-shadow: none;
 }
 
 .logout:hover {
-  background: #cc0000;
+  background: #ef4444;
+  color: white;
+  transform: none;
+  box-shadow: none;
 }
 
-/* 🔹 Profile Image */
+/* 🔹 Profile */
 .profile-preview {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   object-fit: cover;
-  margin: 10px auto;
+  margin: 0 auto 20px;
   display: block;
-  border: 2px solid #007bff;
+  border: 4px solid white;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  background: var(--accent-gradient);
+  padding: 4px;
 }
 
-/* 🔹 Profile Upload Button */
-.custom-file-label {
-  display: inline-block;
-  padding: 10px;
-  background: #28a745;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.custom-file-label:hover {
-  background: #218838;
-}
-
-/* 🔹 Resume Upload Section */
-.resume-section {
-  margin-top: 20px;
-}
-
-.file-input-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.file-label {
-  background: #17a2b8;
-  padding: 10px;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-}
-
-.file-label:hover {
-  background: #138496;
-}
-
-/* 🔹 Skills Section */
-.skills-section {
-  margin-top: 20px;
-  background: #fff;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-}
-
-.skills-section h3 {
-  color: #007bff;
-}
-
+/* 🔹 Skills List */
 .skills-section ul {
   list-style: none;
   padding: 0;
 }
 
 .skills-section li {
-  background: #eef;
-  padding: 8px 12px;
-  margin: 5px 0;
-  border-radius: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #f1f5f9;
+  background: white;
+  margin-bottom: 8px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
 }
 
-/* 🔹 Skill Input Fields */
-.skills-section input {
-  width: calc(100% - 20px);
-  padding: 8px;
-  margin: 5px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-/* 🔹 Project Section */
-.project-form input,
-.project-form textarea {
-  width: calc(100% - 20px);
-  padding: 8px;
-  margin: 5px 0;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-.project-form button {
-  width: 100%;
-  font-size: 16px;
-  margin-top: 10px;
-}
-
+/* 🔹 Project Grid in Admin */
 .projects-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 15px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
 }
 
 .project-item {
-  background: #fff;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  background: white;
+  padding: 20px;
+  border: 1px solid #f1f5f9;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  transition: 0.3s;
+}
+
+.project-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
 }
 
 .project-item img {
   width: 100%;
-  border-radius: 5px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
 }
 
 .project-item h3 {
-  font-size: 18px;
-  margin: 10px 0;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  color: var(--text-primary);
 }
 
 .project-item p {
-  font-size: 14px;
-  color: #666;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
 }
 
 .buttons {
   display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-.file_input {
-  display: none; /* Hide default input */
-}
-/* Image Preview */
-.image-preview {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.image-preview img {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 5px;
-}
-
-.project-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-  max-width: 500px;
-  margin: auto;
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.project-form input,
-.project-form textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  transition: border-color 0.3s ease-in-out;
-}
-
-.project-form input:focus,
-.project-form textarea:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-.project-form textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-
-.file-upload-container {
-  display: flex;
-  align-items: center;
   gap: 10px;
 }
 
-.custom-file-button {
-  background-color: #007bff;
-  color: white;
-  padding: 8px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
+.buttons button {
+  flex: 1;
+  padding: 10px;
+  font-size: 0.9rem;
 }
 
-.custom-file-button:hover {
-  background-color: #0056b3;
+/* File Upload */
+.custom-file-label,
+.file-label,
+.custom-file-button {
+  background: #e0e7ff;
+  color: var(--accent-color);
+  padding: 12px 24px;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 0.95rem;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  border: 1px solid transparent;
+  transition: 0.3s;
+  font-weight: 500;
+}
+
+.custom-file-label:hover,
+.file-label:hover {
+  background: var(--accent-color);
+  color: white;
 }
 
 .image-preview {
-  text-align: center;
-  margin-top: 10px;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
 }
 
 .image-preview img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 300px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.project-form button {
-  background-color: #28a745;
-  color: white;
-  padding: 10px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s;
-}
-
-.project-form button:hover {
-  background-color: #218838;
+/* Project Form */
+.project-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  padding: 30px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 .spinner {
@@ -332,5 +300,3 @@ button:hover {
     transform: rotate(360deg);
   }
 }
-
-

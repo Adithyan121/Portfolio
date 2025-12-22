@@ -12,8 +12,10 @@ exports.getProfileImage = async (req, res) => {
   try {
     const profile = await Profile.findOne();
     if (!profile) return res.status(404).json({ error: "No profile image found" });
+    res.set('Cache-Control', 'public, max-age=300'); // Cache for 5 minutes
     res.json({ imageUrl: profile.imageUrl });
   } catch (error) {
+    console.error("Error fetching profile image:", error);
     res.status(500).json({ error: "Failed to fetch profile image" });
   }
 };
@@ -34,6 +36,7 @@ exports.uploadProfileImage = async (req, res) => {
 
     res.json({ imageUrl: result.secure_url });
   } catch (error) {
+    console.error("Error uploading profile image:", error);
     res.status(500).json({ error: "Failed to upload profile image" });
   }
 };
@@ -46,6 +49,7 @@ exports.deleteProfileImage = async (req, res) => {
     await Profile.deleteOne();
     res.json({ message: "Profile image deleted successfully" });
   } catch (error) {
+    console.error("Error deleting profile image:", error);
     res.status(500).json({ error: "Failed to delete profile image" });
   }
 };

@@ -1,150 +1,133 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
-
 #project-details {
-  background-color: #f4f4f4;
-  color: #333;
-  padding: 60px 5%;
-  font-family: 'Poppins', sans-serif;
-  text-align: center;
+  background-color: var(--bg-color);
+  padding: 120px 8% 60px;
+  color: var(--text-primary);
+  text-align: left;
 }
 
 .project-details-container {
   max-width: 900px;
-  margin: auto;
-  background: white;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  transition: 0.3s ease-in-out;
-}
-
-.project-details-container:hover {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  margin: 0 auto;
 }
 
 .project-image {
   width: 100%;
-  max-height: 400px;
+  max-height: 500px;
   object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 25px;
+  border-radius: 24px;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
 }
 
 .project-title {
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin-bottom: 15px;
-  color: #222;
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 
 .project-description {
   font-size: 1.2rem;
-  margin: 15px 0;
-  line-height: 1.6;
-  color: #444;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  font-family: inherit;
+  margin-bottom: 40px;
 }
 
 .tech-heading {
-  font-size: 1.8rem;
-  margin-top: 25px;
-  color: #555;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  font-weight: 600;
 }
 
 .tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   list-style: none;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
+  margin-bottom: 40px;
 }
 
 .tech-item {
-  font-size: 1rem;
-  background: #222;
-  color: white;
-  padding: 10px 18px;
-  border-radius: 6px;
+  font-size: 0.9rem;
+  padding: 8px 18px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 50px;
+  color: var(--text-secondary);
   font-weight: 500;
-  transition: 0.3s ease-in-out;
-}
-
-.tech-item:hover {
-  background: #444;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
 }
 
 /* Buttons */
 .btn-div {
   display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 20px;
+  gap: 20px;
 }
 
 .btn {
-  width: 220px;
-  height: 55px;
-  background: linear-gradient(to right, #333, #111);
-  color: white;
-  font-weight: bold;
-  border-radius: 8px;
-  padding: 12px;
-  border: none;
-  text-align: center;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px; /* Space between icon and text */
-  cursor: pointer;
-  transition: 0.3s ease-in-out;
-  font-size: 1rem;
+  gap: 10px;
+  padding: 15px 35px;
+  background: var(--text-primary);
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: var(--transition-smooth);
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .btn:hover {
-  background: linear-gradient(to right, #555, #222);
+  background: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
 }
 
 .git-icon {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
 }
 
-/* Responsive */
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: var(--transition-smooth);
+  padding: 0;
+}
+
+.back-btn:hover {
+  color: var(--accent-color);
+  transform: translateX(-5px);
+}
+
 @media (max-width: 768px) {
   #project-details {
-    padding: 40px 5%;
-  }
-
-  .project-details-container {
-    padding: 20px;
+    padding-top: 100px;
   }
 
   .project-title {
     font-size: 2rem;
   }
 
-  .project-description {
-    font-size: 1.1rem;
-  }
-
-  .tech-heading {
-    font-size: 1.5rem;
-  }
-
-  .btn {
-    width: 180px;
-    height: 50px;
-    font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 480px) {
   .btn-div {
     flex-direction: column;
-    align-items: center;
-  }
-
-  .btn {
-    width: 100%;
   }
 }

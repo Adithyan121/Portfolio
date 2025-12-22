@@ -1,12 +1,13 @@
 const express = require("express");
 const { upload } = require("../middleware/upload"); // Correct import
-const { getProjects, getProjectById, createProject, deleteProject } = require("../controllers/projectController");
+const { getProjects, getProjectById, createProject, updateProject, deleteProject } = require("../controllers/projectController");
 
 const router = express.Router();
 
 router.get("/", getProjects);
 router.get("/:id", getProjectById);
 router.post("/", upload.single("image"), createProject);
+router.put("/:id", upload.single("image"), updateProject);
 router.delete("/:id", deleteProject);
 
 module.exports = router;

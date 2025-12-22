@@ -1,64 +1,292 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
-
 #home {
   position: relative;
-  background: url('../assets/bg.jpg') no-repeat center center/cover;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  /* Oceanic Tech Background */
+  background: radial-gradient(circle at top right, #e0f2fe 0%, #f0f9ff 50%, #ffffff 100%);
+}
+
+/* Parallax Blobs */
+.blob {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  z-index: 1;
+}
+
+.blob-1 {
+  top: -10%;
+  right: -5%;
+  background: linear-gradient(135deg, #a5b4fc, #f472b6);
+  /* Optional float animation combined with parallax */
+  animation: float 6s ease-in-out infinite;
+}
+
+.blob-2 {
+  bottom: -10%;
+  left: -5%;
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, #67e8f9, #c4b5fd);
+  animation: float 8s ease-in-out infinite reverse;
 }
 
 .overlay {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6); /* Dark overlay */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* No longer needed but kept empty if ref requires it */
+  display: none;
 }
 
 .content {
-  /* background: rgba(255, 255, 255, 0.1); */
-  /* backdrop-filter: blur(10px); */
-  padding: 30px;
-  border-radius: 10px;
-  color: white;
+  position: relative;
+  z-index: 10;
   max-width: 800px;
-  text-align: center;
+  padding: 40px;
+  /* Glassmorphism Card */
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 24px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 1s ease-out;
 }
 
 h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 10px;
+  font-size: 4rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+  color: var(--text-primary);
 }
 
-p {
-  font-size: 1.2rem;
-  font-weight: 300;
-  margin-bottom: 20px;
+h1 span {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 
-.cta-button {
-  padding: 12px 24px;
-  font-size: 1rem;
+h3 {
+  font-size: 1.5rem;
   font-weight: 500;
-  border: none;
-  border-radius: 5px;
-  background-color: #ff5733;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  color: var(--text-secondary);
+  margin-top: 1rem;
 }
 
-.cta-button:hover {
-  background-color: #e64a19;
+.typewriter-container {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-top: 20px;
+  min-height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }
 
-.typing-effect {
-  text-decoration: underline;
+.typing-text {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.typing-cursor {
+  color: var(--accent-color);
+  font-size: 1.8rem;
+  font-weight: 300;
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.8rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  .content {
+    padding: 30px;
+    margin: 0 15px;
+  }
+
+  .typewriter-container {
+    font-size: 1.1rem;
+    flex-wrap: wrap;
+  }
+}
+
+/* Floating Icons */
+.floating-icons {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  /* Let clicks pass through */
+  z-index: 2;
+}
+
+.icon {
+  position: absolute;
+  font-size: 3rem;
+  color: var(--accent-color);
+  opacity: 0.15;
+  filter: blur(1px);
+}
+
+.icon-react {
+  top: 20%;
+  left: 15%;
+  color: #61dafb;
+}
+
+.icon-node {
+  top: 60%;
+  right: 15%;
+  color: #3c873a;
+}
+
+.icon-js {
+  top: 70%;
+  left: 25%;
+  color: #f7df1e;
+}
+
+.icon-db {
+  top: 15%;
+  right: 25%;
+  color: #47a248;
+}
+
+/* Particles */
+.particle {
+  position: absolute;
+  background: var(--accent-color);
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  z-index: 10;
+  opacity: 0.7;
+}
+
+.scroll-indicator i {
+  font-size: 1.2rem;
+  color: var(--accent-color);
+}
+
+/* 3D Parallax Shapes */
+.shapes-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.shape {
+  position: absolute;
+  opacity: 0.25;
+  filter: blur(2px);
+}
+
+/* Glassy Cube */
+.shape-cube {
+  top: 15%;
+  left: 10%;
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(6, 182, 212, 0.4);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+  transform: rotate(45deg);
+}
+
+/* Glassy Triangle (Border only) */
+.shape-triangle {
+  top: 70%;
+  right: 12%;
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 90px solid rgba(99, 102, 241, 0.2);
+  filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.3));
+}
+
+/* Glassy Ring */
+.shape-ring {
+  top: 40%;
+  right: 40%;
+  width: 120px;
+  height: 120px;
+  border: 4px solid rgba(236, 72, 153, 0.3);
+  border-radius: 50%;
+  box-shadow: inset 0 0 20px rgba(236, 72, 153, 0.1);
+}
+
+/* Glowing Orb */
+.shape-orb {
+  top: 60%;
+  left: 20%;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(99, 102, 241, 0.4));
+  border-radius: 50%;
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.6);
+  filter: blur(1px);
+}
+
+/* Content z-index fix */
+.content {
+  position: relative;
+  z-index: 10;
+  /* Above blobs and icons */
+  /* ... existing styles ... */
+  background: rgba(255, 255, 255, 0.5);
+  /* Slightly clearer */
 }
