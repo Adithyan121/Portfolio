@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
+Disallow: /api/
 Sitemap: https://adithyan-phi.vercel.app/sitemap.xml
