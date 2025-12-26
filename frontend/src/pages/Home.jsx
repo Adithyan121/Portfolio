@@ -58,9 +58,6 @@ const Home = () => {
         <meta name="keywords" content="MERN Stack Developer, React Developer, Node.js Developer, Full Stack Developer, JavaScript Developer, Frontend Developer, Entry Level MERN Developer, Adithyan G, Web Developer, Portfolio" />
         <link rel="canonical" href="https://adithyan-phi.vercel.app/" />
 
-        {/* Google Search Console Verification */}
-        <meta name="google-site-verification" content="CvKUa0PSnSaZJhaO8KqsZQa6c2D4hLVQne9a9Ghko2M" />
-
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://adithyan-phi.vercel.app/" />
