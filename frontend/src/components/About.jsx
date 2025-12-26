@@ -106,7 +106,7 @@ const About = () => {
           viewport={{ once: false, amount: 0.3 }}
         >
           {profileImage ? (
-            <img src={getOptimizedImage(profileImage)} alt="Profile" width="320" height="320" loading="lazy" />
+            <img src={getOptimizedImage(profileImage)} alt="Adithyan G - MERN Stack Developer Profile" width="320" height="320" loading="lazy" />
           ) : (
             <p>Loading profile image...</p>
           )}
@@ -120,11 +120,15 @@ const About = () => {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
           viewport={{ once: false, amount: 0.3 }}
         >
-          <h2>About Me</h2>
+          <h2>About Me | Full Stack Developer</h2>
           <p>
-            I'm <b>Adithyan G</b>, a passionate <b>MERN Stack Developer</b> from Kerala, India.
-            I specialize in building <b>interactive & scalable web applications</b>.
-            With a background in Aeronautical Engineering, I bring a <b>unique analytical</b> approach to software development.
+            I'm <b>Adithyan G</b>, a MERN Stack Developer specializing in React, Node.js, MongoDB, and Express.js. I build scalable, high-performance web applications for startups and businesses.
+            <br /><br />
+            My journey into the world of software development started with a curiosity for how things work, leading me from <b>Aeronautical Engineering</b> to the logical and creative realm of <b>Full Stack Development</b>.
+            <br /><br />
+            I believe that great software is not just about writing clean code—it's about creating <b>seamless user experiences</b> that solve real-world problems. Whether it's designing a pixel-perfect front-end or architecting a robust backend API, I bring a unique analytical approach to every project.
+            <br /><br />
+            When I'm not coding, you can find me exploring the latest in <b>UI/UX trends</b>, contributing to open-source projects, or optimizing application performance for speed and efficiency. Based in <b>Kerala, India</b>, I am available for <b>remote and freelance MERN Stack development</b> projects globally.
           </p>
 
           <h3>Contact</h3>
@@ -138,7 +142,7 @@ const About = () => {
               <i className="fas fa-phone"></i> {import.meta.env.VITE_PHONE}
             </li> */}
             <li>
-              <i className="fas fa-map-marker-alt"></i> Kollam, Kerala, India
+              <i className="fas fa-map-marker-alt"></i> Kollam, Kerala, India (Remote & Freelance Available)
             </li>
           </ul>
 
@@ -158,6 +162,30 @@ const About = () => {
           <h3>Education</h3>
           <ul>
             <li><b>Bachelor of Technology (B.Tech) in Aeronautical Engineering</b> - Jawaharlal College Of Engineering and Technology (2019-2023)</li>
+          </ul>
+
+          <h3>Experience & Certifications</h3>
+          <ul className="experience-list" style={{ listStyleType: 'none', padding: 0 }}>
+            <li style={{ marginBottom: '15px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+                <i className="fas fa-briefcase" style={{ color: '#646cff', marginRight: '10px' }}></i>
+                <strong>MERN Stack Web Development Intern</strong>
+              </div>
+              <div style={{ marginLeft: '26px', color: '#ccc' }}>
+                Futura Labs • Kochi, India
+              </div>
+            </li>
+            {/* Add other certifications here if suitable */}
+          </ul>
+
+          <h3>Web Development Services</h3>
+          <ul className="services-list" style={{ listStyleType: 'none', padding: 0 }}>
+            {['MERN Stack Web Application Development', 'React Frontend Development', 'Node.js Backend APIs', 'Portfolio & Business Websites', 'Static Webpages'].map((service, index) => (
+              <li key={index} style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
+                <i className="fas fa-check-circle" style={{ color: '#646cff', marginRight: '10px' }}></i>
+                {service}
+              </li>
+            ))}
           </ul>
 
           <h3>Skills</h3>
@@ -202,7 +230,7 @@ const About = () => {
 
         </motion.div>
       </div>
-    </section>
+    </section >
   );
 };
 

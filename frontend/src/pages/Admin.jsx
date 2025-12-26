@@ -7,6 +7,10 @@ const Admin = () => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
+    problemSolved: "", // SEO Field
+    challenges: "",  // SEO Field
+    solutions: "",   // SEO Field
+    performance: "", // SEO Field
     technologies: "",
     previewLink: "",
     gitLink: "",
@@ -92,6 +96,10 @@ const Admin = () => {
     const form = new FormData();
     form.append("name", formData.name);
     form.append("description", formData.description);
+    form.append("problemSolved", formData.problemSolved);
+    form.append("challenges", formData.challenges);
+    form.append("solutions", formData.solutions);
+    form.append("performance", formData.performance);
     form.append("technologies", JSON.stringify(formData.technologies.split(","))); // Stringify technologies
     form.append("previewLink", formData.previewLink);
     form.append("gitLink", formData.gitLink);
@@ -139,6 +147,10 @@ const Admin = () => {
     setFormData({
       name: project.name,
       description: project.description,
+      problemSolved: project.problemSolved || "",
+      challenges: project.challenges || "",
+      solutions: project.solutions || "",
+      performance: project.performance || "",
       technologies: project.technologies.join(", "),
       previewLink: project.previewLink,
       gitLink: project.gitLink,
@@ -402,6 +414,30 @@ const Admin = () => {
               placeholder="Project Description"
               value={formData.description}
               required
+              onChange={handleInputChange}
+            ></textarea>
+            <textarea
+              name="problemSolved"
+              placeholder="What Problem Did It Solve? (SEO Gold)"
+              value={formData.problemSolved}
+              onChange={handleInputChange}
+            ></textarea>
+            <textarea
+              name="challenges"
+              placeholder="Challenges Faced (SEO Depth)"
+              value={formData.challenges}
+              onChange={handleInputChange}
+            ></textarea>
+            <textarea
+              name="solutions"
+              placeholder="Solutions Implemented (Technical Depth)"
+              value={formData.solutions}
+              onChange={handleInputChange}
+            ></textarea>
+            <textarea
+              name="performance"
+              placeholder="Performance Optimizations (High Value)"
+              value={formData.performance}
               onChange={handleInputChange}
             ></textarea>
             <input

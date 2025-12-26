@@ -11,6 +11,11 @@ const projectSchema = new mongoose.Schema({
   adminLabel: String, // Custom Label for Admin Button
   appLink: String,   // Optional Link to Mobile App
   appLabel: String,   // Custom Label for App Button
+  slug: { type: String, unique: true }, // URL friendly slug
+  problemSolved: String, // SEO: What problem did this project solve?
+  challenges: String, // New SEO Field: Challenges faced
+  solutions: String, // New SEO Field: Solutions implemented
+  performance: String, // New SEO Field: Performance optimizations
 });
 
 module.exports = mongoose.model("Project", projectSchema);

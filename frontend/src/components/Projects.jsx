@@ -67,7 +67,7 @@ const Projects = () => {
         transition={{ duration: 0.8 }}
         viewport={{ once: false }}
       >
-        My Projects
+        MERN Stack Projects Portfolio
       </motion.h2>
 
       <motion.div
@@ -80,10 +80,10 @@ const Projects = () => {
         {projects.length > 0 ? (
           projects.map((project, index) => (
             <motion.div variants={cardVariants} key={project._id}>
-              <Link to={`/project/${project._id}`} className="project-card">
+              <Link to={`/project/${project.slug || project._id}`} className="project-card">
                 <img
                   src={getOptimizedImage(project.image)}
-                  alt={project.name}
+                  alt={`${project.name} - MERN Stack Project`}
                   loading="lazy"
                   decoding="async"
                 />

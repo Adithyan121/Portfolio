@@ -22,8 +22,9 @@ const Login = () => {
       const response = await api.post("/login", { userId, password });
 
       if (response.data.success) {
-        localStorage.setItem("userId", userId); // Save userId for OTP verification
-        navigate("/verify");
+        localStorage.setItem("isAuthenticated", "true"); // Direct auth
+        localStorage.setItem("userId", userId);
+        navigate("/admin");
       } else {
         setError(response.data.error || "Invalid credentials");
       }

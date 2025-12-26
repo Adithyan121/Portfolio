@@ -28,40 +28,13 @@ const login = async (req, res) => {
       return res.status(400).json({ success: false, error: "Invalid credentials" });
     }
 
-    // Prevent OTP spam (Allow only after 1 min)
-    const existingOtp = await OTP.findOne({ userId });
-
-    if (existingOtp && Date.now() - existingOtp.lastRequestedAt < 60000) {
-      return res.status(429).json({ success: false, error: "Please wait 1 minute before requesting a new OTP." });
-    }
-
-    // Generate new OTP
-    const otpCode = Math.floor(1000 + Math.random() * 9000).toString();
-    console.log("✅ Generated OTP:", otpCode);
-
-    if (existingOtp) {
-      existingOtp.code = otpCode;
-      existingOtp.createdAt = new Date();
-      existingOtp.lastRequestedAt = new Date();
-      await existingOtp.save();
-      console.log("Updated existing OTP in DB");
-    } else {
-      await OTP.create({ userId, code: otpCode, createdAt: new Date(), lastRequestedAt: new Date() });
-      console.log("Created new OTP in DB");
-    }
-
-    // Send OTP via Email
-    await transporter.sendMail({
-      from: process.env.EMAIL,
-      to: "techtoday038@gmail.com",
-      subject: "Your OTP Code",
-      text: `Your OTP is: ${otpCode}. It is valid for 2 minutes.`,
-    });
-
-    res.json({ success: true, message: "OTP sent successfully" });
+    // ✅ Password verified, return success without OTP
+    res.json({ success: true, message: "Login successful" });
   } catch (error) {
     console.error("❌ Login error:", error);
-    res.status(500).json({ success: false, error: "Server error" });
+    // Explicitly log the error stack for debugging
+    console.error(error.stack);
+    res.status(500).json({ success: false, error: "Server error: " + error.message });
   }
 };
 

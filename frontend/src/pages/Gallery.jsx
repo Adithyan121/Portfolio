@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import "../css/gallery.css";
 import image1 from "../assets/gallery1.jpg";
 import image2 from "../assets/gallery2.jpg";
@@ -15,6 +16,11 @@ const Gallery = () => {
 
   return (
     <section id="gallery">
+      <Helmet>
+        <title>Gallery | Adithyan G Portfolio</title>
+        <meta name="description" content="A visual gallery of work, achievements, and assets from Adithyan G's portfolio." />
+        <link rel="canonical" href="https://adithyan-phi.vercel.app/gallery" />
+      </Helmet>
       <div className="gallery-container">
         <h2>My Gallery</h2>
         <div className="gallery-grid">
@@ -24,27 +30,27 @@ const Gallery = () => {
         </div>
       </div>
 
-  <div className="file-input-container">
-    <label htmlFor="file-upload" className="file-label">
-      <i className="fas fa-upload"></i> Upload Profile pic
-    </label>
-    <input 
-      id="file-upload" 
-      className="file_input" 
-      type="file" 
-      accept="application/pdf" 
-      onChange={handleResumeUpload} 
-    />
-    {resumeUrl && (
-      <p>
-        <a href={resumeUrl} target="_blank" rel="noopener noreferrer">
-          View Current Resume
-        </a>
-      </p>
-    )}
-  </div>
+      <div className="file-input-container">
+        <label htmlFor="file-upload" className="file-label">
+          <i className="fas fa-upload"></i> Upload Profile pic
+        </label>
+        <input
+          id="file-upload"
+          className="file_input"
+          type="file"
+          accept="application/pdf"
+          onChange={handleResumeUpload}
+        />
+        {resumeUrl && (
+          <p>
+            <a href={resumeUrl} target="_blank" rel="noopener noreferrer">
+              View Current Resume
+            </a>
+          </p>
+        )}
+      </div>
 
-   
+
 
 
     </section>

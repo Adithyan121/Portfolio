@@ -25,7 +25,7 @@ const resumeStorage = new CloudinaryStorage({
   },
 });
 
-const uploadResume = multer({ 
+const uploadResume = multer({
   storage: resumeStorage,
   fileFilter: (req, file, cb) => {
     if (file.mimetype === 'application/pdf') {

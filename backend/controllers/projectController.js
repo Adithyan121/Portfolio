@@ -1,9 +1,11 @@
 const Project = require("../models/project");
+const slugify = require("slugify");
+const mongoose = require("mongoose");
 
 exports.getProjects = async (req, res) => {
   try {
     const projects = await Project.find();
-    res.set('Cache-Control', 'public, max-age=300'); // Cache for 5 minutes
+    res.set('Cache-Control', 'no-store'); // Disable caching to ensure fresh data
     res.json(projects);
   } catch (error) {
     console.error("Error fetching projects:", error);
@@ -13,9 +15,20 @@ exports.getProjects = async (req, res) => {
 
 exports.getProjectById = async (req, res) => {
   try {
-    const project = await Project.findById(req.params.id);
+    const { id } = req.params;
+    let query = {};
+
+    // Check if valid ObjectId, otherwise search by slug
+    if (mongoose.Types.ObjectId.isValid(id)) {
+      query = { _id: id };
+    } else {
+      query = { slug: id };
+    }
+
+    const project = await Project.findOne(query);
+
     if (!project) return res.status(404).json({ error: "Project not found" });
-    res.set('Cache-Control', 'public, max-age=300'); // Cache for 5 minutes
+    res.set('Cache-Control', 'no-store'); // Disable caching to ensure fresh data
     res.json(project);
   } catch (error) {
     console.error("Error fetching project details:", error);
@@ -23,37 +36,16 @@ exports.getProjectById = async (req, res) => {
   }
 };
 
-// exports.createProject = async (req, res) => {
-//   try {
-//     const { name, description, technologies, previewLink, gitLink } = req.body;
-//     console.log("bss",req.body);
-
-//     // const imageUrl = req.file?.path || "";
-//     const imageUrl = req.file ? req.file.path : "";
-
-
-//     const newProject = new Project({
-//       name,
-//       description,
-//       technologies: JSON.parse(technologies),
-//       image: imageUrl,
-//       previewLink,
-//       gitLink,
-//     });
-
-//     await newProject.save();
-//     res.json({ message: "Project added successfully!", project: newProject });
-//   } catch (error) {
-//     res.status(500).json({ error: "Failed to add project" });
-//   }
-// };
 exports.createProject = async (req, res) => {
   try {
-    const { name, description, technologies, previewLink, gitLink, adminLink, appLink, adminLabel, appLabel } = req.body;
+    const { name, description, problemSolved, challenges, solutions, performance, technologies, previewLink, gitLink, adminLink, appLink, adminLabel, appLabel } = req.body;
     const imageUrl = req.file ? req.file.path : "";
 
     // Parse the technologies field back into an array
-    const technologiesArray = JSON.parse(technologies);
+    const technologiesArray = technologies ? JSON.parse(technologies) : [];
+
+    // Generate slug
+    const slug = slugify(name, { lower: true, strict: true });
 
     const newProject = new Project({
       name,
@@ -66,23 +58,32 @@ exports.createProject = async (req, res) => {
       appLink,
       adminLabel,
       appLabel,
+      slug,
+      problemSolved,
+      challenges,
+      solutions,
+      performance,
     });
 
     await newProject.save();
-    res.json({ message: "Project added successfully!", project: newProject });
+    res.status(201).json({ message: "Project added successfully!", project: newProject });
   } catch (error) {
-    console.error("Error adding project:", error); // Log the full error
+    console.error("Error adding project", error);
     res.status(500).json({ error: "Failed to add project" });
   }
 };
 
 exports.updateProject = async (req, res) => {
   try {
-    const { name, description, technologies, previewLink, gitLink, adminLink, appLink, adminLabel, appLabel } = req.body;
+    const { name, description, problemSolved, challenges, solutions, performance, technologies, previewLink, gitLink, adminLink, appLink, adminLabel, appLabel } = req.body;
     let updateData = {
       name,
       description,
-      technologies: JSON.parse(technologies),
+      problemSolved,
+      challenges,
+      solutions,
+      performance,
+      technologies: technologies ? JSON.parse(technologies) : [],
       previewLink,
       gitLink,
       adminLink,
@@ -90,6 +91,10 @@ exports.updateProject = async (req, res) => {
       adminLabel,
       appLabel,
     };
+
+    if (name) {
+      updateData.slug = slugify(name, { lower: true, strict: true });
+    }
 
     if (req.file) {
       updateData.image = req.file.path;

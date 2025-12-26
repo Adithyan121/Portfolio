@@ -21,26 +21,30 @@ const Footer = () => {
         <div className="footer-content">
           <h2 className="footer-title">Adithyan G</h2>
           <p className="footer-subtitle">Full Stack Developer | MERN</p>
+          <p className="footer-location">Based in Kerala, India</p>
         </div>
 
         <div className="footer-links">
-        
-        <a href="#home" onClick={(e) => handleSmoothScroll(e, "home")}>Home</a>
-        <a href="#about" onClick={(e) => handleSmoothScroll(e, "about")}>About</a>
-        <a href="#projects" onClick={(e) => handleSmoothScroll(e, "projects")}>Projects</a>
-        <a href="#contact" onClick={(e) => handleSmoothScroll(e, "contact")}>Contact</a>
-      
+
+          <a href="#home" onClick={(e) => handleSmoothScroll(e, "home")}>Home</a>
+          <a href="#about" onClick={(e) => handleSmoothScroll(e, "about")}>About</a>
+          <a href="#projects" onClick={(e) => handleSmoothScroll(e, "projects")}>Projects</a>
+          <a href="#contact" onClick={(e) => handleSmoothScroll(e, "contact")}>Contact</a>
+
         </div>
 
         <div className="footer-socials">
-          <a href={import.meta.env.VITE_GIT}target="_blank" rel="noopener noreferrer" className="footer-icon">
+          <a href={import.meta.env.VITE_GIT} target="_blank" rel="noopener noreferrer" className="footer-icon">
             <i className="fab fa-github"></i>
           </a>
-          <a href={import.meta.env.VITE_LINKED_IN}target="_blank" rel="noopener noreferrer" className="footer-icon">
+          <a href={import.meta.env.VITE_LINKED_IN} target="_blank" rel="noopener noreferrer" className="footer-icon">
             <i className="fab fa-linkedin"></i>
           </a>
           <a href={import.meta.env.VITE_INSTAGRAM} target="_blank" rel="noopener noreferrer" className="footer-icon">
             <i className="fab fa-instagram"></i>
+          </a>
+          <a href={import.meta.env.VITE_FACEBOOK || "https://facebook.com"} target="_blank" rel="noopener noreferrer" className="footer-icon">
+            <i className="fab fa-facebook"></i>
           </a>
         </div>
 

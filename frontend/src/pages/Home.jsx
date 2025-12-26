@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { motion, useScroll, useTransform, useMotionValue } from "framer-motion";
 import Typewriter from "typewriter-effect";
 import { FaReact, FaNodeJs } from "react-icons/fa";
@@ -51,6 +52,29 @@ const Home = () => {
 
   return (
     <div className="home-wrapper">
+      <Helmet>
+        <title>Hire Adithyan G - Top Rated MERN Stack Developer | React & Node.js Expert</title>
+        <meta name="description" content="Looking for a MERN Stack Developer? I build scalable, high-performance web applications using React, Node.js, and MongoDB. Check out my portfolio and hire me today!" />
+        <meta name="keywords" content="MERN Stack Developer, React Developer, Node.js Developer, Full Stack Developer, JavaScript Developer, Frontend Developer, Entry Level MERN Developer, Adithyan G, Web Developer, Portfolio" />
+        <link rel="canonical" href="https://adithyan-phi.vercel.app/" />
+
+        {/* Google Search Console Verification */}
+        <meta name="google-site-verification" content="CvKUa0PSnSaZJhaO8KqsZQa6c2D4hLVQne9a9Ghko2M" />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://adithyan-phi.vercel.app/" />
+        <meta property="og:title" content="Adithyan G | MERN Stack Developer" />
+        <meta property="og:description" content="Explore the portfolio of Adithyan G, featuring premium web designs and full-stack applications." />
+        <meta property="og:image" content="/nav.png" />
+
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://adithyan-phi.vercel.app/" />
+        <meta property="twitter:title" content="Adithyan G | MERN Stack Developer" />
+        <meta property="twitter:description" content="Explore the portfolio of Adithyan G, featuring premium web designs and full-stack applications." />
+        <meta property="twitter:image" content="/nav.png" />
+      </Helmet>
       <Navbar />
       <section id="home">
         {/* 1. Deep Background - Blobs */}
@@ -114,6 +138,7 @@ const Home = () => {
             transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
           >
             Adithyan G
+            <span style={{ fontSize: '0.5em', display: 'block', marginTop: '10px' }}>MERN Stack Developer</span>
           </motion.h1>
 
           <motion.div
@@ -124,7 +149,14 @@ const Home = () => {
           >
             <Typewriter
               options={{
-                strings: ['MERN Stack Developer', 'Freelancer', 'UI/UX Enthusiast'],
+                strings: [
+                  'MERN Stack Developer',
+                  'React Developer',
+                  'Node.js Developer',
+                  'Full Stack Developer',
+                  'JavaScript Developer',
+                  'Frontend Developer'
+                ],
                 autoStart: true,
                 loop: true,
                 wrapperClassName: "typing-text",
@@ -132,6 +164,22 @@ const Home = () => {
               }}
             />
           </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2, duration: 0.8 }}
+            className="hero-description"
+            style={{
+              maxWidth: '600px',
+              margin: '20px auto 0',
+              fontSize: '1.1rem',
+              lineHeight: '1.6',
+              color: '#010101ff'
+            }}
+          >
+            Crafting high-performance web applications as a <b>Full Stack Developer</b>. I specialize in modern technologies like React, Node.js, and MongoDB. Open to <b>Entry Level MERN Developer</b> roles and freelance projects.
+          </motion.p>
         </motion.div>
 
         {/* 5. Overlay - Particles */}
