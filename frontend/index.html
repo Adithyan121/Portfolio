@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Google Search Console Verification -->
-    <meta name="google-site-verification" content="CvKUa0PSnSaZJhaO8KqsZQa6c2D4hLVQne9a9Ghko2M" />
+    <meta
+      name="google-site-verification"
+      content="CvKUa0PSnSaZJhaO8KqsZQa6c2D4hLVQne9a9Ghko2M"
+    />
 
-    <!-- SEO Title (VERY IMPORTANT) -->
+    <!-- SEO Title -->
     <title>
       Adithyan G | MERN Stack Developer | React & Node.js Freelancer
     </title>
@@ -16,13 +19,13 @@
     <!-- Meta Description -->
     <meta
       name="description"
-      content="Adithyan G is a MERN Stack Developer specializing in React, Node.js, MongoDB, and Express. Open to full-time roles and freelance web development projects."
+      content="Adithyan G is a MERN Stack Developer from Kerala, India, specializing in React, Node.js, MongoDB, and Express. Open to full-time roles and freelance web development projects."
     />
 
-    <!-- Keywords (minor but helpful) -->
+    <!-- Keywords -->
     <meta
       name="keywords"
-      content="MERN Stack Developer, React Developer, Node.js Developer, Full Stack Developer, Freelance Web Developer, JavaScript Developer, Kerala"
+      content="Adithyan G, MERN Stack Developer, React Developer, Node.js Developer, Full Stack Developer, Freelance Web Developer, JavaScript Developer, Kerala"
     />
 
     <!-- Canonical URL -->
@@ -34,15 +37,18 @@
     <!-- PWA -->
     <link rel="manifest" href="/manifest.webmanifest" />
 
-    <!-- Open Graph (LinkedIn, WhatsApp, Facebook) -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Adithyan G | MERN Stack Developer" />
     <meta
       property="og:description"
-      content="MERN Stack Developer building scalable web applications with React, Node.js & MongoDB. Available for jobs and freelance work."
+      content="MERN Stack Developer building scalable web applications using React, Node.js & MongoDB. Available for jobs and freelance work."
     />
     <meta property="og:url" content="https://adithyan-phi.vercel.app/" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://adithyan-phi.vercel.app/og-image.png" />
+    <meta
+      property="og:image"
+      content="https://adithyan-phi.vercel.app/og-image.png"
+    />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -51,11 +57,68 @@
       name="twitter:description"
       content="Full Stack MERN Developer skilled in React, Node.js, MongoDB & Express. Open to freelance and job opportunities."
     />
-    <meta name="twitter:image" content="https://adithyan-phi.vercel.app/og-image.png" />
+    <meta
+      name="twitter:image"
+      content="https://adithyan-phi.vercel.app/og-image.png"
+    />
   </head>
 
   <body>
     <div id="root"></div>
+
+    <!-- React Entry -->
     <script type="module" src="/src/main.jsx"></script>
+
+    <!-- Person Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "@id": "https://adithyan-phi.vercel.app/#person",
+        "name": "Adithyan G",
+        "url": "https://adithyan-phi.vercel.app/",
+        "image": "https://adithyan-phi.vercel.app/nav.png",
+        "jobTitle": "MERN Stack Developer",
+        "description": "Adithyan G is a MERN Stack Developer from Kerala, India, specializing in React, Node.js, MongoDB, and Express. Open to full-time roles and freelance web development projects.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressRegion": "Kerala",
+          "addressCountry": "India"
+        },
+        "sameAs": [
+          "https://github.com/Adithyan121",
+          "https://www.linkedin.com/in/adithyan-g-b9785b196",
+          "https://medium.com/@adithyang24",
+          "https://dev.to/adithyan_g_6f3e606905eed7"
+        ],
+        "knowsAbout": [
+          "React.js",
+          "Node.js",
+          "MongoDB",
+          "Express.js",
+          "JavaScript",
+          "MERN Stack",
+          "Full Stack Development",
+          "AI Integration",
+          "Progressive Web Apps"
+        ]
+      }
+    </script>
+
+    <!-- Website Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": "https://adithyan-phi.vercel.app/#website",
+        "name": "Adithyan G Portfolio",
+        "url": "https://adithyan-phi.vercel.app/",
+        "description": "Official portfolio website of Adithyan G, a MERN Stack Developer showcasing projects, skills, and experience.",
+        "publisher": {
+          "@type": "Person",
+          "@id": "https://adithyan-phi.vercel.app/#person"
+        }
+      }
+    </script>
   </body>
 </html>
