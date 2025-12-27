@@ -67,7 +67,7 @@ const Projects = () => {
         transition={{ duration: 0.8 }}
         viewport={{ once: false }}
       >
-        MERN Stack Projects Portfolio
+        My Projects
       </motion.h2>
 
       <motion.div
