@@ -53,7 +53,7 @@ const Home = () => {
   return (
     <div className="home-wrapper">
       <Helmet>
-        <title>Hire Adithyan G - Top Rated MERN Stack Developer | React & Node.js Expert</title>
+        <title>Adithyan G - MERN Stack Developer | React & Node.js Developer</title>
         <meta name="description" content="Looking for a MERN Stack Developer? I build scalable, high-performance web applications using React, Node.js, and MongoDB. Check out my portfolio and hire me today!" />
         <meta name="keywords" content="MERN Stack Developer, React Developer, Node.js Developer, Full Stack Developer, JavaScript Developer, Frontend Developer, Entry Level MERN Developer, Adithyan G, Web Developer, Portfolio" />
         <link rel="canonical" href="https://adithyan-phi.vercel.app/" />
