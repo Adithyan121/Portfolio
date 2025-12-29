@@ -101,7 +101,7 @@ const Home = () => {
             />
           </div>
 
-          <p className="hero-description" >
+          <p className="hero-description" style={{ display: "none" }} >
   Adithyan G is a <b>MERN Stack Developer based in Kerala, India</b>, specializing
   in React, Node.js, MongoDB, and Express. I build fast, scalable web applications
   and I am open to entry-level roles and freelance projects.
