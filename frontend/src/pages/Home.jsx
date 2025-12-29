@@ -82,7 +82,7 @@ const Home = () => {
           <h3>Hello, I am</h3>
 
           <h1>
-  Adithyan G – MERN Stack Developer from Kerala, India
+  Adithyan G
 </h1>
 
           <div className="typewriter-container">
