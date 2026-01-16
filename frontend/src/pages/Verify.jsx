@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../css/verify.css";
@@ -22,15 +23,15 @@ const Verify = () => {
       setError("Please enter OTP");
       return;
     }
-  
+
     if (!userId) {
       setError("Session expired. Please log in again.");
       return;
     }
-  
+
     try {
       const response = await api.post("/verify-otp", { userId, otp });
-  
+
       if (response.data.success) {
         console.log("OTP matched ✅");
         localStorage.setItem("isAuthenticated", "true"); // Set isAuthenticated flag
@@ -70,6 +71,10 @@ const Verify = () => {
 
   return (
     <div className="verify-container">
+      <Helmet>
+        <title>Verify OTP | Adithyan G</title>
+        <meta name="robots" content="noindex" />
+      </Helmet>
       <h2>Verify OTP</h2>
       {error && <p className="error-message">{error}</p>}
       <input

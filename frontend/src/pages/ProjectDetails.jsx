@@ -48,7 +48,7 @@ const ProjectDetails = () => {
           <FaArrowLeft /> Back
         </button>
         <img src={project.image} alt={project.name} className="project-image" />
-        <h2 className="project-title">{project.name}</h2>
+        <h1 className="project-title">{project.name}</h1>
         <p className="project-description">{project.description}</p>
 
         {project.problemSolved && (

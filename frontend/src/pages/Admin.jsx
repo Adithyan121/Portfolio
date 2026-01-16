@@ -30,13 +30,33 @@ const Admin = () => {
   const [profileImage, setProfileImage] = useState("");
   const [skills, setSkills] = useState([]);
   const [newSkill, setNewSkill] = useState({ name: "", category: "", proficiency: "" });
-  const navigate = useNavigate(); // Now this will work
+  const navigate = useNavigate();
+
+  // Blogs State
+  const [blogs, setBlogs] = useState([]);
+  const [blogFormData, setBlogFormData] = useState({
+    title: "", summary: "", platform: "", externalLink: "", keywords: "", image: null
+  });
+  const [blogEditMode, setBlogEditMode] = useState(false);
+  const [blogEditId, setBlogEditId] = useState(null);
+  const [blogImagePreview, setBlogImagePreview] = useState(null);
+
+  // Case Studies State
+  const [caseStudies, setCaseStudies] = useState([]);
+  const [csFormData, setCsFormData] = useState({
+    title: "", overview: "", challenge: "", myRole: "", solution: "", results: "", image: null
+  });
+  const [csEditMode, setCsEditMode] = useState(false);
+  const [csEditId, setCsEditId] = useState(null);
+  const [csImagePreview, setCsImagePreview] = useState(null);
 
   useEffect(() => {
     fetchProjects();
     fetchProfileImage();
     fetchSkills();
     fetchResume();
+    fetchBlogs();
+    fetchCaseStudies();
   }, []);
 
   // Fetch resume
@@ -278,13 +298,111 @@ const Admin = () => {
   };
 
 
+  // Blog Functions
+  const fetchBlogs = async () => {
+    try { const res = await api.get("/blogs"); setBlogs(res.data); } catch (err) { console.error(err); }
+  };
+  const handleBlogInputChange = (e) => {
+    const { name, value } = e.target;
+    setBlogFormData({ ...blogFormData, [name]: value });
+  };
+  const handleBlogFileChange = (e) => {
+    const file = e.target.files[0];
+    setBlogFormData({ ...blogFormData, image: file });
+    if (file) { const reader = new FileReader(); reader.onloadend = () => setBlogImagePreview(reader.result); reader.readAsDataURL(file); }
+  };
+  const handleBlogSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const form = new FormData();
+    Object.keys(blogFormData).forEach(key => {
+      if (blogFormData[key]) form.append(key, blogFormData[key]);
+    });
+
+    try {
+      if (blogEditMode) {
+        await api.put(`/blogs/${blogEditId}`, form, { headers: { "Content-Type": "multipart/form-data" } });
+        alert("Blog updated!");
+      } else {
+        await api.post("/blogs", form, { headers: { "Content-Type": "multipart/form-data" } });
+        alert("Blog added!");
+      }
+      fetchBlogs();
+      setBlogEditMode(false);
+      setBlogImagePreview(null);
+      setBlogFormData({ title: "", summary: "", platform: "", externalLink: "", keywords: "", image: null });
+    } catch (err) { console.error(err); alert("Error saving blog"); } finally { setLoading(false); }
+  };
+  const handleBlogEdit = (blog) => {
+    setBlogFormData({ ...blog, image: null, keywords: JSON.stringify(blog.keywords || []) });
+    setBlogImagePreview(blog.image);
+    setBlogEditMode(true);
+    setBlogEditId(blog._id);
+  };
+  const handleBlogDelete = async (id) => {
+    if (!window.confirm("Delete this blog?")) return;
+    try { await api.delete(`/blogs/${id}`); fetchBlogs(); } catch (err) { console.error(err); }
+  };
+
+
+  // Case Study Functions
+  const fetchCaseStudies = async () => {
+    try { const res = await api.get("/casestudies"); setCaseStudies(res.data); } catch (err) { console.error(err); }
+  };
+  const handleCsInputChange = (e) => {
+    const { name, value } = e.target;
+    setCsFormData({ ...csFormData, [name]: value });
+  };
+  const handleCsFileChange = (e) => {
+    const file = e.target.files[0];
+    setCsFormData({ ...csFormData, image: file });
+    if (file) { const reader = new FileReader(); reader.onloadend = () => setCsImagePreview(reader.result); reader.readAsDataURL(file); }
+  };
+  const handleCsSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const form = new FormData();
+    Object.keys(csFormData).forEach(key => {
+      if (csFormData[key]) form.append(key, csFormData[key]);
+    });
+
+    try {
+      if (csEditMode) {
+        await api.put(`/casestudies/${csEditId}`, form, { headers: { "Content-Type": "multipart/form-data" } });
+        alert("Case Study updated!");
+      } else {
+        await api.post("/casestudies", form, { headers: { "Content-Type": "multipart/form-data" } });
+        alert("Case Study added!");
+      }
+      fetchCaseStudies();
+      setCsEditMode(false);
+      setCsImagePreview(null);
+      setCsFormData({ title: "", overview: "", challenge: "", myRole: "", solution: "", results: "", image: null });
+    } catch (err) { console.error(err); alert("Error saving case study"); } finally { setLoading(false); }
+  };
+  const handleCsEdit = (cs) => {
+    setCsFormData({
+      ...cs,
+      image: null,
+      myRole: cs.myRole || ""
+    });
+    setCsImagePreview(cs.image);
+    setCsEditMode(true);
+    setCsEditId(cs._id);
+  };
+  const handleCsDelete = async (id) => {
+    if (!window.confirm("Delete this case study?")) return;
+    try { await api.delete(`/casestudies/${id}`); fetchCaseStudies(); } catch (err) { console.error(err); }
+  };
+
   return (
     <div className="admin-container">
       <h1 className="adminhdd">Admin Panel</h1>
       <select onChange={(e) => setActiveSection(e.target.value)}>
         <option value="about">About Section</option>
-        <option value="gallery">Gallery Section</option>
         <option value="projects">Project Section</option>
+        <option value="blogs">Blogs Section</option>
+        <option value="casestudies">Case Studies Section</option>
       </select>
 
       {activeSection === "about" && (
@@ -390,12 +508,7 @@ const Admin = () => {
         </section>
       )}
 
-      {activeSection === "gallery" && (
-        <section id="gallery-section">
-          <h2 className="hd">Gallery Section</h2>
-          <p>Manage Gallery Images Here</p>
-        </section>
-      )}
+
 
       {activeSection === "projects" && (
         <section id="project-section">
@@ -536,6 +649,74 @@ const Admin = () => {
                 <div className="buttons">
                   <button className="edit-btn" onClick={() => handleEdit(project)}>Edit</button>
                   <button className="delete-btn" onClick={() => handleDelete(project._id)}>Delete</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {activeSection === "blogs" && (
+        <section id="blogs-section">
+          <h2 className="hd">Blogs Section</h2>
+          <form onSubmit={handleBlogSubmit} className="project-form">
+            <input type="text" name="title" placeholder="Blog Title" value={blogFormData.title} onChange={handleBlogInputChange} required />
+            <textarea name="summary" placeholder="Sort Summary (SEO)" value={blogFormData.summary} onChange={handleBlogInputChange} required />
+            <input type="text" name="platform" placeholder="Platform (Medium, Dev.to)" value={blogFormData.platform} onChange={handleBlogInputChange} required />
+            <input type="text" name="externalLink" placeholder="Link to Article" value={blogFormData.externalLink} onChange={handleBlogInputChange} required />
+            <input type="text" name="keywords" placeholder="Keywords (SEO) [JSON Array]" value={blogFormData.keywords} onChange={handleBlogInputChange} />
+
+            <div className="file-upload-container">
+              <input type="file" accept="image/*" onChange={handleBlogFileChange} hidden id="blogFile" />
+              <label htmlFor="blogFile" className="custom-file-button">Choose Image</label>
+            </div>
+            {blogImagePreview && <img src={blogImagePreview} alt="Preview" className="image-preview" />}
+
+            <button type="submit" disabled={loading}>{loading ? "Saving..." : (blogEditMode ? "Update Blog" : "Add Blog")}</button>
+          </form>
+          <div className="projects-list">
+            {blogs.map(b => (
+              <div key={b._id} className="project-item">
+                <img src={b.image} alt={b.title} />
+                <h3>{b.title}</h3>
+                <p>{b.platform}</p>
+                <div className="buttons">
+                  <button className="edit-btn" onClick={() => handleBlogEdit(b)}>Edit</button>
+                  <button className="delete-btn" onClick={() => handleBlogDelete(b._id)}>Delete</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {activeSection === "casestudies" && (
+        <section id="cs-section">
+          <h2 className="hd">Case Studies Section</h2>
+          <form onSubmit={handleCsSubmit} className="project-form">
+            <input type="text" name="title" placeholder="Project Title" value={csFormData.title} onChange={handleCsInputChange} required />
+            <textarea name="overview" placeholder="Short Description" value={csFormData.overview} onChange={handleCsInputChange} required />
+            <textarea name="challenge" placeholder="Problem Statement" value={csFormData.challenge} onChange={handleCsInputChange} />
+            <textarea name="myRole" placeholder="My Role / Contributions" value={csFormData.myRole} onChange={handleCsInputChange} />
+            <textarea name="solution" placeholder="The Solution" value={csFormData.solution} onChange={handleCsInputChange} />
+            <textarea name="results" placeholder="Results" value={csFormData.results} onChange={handleCsInputChange} />
+
+            <div className="file-upload-container">
+              <input type="file" accept="image/*" onChange={handleCsFileChange} hidden id="csFile" />
+              <label htmlFor="csFile" className="custom-file-button">Choose Media (Image)</label>
+            </div>
+            {csImagePreview && <img src={csImagePreview} alt="Preview" className="image-preview" />}
+
+            <button type="submit" disabled={loading}>{loading ? "Saving..." : (csEditMode ? "Update Case Study" : "Add Case Study")}</button>
+          </form>
+          <div className="projects-list">
+            {caseStudies.map(c => (
+              <div key={c._id} className="project-item">
+                <img src={c.image} alt={c.title} />
+                <h3>{c.title}</h3>
+                <div className="buttons">
+                  <button className="edit-btn" onClick={() => handleCsEdit(c)}>Edit</button>
+                  <button className="delete-btn" onClick={() => handleCsDelete(c._id)}>Delete</button>
                 </div>
               </div>
             ))}

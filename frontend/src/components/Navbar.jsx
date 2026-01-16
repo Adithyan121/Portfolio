@@ -48,6 +48,8 @@ const Navbar = () => {
         <a href="#home" onClick={(e) => handleSmoothScroll(e, "home")}>Home</a>
         <a href="#about" onClick={(e) => handleSmoothScroll(e, "about")}>About</a>
         <a href="#projects" onClick={(e) => handleSmoothScroll(e, "projects")}>Projects</a>
+        <Link to="/blogs" onClick={() => setMenuOpen(false)}>Blogs</Link>
+        {/* <Link to="/casestudies" onClick={() => setMenuOpen(false)}>Case Studies</Link> */}
         <a href="#contact" onClick={(e) => handleSmoothScroll(e, "contact")}>Contact</a>
       </div>
     </nav>

@@ -39,6 +39,29 @@ const Home = () => {
 
   return (
     <div className="home-wrapper">
+<<<<<<< HEAD
+=======
+      <Helmet>
+        <title>Adithyan G - MERN Stack Developer | React & Node.js Developer</title>
+        <meta name="description" content="Looking for a MERN Stack Developer? I build scalable, high-performance web applications using React, Node.js, and MongoDB. Check out my portfolio and hire me today!" />
+        <meta name="keywords" content="MERN Stack Developer, React Developer, Node.js Developer, Full Stack Developer, JavaScript Developer, Frontend Developer, Entry Level MERN Developer, Adithyan G, Web Developer, Portfolio" />
+        <link rel="canonical" href="https://adithyan-phi.vercel.app/" />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://adithyan-phi.vercel.app/" />
+        <meta property="og:title" content="Adithyan G | MERN Stack Developer" />
+        <meta property="og:description" content="Explore the portfolio of Adithyan G, featuring premium web designs and full-stack applications." />
+        <meta property="og:image" content="/nav.png" />
+
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://adithyan-phi.vercel.app/" />
+        <meta property="twitter:title" content="Adithyan G | MERN Stack Developer" />
+        <meta property="twitter:description" content="Explore the portfolio of Adithyan G, featuring premium web designs and full-stack applications." />
+        <meta property="twitter:image" content="/nav.png" />
+      </Helmet>
+>>>>>>> c48ce3c (updated)
       <Navbar />
 
       <section id="home">
@@ -71,8 +94,13 @@ const Home = () => {
           </motion.div>
         </div>
 
+<<<<<<< HEAD
         {/* Main content */}
         <motion.div
+=======
+        {/* 4. Foreground - Main Content */}
+        {/* <motion.div
+>>>>>>> c48ce3c (updated)
           className="content"
           style={{ y: textY }}
           initial={{ opacity: 0 }}
@@ -101,11 +129,64 @@ const Home = () => {
             />
           </div>
 
+<<<<<<< HEAD
           <p className="hero-description" style={{ display: "none" }} >
   Adithyan G is a <b>MERN Stack Developer based in Kerala, India</b>, specializing
   in React, Node.js, MongoDB, and Express. I build fast, scalable web applications
   and I am open to entry-level roles and freelance projects.
 </p>
+=======
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2, duration: 0.8 }}
+            className="hero-description"
+            style={{
+              maxWidth: '600px',
+              margin: '20px auto 0',
+              fontSize: '1.1rem',
+              lineHeight: '1.6',
+              color: '#010101ff'
+            }}
+          >
+            Crafting high-performance web applications as a <b>Full Stack Developer</b>. I specialize in modern technologies like React, Node.js, and MongoDB. Open to <b>Entry Level MERN Developer</b> roles and freelance projects.
+          </motion.p>
+        </motion.div> */}
+        <motion.div
+          className="content"
+          style={{ y: textY }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          <h3>Hello, I am</h3>
+
+          <h1>
+            Adithyan G
+          </h1>
+
+          <div className="typewriter-container">
+            <Typewriter
+              options={{
+                strings: [
+                  "MERN Stack Developer",
+                  "React Developer",
+                  "Node.js Developer",
+                  "Full Stack Developer",
+                  "JavaScript Developer",
+                ],
+                autoStart: true,
+                loop: true,
+              }}
+            />
+          </div>
+
+          <p className="hero-description" style={{ display: "none" }} >
+            Adithyan G is a <b>MERN Stack Developer based in Kerala, India</b>, specializing
+            in React, Node.js, MongoDB, and Express. I build fast, scalable web applications
+            and I am open to entry-level roles and freelance projects.
+          </p>
+>>>>>>> c48ce3c (updated)
         </motion.div>
 
         {/* Particles */}

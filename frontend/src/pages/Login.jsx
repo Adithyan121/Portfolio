@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../css/login.css";
@@ -36,6 +37,10 @@ const Login = () => {
 
   return (
     <div className="login-container">
+      <Helmet>
+        <title>Admin Login | Adithyan G</title>
+        <meta name="robots" content="noindex" />
+      </Helmet>
       <h2>Admin Login</h2>
       {error && <p className="error-message">{error}</p>}
       <form onSubmit={handleLogin}>

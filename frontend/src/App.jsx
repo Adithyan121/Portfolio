@@ -9,14 +9,18 @@ import "./App.css";
 // Eager load Home for performance (LCP)
 import Home from "./pages/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
+import FAQ from "./pages/FAQ";
 
 // Lazy load other pages
 const ProjectDetails = lazy(() => import("./pages/ProjectDetails"));
 const PreviewSite = lazy(() => import("./pages/PreviewSite"));
-const Gallery = lazy(() => import("./pages/Gallery"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Login = lazy(() => import("./pages/Login"));
 const Verify = lazy(() => import("./pages/Verify"));
+const Blogs = lazy(() => import("./pages/Blogs"));
+const CaseStudies = lazy(() => import("./pages/CaseStudies"));
+const CaseStudyDetails = lazy(() => import("./pages/CaseStudyDetails"));
+const BlogDetails = lazy(() => import("./pages/BlogDetails"));
 
 const LoadingFallback = () => (
   <div style={{
@@ -45,14 +49,21 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/project/:id" element={<ProjectDetails />} />
           <Route path="/preview/:id" element={<PreviewSite />} />
-          <Route path="/gallery" element={<Gallery />} />
+
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/casestudies" element={<CaseStudies />} />
+          <Route path="/casestudies/:id" element={<CaseStudyDetails />} />
+          <Route path="/blogs/:id" element={<BlogDetails />} />
           <Route path="/login" element={<Login />} />
           <Route path="/verify" element={<Verify />} />
-          <Route path="/admin" element={
+          <Route path="/faq" element={<FAQ />} />
+
+          {/* <Route path="/admin" element={
             <ProtectedRoute>
               <Admin />
             </ProtectedRoute>
-          } />
+          } /> */}
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

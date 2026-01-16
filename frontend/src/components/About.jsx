@@ -9,6 +9,10 @@ const About = () => {
   const [resumeUrl, setResumeUrl] = useState(""); // ✅ Added missing state
   const [loading, setLoading] = useState(true);
 
+  const [showModal, setShowModal] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
+  const [sending, setSending] = useState(false);
+
   // Mouse Parallax Logic
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -51,21 +55,62 @@ const About = () => {
     fetchResume();
   }, []);
 
-  const handleDownload = async () => {
-    try {
-      const response = await fetch(resumeUrl);
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "Adithyan_G_Resume.pdf";
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error("Error downloading resume:", error);
-    }
+  const handleDownloadClick = () => {
+    setShowModal(true);
+  };
+
+  const handleEmailSubmit = (e) => {
+    e.preventDefault();
+    if (!userEmail) return;
+    setSending(true);
+
+    // Styled HTML Email Content
+    const emailContent = `
+      <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #f1f5f9;">
+        <div style="background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); padding: 30px; text-align: center;">
+          <h1 style="color: white; margin: 0; font-size: 24px;">Resume Request</h1>
+        </div>
+        <div style="padding: 30px; color: #334155;">
+          <p style="font-size: 16px; line-height: 1.6;">Hello,</p>
+          <p style="font-size: 16px; line-height: 1.6;">Thank you for your interest in my profile. You can download my resume using the button below:</p>
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${resumeUrl}" style="background-color: #6366f1; color: white; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-block; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);">Download Resume PDF</a>
+          </div>
+          <p style="font-size: 14px; color: #64748b;">Or copy this link: <a href="${resumeUrl}" style="color: #6366f1;">${resumeUrl}</a></p>
+        </div>
+        <div style="background-color: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
+          <p style="margin: 0; font-size: 14px; color: #94a3b8;">Best regards,<br><strong>Adithyan G</strong><br>Full Stack Developer</p>
+          <p style="margin: 15px 0 0; font-size: 12px; color: #cbd5e1;">This is an automated message. Please do not reply to this email.</p>
+        </div>
+      </div>
+    `;
+
+    const templateParams = {
+      to_email: userEmail,
+      subject: "Here is the resume you requested - Adithyan G",
+      name: "Adithyan G", // Sender name
+      message_html: emailContent // HTML content
+    };
+
+    import('@emailjs/browser').then(({ default: emailjs }) => {
+      emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID2,
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      ).then(() => {
+        alert(`Resume has been sent to ${userEmail}!`);
+        setShowModal(false);
+        setSending(false);
+        setUserEmail("");
+      }).catch((err) => {
+        console.error("EmailJS Error:", err);
+        alert("Failed to send email. Downloading file directly instead.");
+        setSending(false);
+        // Fallback functionality
+        window.open(resumeUrl, '_blank');
+      });
+    });
   };
 
 
@@ -103,7 +148,7 @@ const About = () => {
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           {profileImage ? (
             <img src={getOptimizedImage(profileImage)} alt="Adithyan G - MERN Stack Developer Profile" width="320" height="320" loading="lazy" />
@@ -118,7 +163,7 @@ const About = () => {
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           <h2>About Me | Full Stack Developer</h2>
           <p>
@@ -159,6 +204,7 @@ const About = () => {
             </a>
           </div>
 
+<<<<<<< HEAD
          <h3>Education</h3>
 <ul>
   <li>
@@ -176,8 +222,28 @@ const About = () => {
   </li>
 </ul>
 
+=======
+          <h3>Education</h3>
+          <ul>
+            <li>
+              <b>Bachelor of Technology (B.Tech) in Aeronautical Engineering</b>
+              <br />
+              <a
+                href="https://jawaharlalcolleges.com/"
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                aria-label="Jawaharlal College Of Engineering and Technology official website"
+              >
+                Jawaharlal College Of Engineering and Technology
+              </a>{" "}
+              (2019–2023)
+            </li>
+          </ul>
+>>>>>>> c48ce3c (updated)
+
 
           <h3>Experience & Certifications</h3>
+<<<<<<< HEAD
           <ul className="experience-list" style={{ listStyleType: 'none', padding: 0 }}>  
             <li style={{ marginBottom: "15px" }}>
   <div style={{ display: "flex", alignItems: "center", marginBottom: "5px" }}>
@@ -197,6 +263,27 @@ const About = () => {
     • Kochi, India
   </div>
 </li>
+=======
+          <ul className="experience-list" style={{ listStyleType: 'none', padding: 0 }}>
+            <li style={{ marginBottom: "15px" }}>
+              <div style={{ display: "flex", alignItems: "center", marginBottom: "5px" }}>
+                <i className="fas fa-briefcase" style={{ color: "#646cff", marginRight: "10px" }}></i>
+                <strong>MERN Stack Web Development Intern</strong>
+              </div>
+
+              <div style={{ marginLeft: "26px", color: "#000000ff" }}>
+                <a
+                  href="https://futuralabs.in"
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                  aria-label="Futura Labs Technologies LLP official website"
+                >
+                  Futura Labs Technologies LLP
+                </a>{" "}
+                • Kochi, India
+              </div>
+            </li>
+>>>>>>> c48ce3c (updated)
 
             {/* Add other certifications here if suitable */}
           </ul>
@@ -220,6 +307,7 @@ const About = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
+              viewport={{ once: true }}
             >
               {skills.length > 0 ? (
                 skills.map((skill, index) => <span key={index}>{skill.name}</span>)
@@ -230,16 +318,7 @@ const About = () => {
           )}
 
           <div className="buttons">
-            {/* <a
-    href={resumeUrl}
-    download="Adithyan_G_Resume.pdf"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="resume-btn"
-  >
-    Download Resume
-  </a> */}
-            <button onClick={handleDownload} className="resume-btn">Download Resume</button>
+            <button onClick={handleDownloadClick} className="resume-btn">Download Resume</button>
             <a
               href="https://www.buymeacoffee.com/mr._a.d.i__"
               target="_blank"
@@ -253,6 +332,29 @@ const About = () => {
 
         </motion.div>
       </div>
+
+      {showModal && (
+        <div className="modal-overlay" onClick={() => setShowModal(false)}>
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <h3>Get My Resume</h3>
+            <p>Please enter your email to receive the resume.</p>
+            <form onSubmit={handleEmailSubmit}>
+              <input
+                type="email"
+                placeholder="yourname@gmail.com"
+                value={userEmail}
+                onChange={(e) => setUserEmail(e.target.value)}
+                required
+                className="email-input"
+              />
+              <button type="submit" disabled={sending} className="submit-btn">
+                {sending ? "Sending..." : "Send Resume"}
+              </button>
+              <button type="button" onClick={() => setShowModal(false)} className="close-btn">Cancel</button>
+            </form>
+          </div>
+        </div>
+      )}
     </section >
   );
 };
