@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../css/footer.css";
 
 const handleSmoothScroll = (e, targetId) => {
@@ -35,28 +36,11 @@ const Footer = () => {
 
         {/* Internal navigation */}
         <div className="footer-links">
-<<<<<<< HEAD
-          <a href="#home" onClick={(e) => handleSmoothScroll(e, "home")}>
-            Home
-          </a>
-          <a href="#about" onClick={(e) => handleSmoothScroll(e, "about")}>
-            About
-          </a>
-          <a href="#projects" onClick={(e) => handleSmoothScroll(e, "projects")}>
-            Projects
-          </a>
-          <a href="#contact" onClick={(e) => handleSmoothScroll(e, "contact")}>
-            Contact
-          </a>
-=======
-
           <a href="#home" onClick={(e) => handleSmoothScroll(e, "home")}>Home</a>
           <a href="#about" onClick={(e) => handleSmoothScroll(e, "about")}>About</a>
           <a href="#projects" onClick={(e) => handleSmoothScroll(e, "projects")}>Projects</a>
           <Link to="/faq">FAQ</Link>
           <a href="#contact" onClick={(e) => handleSmoothScroll(e, "contact")}>Contact</a>
-
->>>>>>> c48ce3c (updated)
         </div>
 
         {/* Social profiles */}

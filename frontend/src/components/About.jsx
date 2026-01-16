@@ -204,25 +204,6 @@ const About = () => {
             </a>
           </div>
 
-<<<<<<< HEAD
-         <h3>Education</h3>
-<ul>
-  <li>
-    <b>Bachelor of Technology (B.Tech) in Aeronautical Engineering</b>
-    <br />
-    <a
-      href="https://jawaharlalcolleges.com/"
-      target="_blank"
-      rel="noopener noreferrer nofollow"
-      aria-label="Jawaharlal College Of Engineering and Technology official website"
-    >
-      Jawaharlal College Of Engineering and Technology
-    </a>{" "}
-    (2019–2023)
-  </li>
-</ul>
-
-=======
           <h3>Education</h3>
           <ul>
             <li>
@@ -239,31 +220,9 @@ const About = () => {
               (2019–2023)
             </li>
           </ul>
->>>>>>> c48ce3c (updated)
 
 
           <h3>Experience & Certifications</h3>
-<<<<<<< HEAD
-          <ul className="experience-list" style={{ listStyleType: 'none', padding: 0 }}>  
-            <li style={{ marginBottom: "15px" }}>
-  <div style={{ display: "flex", alignItems: "center", marginBottom: "5px" }}>
-    <i className="fas fa-briefcase" style={{ color: "#646cff", marginRight: "10px" }}></i>
-    <strong>MERN Stack Web Development Intern</strong>
-  </div>
-
-  <div style={{ marginLeft: "26px", color: "#000000ff" }}>
-    <a
-      href="https://futuralabs.in"
-      target="_blank"
-      rel="noopener noreferrer nofollow"
-      aria-label="Futura Labs Technologies LLP official website"
-    >
-      Futura Labs Technologies LLP
-    </a>{" "}
-    • Kochi, India
-  </div>
-</li>
-=======
           <ul className="experience-list" style={{ listStyleType: 'none', padding: 0 }}>
             <li style={{ marginBottom: "15px" }}>
               <div style={{ display: "flex", alignItems: "center", marginBottom: "5px" }}>
@@ -283,7 +242,6 @@ const About = () => {
                 • Kochi, India
               </div>
             </li>
->>>>>>> c48ce3c (updated)
 
             {/* Add other certifications here if suitable */}
           </ul>

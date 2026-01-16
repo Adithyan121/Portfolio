@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { motion, useScroll, useTransform, useMotionValue } from "framer-motion";
 import Typewriter from "typewriter-effect";
 import { FaReact, FaNodeJs } from "react-icons/fa";
 import { SiJavascript, SiMongodb } from "react-icons/si";
-
 import "../css/home.css";
 import Navbar from "../components/Navbar";
 import About from "../components/About";
@@ -25,22 +25,33 @@ const Home = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [mouseX, mouseY]);
 
-  // Mouse Parallax
+  // Mouse Parallax Transforms
   const shapeX = useTransform(mouseX, [0, window.innerWidth], [-20, 20]);
   const shapeY = useTransform(mouseY, [0, window.innerHeight], [-20, 20]);
   const iconX = useTransform(mouseX, [0, window.innerWidth], [-40, 40]);
+  const iconY = useTransform(mouseY, [0, window.innerHeight], [-40, 40]);
 
-  // Scroll Parallax
+  // Scroll Parallax Transforms
   const textY = useTransform(scrollY, [0, 500], [0, 200]);
   const yBlob1 = useTransform(scrollY, [0, 1000], [0, 400]);
   const yBlob2 = useTransform(scrollY, [0, 1000], [0, -300]);
 
+  // 3D Shapes Parallax (Scroll + Mouse)
+  const yShape1 = useTransform(scrollY, [0, 1000], [0, 200]);
+  const yShape2 = useTransform(scrollY, [0, 1000], [0, -200]);
+  const yShape3 = useTransform(scrollY, [0, 1000], [0, 150]);
+
+  // Floating Icons Parallax
+  const yIcon1 = useTransform(scrollY, [0, 800], [0, -400]);
+  const yIcon2 = useTransform(scrollY, [0, 800], [0, 300]);
+  const yIcon3 = useTransform(scrollY, [0, 800], [0, -200]);
+  const yIcon4 = useTransform(scrollY, [0, 800], [0, 250]);
+
+  // Particles
   const particles = Array.from({ length: 20 });
 
   return (
     <div className="home-wrapper">
-<<<<<<< HEAD
-=======
       <Helmet>
         <title>Adithyan G - MERN Stack Developer | React & Node.js Developer</title>
         <meta name="description" content="Looking for a MERN Stack Developer? I build scalable, high-performance web applications using React, Node.js, and MongoDB. Check out my portfolio and hire me today!" />
@@ -61,81 +72,96 @@ const Home = () => {
         <meta property="twitter:description" content="Explore the portfolio of Adithyan G, featuring premium web designs and full-stack applications." />
         <meta property="twitter:image" content="/nav.png" />
       </Helmet>
->>>>>>> c48ce3c (updated)
       <Navbar />
-
       <section id="home">
-        {/* Background blobs */}
+        {/* 1. Deep Background - Blobs */}
         <motion.div style={{ y: yBlob1, x: shapeX }} className="blob blob-1" />
-        <motion.div
-          style={{ y: yBlob2, x: useTransform(shapeX, (v) => -v) }}
-          className="blob blob-2"
-        />
+        <motion.div style={{ y: yBlob2, x: useTransform(shapeX, v => -v) }} className="blob blob-2" />
 
-        {/* Floating tech icons */}
-        <div className="floating-icons">
-          <motion.div style={{ x: iconX }} className="icon icon-react">
-            <FaReact />
-          </motion.div>
+        {/* 2. 3D CSS Shapes Layer */}
+        <div className="shapes-container">
           <motion.div
-            style={{ x: useTransform(iconX, (v) => -v) }}
-            className="icon icon-node"
-          >
-            <FaNodeJs />
-          </motion.div>
-          <motion.div style={{ x: iconX }} className="icon icon-js">
-            <SiJavascript />
-          </motion.div>
+            style={{ y: yShape1, x: shapeX, rotate: 45 }}
+            animate={{ rotate: [45, 90, 45] }}
+            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+            className="shape shape-cube"
+          />
           <motion.div
-            style={{ x: useTransform(iconX, (v) => -v) }}
-            className="icon icon-db"
-          >
-            <SiMongodb />
-          </motion.div>
+            style={{ y: yShape2, x: useTransform(shapeX, v => -v), rotate: -30 }}
+            animate={{ rotate: [-30, 0, -30] }}
+            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+            className="shape shape-triangle"
+          />
+          <motion.div
+            style={{ y: yShape3, x: shapeX, rotate: 90 }}
+            animate={{ rotate: [90, 180, 90] }}
+            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+            className="shape shape-ring"
+          />
+          {/* New Shape: Orb */}
+          <motion.div
+            style={{ y: yShape1, x: useTransform(shapeX, v => v * 1.5) }}
+            className="shape shape-orb"
+          />
         </div>
 
-<<<<<<< HEAD
-        {/* Main content */}
-        <motion.div
-=======
+        {/* 3. Mid Layer - Floating Tech Icons */}
+        <div className="floating-icons">
+          <motion.div style={{ y: yIcon1, x: iconX }} className="icon icon-react"><FaReact /></motion.div>
+          <motion.div style={{ y: yIcon2, x: useTransform(iconX, v => -v) }} className="icon icon-node"><FaNodeJs /></motion.div>
+          <motion.div style={{ y: yIcon3, x: iconX }} className="icon icon-js"><SiJavascript /></motion.div>
+          <motion.div style={{ y: yIcon4, x: useTransform(iconX, v => -v) }} className="icon icon-db"><SiMongodb /></motion.div>
+        </div>
+
         {/* 4. Foreground - Main Content */}
         {/* <motion.div
->>>>>>> c48ce3c (updated)
           className="content"
           style={{ y: textY }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, ease: "easeOut" }}
         >
-          <h3>Hello, I am</h3>
+          <motion.h3
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            Hello, I am
+          </motion.h3>
 
-          <h1>
-  Adithyan G
-</h1>
+          <motion.h1
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
+          >
+            Adithyan G
+            <span style={{ fontSize: '0.5em', display: 'block', marginTop: '10px' }}>MERN Stack Developer</span>
+          </motion.h1>
 
-          <div className="typewriter-container">
+          <motion.div
+            className="typewriter-container"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+          >
             <Typewriter
               options={{
                 strings: [
-                  "MERN Stack Developer",
-                  "React Developer",
-                  "Node.js Developer",
-                  "Full Stack Developer",
-                  "JavaScript Developer",
+                  'MERN Stack Developer',
+                  'React Developer',
+                  'Node.js Developer',
+                  'Full Stack Developer',
+                  'JavaScript Developer',
+                  'Frontend Developer'
                 ],
                 autoStart: true,
                 loop: true,
+                wrapperClassName: "typing-text",
+                cursorClassName: "typing-cursor",
               }}
             />
-          </div>
+          </motion.div>
 
-<<<<<<< HEAD
-          <p className="hero-description" style={{ display: "none" }} >
-  Adithyan G is a <b>MERN Stack Developer based in Kerala, India</b>, specializing
-  in React, Node.js, MongoDB, and Express. I build fast, scalable web applications
-  and I am open to entry-level roles and freelance projects.
-</p>
-=======
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -186,10 +212,9 @@ const Home = () => {
             in React, Node.js, MongoDB, and Express. I build fast, scalable web applications
             and I am open to entry-level roles and freelance projects.
           </p>
->>>>>>> c48ce3c (updated)
         </motion.div>
 
-        {/* Particles */}
+        {/* 5. Overlay - Particles */}
         {particles.map((_, i) => (
           <motion.div
             key={i}
@@ -197,25 +222,37 @@ const Home = () => {
             initial={{
               x: Math.random() * window.innerWidth,
               y: Math.random() * window.innerHeight,
-              opacity: 0,
+              opacity: 0
             }}
             animate={{
               y: [null, Math.random() * -100],
-              opacity: [0.1, 0.4, 0],
+              opacity: [0.1, 0.4, 0]
             }}
             transition={{
               duration: Math.random() * 5 + 5,
               repeat: Infinity,
-              ease: "linear",
+              ease: "linear"
+            }}
+            style={{
+              width: Math.random() * 8 + 4,
+              height: Math.random() * 8 + 4,
             }}
           />
         ))}
-      </section>
 
+        {/* Scroll Indicator */}
+        <motion.div
+          className="scroll-indicator"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 2 }}
+        >
+          <span>Scroll Down</span>
+          <i className="fas fa-chevron-down"></i>
+        </motion.div>
+      </section>
       <section id="about">
         <About />
       </section>
-
       <section id="projects">
         <Projects />
       </section>
@@ -223,18 +260,6 @@ const Home = () => {
       <section id="contact">
         <Contact />
       </section>
-
-      {/* 🔑 Hidden SEO text (VERY IMPORTANT) */}
-      <section style={{ display: "none" }}>
-        <h2>Adithyan G – MERN Stack Developer in Kerala, India</h2>
-        <p>
-          Adithyan G is a MERN Stack Developer specializing in React, Node.js,
-          MongoDB, and Express. He builds scalable full-stack web applications and
-          is open to entry-level software developer roles and freelance web
-          development projects.
-        </p>
-      </section>
-
       <Footer />
     </div>
   );
