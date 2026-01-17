@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import "../css/about.css";
 import api from "../assets/api";
+import { useNotification } from "../context/NotificationContext";
 
 const About = () => {
   const [profileImage, setProfileImage] = useState("");
@@ -12,6 +13,8 @@ const About = () => {
   const [showModal, setShowModal] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const [sending, setSending] = useState(false);
+
+  const notify = useNotification();
 
   // Mouse Parallax Logic
   const mouseX = useMotionValue(0);
@@ -62,6 +65,18 @@ const About = () => {
   const handleEmailSubmit = (e) => {
     e.preventDefault();
     if (!userEmail) return;
+
+    // Check for missing environment variables
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID2;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      console.error("Missing EmailJS environment variables. Please check your hosting configuration.");
+      notify.error("Configuration Error: Email sending service is not properly configured.");
+      return;
+    }
+
     setSending(true);
 
     // Styled HTML Email Content
@@ -94,21 +109,25 @@ const About = () => {
 
     import('@emailjs/browser').then(({ default: emailjs }) => {
       emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID2,
+        serviceId,
+        templateId,
         templateParams,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        publicKey
       ).then(() => {
-        alert(`Resume has been sent to ${userEmail}!`);
+        notify.success(`Resume has been sent to ${userEmail}!`);
         setShowModal(false);
         setSending(false);
         setUserEmail("");
       }).catch((err) => {
         console.error("EmailJS Error:", err);
-        alert("Failed to send email. Downloading file directly instead.");
+        notify.error(`Failed to send email: ${err.text || "Unknown error"}. Downloading file directly instead.`);
         setSending(false);
         // Fallback functionality
-        window.open(resumeUrl, '_blank');
+        if (resumeUrl) {
+          window.open(resumeUrl, '_blank');
+        } else {
+          notify.error("Resume URL not found.");
+        }
       });
     });
   };
