@@ -10,10 +10,13 @@ const blogSchema = new mongoose.Schema({
     slug: { type: String, unique: true },
     keywords: [String],
     likes: { type: Number, default: 0 },
+    views: { type: Number, default: 0 },
     comments: [{
         user: String,
         comment: String,
-        date: { type: Date, default: Date.now }
+        image: String,
+        date: { type: Date, default: Date.now },
+        hidden: { type: Boolean, default: false }
     }]
 });
 

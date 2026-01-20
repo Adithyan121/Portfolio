@@ -22,7 +22,7 @@ exports.getBlogById = async (req, res) => {
         } else {
             query = { slug: id };
         }
-        const blog = await Blog.findOne(query);
+        const blog = await Blog.findOneAndUpdate(query, { $inc: { views: 1 } }, { new: true });
         if (!blog) return res.status(404).json({ error: "Blog not found" });
         res.set('Cache-Control', 'no-store');
         res.json(blog);
@@ -65,8 +65,9 @@ exports.createBlog = async (req, res) => {
 
 exports.updateBlog = async (req, res) => {
     try {
-        const { title, summary, platform, externalLink, keywords } = req.body;
+        const { title, summary, platform, externalLink, keywords, likes } = req.body;
         let updateData = { title, summary, platform, externalLink };
+        if (likes !== undefined) updateData.likes = likes;
 
         if (keywords) {
             if (typeof keywords === 'string') {
@@ -116,15 +117,47 @@ exports.likeBlog = async (req, res) => {
 exports.commentBlog = async (req, res) => {
     try {
         const { id } = req.params;
-        const { user, comment } = req.body;
+        const { user, comment, image } = req.body;
         const blog = await Blog.findByIdAndUpdate(
             id,
-            { $push: { comments: { user, comment } } },
+            { $push: { comments: { user, comment, image } } },
             { new: true }
         );
         if (!blog) return res.status(404).json({ error: "Blog not found" });
         res.json(blog);
     } catch (error) {
         res.status(500).json({ error: "Failed to comment on blog" });
+    }
+};
+
+exports.deleteBlogComment = async (req, res) => {
+    try {
+        const { id, commentId } = req.params;
+        const blog = await Blog.findByIdAndUpdate(
+            id,
+            { $pull: { comments: { _id: commentId } } },
+            { new: true }
+        );
+        if (!blog) return res.status(404).json({ error: "Blog or comment not found" });
+        res.json(blog);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to delete comment" });
+    }
+};
+
+exports.toggleBlogCommentVisibility = async (req, res) => {
+    try {
+        const { id, commentId } = req.params;
+        const blog = await Blog.findById(id);
+        if (!blog) return res.status(404).json({ error: "Blog not found" });
+
+        const comment = blog.comments.id(commentId);
+        if (!comment) return res.status(404).json({ error: "Comment not found" });
+
+        comment.hidden = !comment.hidden;
+        await blog.save();
+        res.json(blog);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to toggle comment visibility" });
     }
 };

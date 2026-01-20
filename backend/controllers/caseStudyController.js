@@ -22,7 +22,7 @@ exports.getCaseStudyById = async (req, res) => {
         } else {
             query = { slug: id };
         }
-        const caseStudy = await CaseStudy.findOne(query);
+        const caseStudy = await CaseStudy.findOneAndUpdate(query, { $inc: { views: 1 } }, { new: true });
         if (!caseStudy) return res.status(404).json({ error: "Case Study not found" });
         res.set('Cache-Control', 'no-store');
         res.json(caseStudy);
@@ -72,8 +72,9 @@ exports.createCaseStudy = async (req, res) => {
 
 exports.updateCaseStudy = async (req, res) => {
     try {
-        const { title, client, overview, challenge, solution, results, technologies, link, keywords } = req.body;
+        const { title, client, overview, challenge, solution, results, technologies, link, keywords, likes } = req.body;
         let updateData = { title, client, overview, challenge, solution, results, link };
+        if (likes !== undefined) updateData.likes = likes;
 
         // Helper to robustly parse JSON or split string
         const parseArray = (data) => {
@@ -126,15 +127,47 @@ exports.likeCaseStudy = async (req, res) => {
 exports.commentCaseStudy = async (req, res) => {
     try {
         const { id } = req.params;
-        const { user, comment } = req.body;
+        const { user, comment, image } = req.body;
         const caseStudy = await CaseStudy.findByIdAndUpdate(
             id,
-            { $push: { comments: { user, comment } } },
+            { $push: { comments: { user, comment, image } } },
             { new: true }
         );
         if (!caseStudy) return res.status(404).json({ error: "Case Study not found" });
         res.json(caseStudy);
     } catch (error) {
         res.status(500).json({ error: "Failed to comment on case study" });
+    }
+};
+
+exports.deleteCaseStudyComment = async (req, res) => {
+    try {
+        const { id, commentId } = req.params;
+        const caseStudy = await CaseStudy.findByIdAndUpdate(
+            id,
+            { $pull: { comments: { _id: commentId } } },
+            { new: true }
+        );
+        if (!caseStudy) return res.status(404).json({ error: "Case Study or comment not found" });
+        res.json(caseStudy);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to delete comment" });
+    }
+};
+
+exports.toggleCaseStudyCommentVisibility = async (req, res) => {
+    try {
+        const { id, commentId } = req.params;
+        const caseStudy = await CaseStudy.findById(id);
+        if (!caseStudy) return res.status(404).json({ error: "Case Study not found" });
+
+        const comment = caseStudy.comments.id(commentId);
+        if (!comment) return res.status(404).json({ error: "Comment not found" });
+
+        comment.hidden = !comment.hidden;
+        await caseStudy.save();
+        res.json(caseStudy);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to toggle comment visibility" });
     }
 };

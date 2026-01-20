@@ -35,20 +35,50 @@ const Admin = () => {
   // Blogs State
   const [blogs, setBlogs] = useState([]);
   const [blogFormData, setBlogFormData] = useState({
-    title: "", summary: "", platform: "", externalLink: "", keywords: "", image: null
+    title: "", summary: "", platform: "", externalLink: "", keywords: "", likes: 0, image: null
   });
   const [blogEditMode, setBlogEditMode] = useState(false);
   const [blogEditId, setBlogEditId] = useState(null);
   const [blogImagePreview, setBlogImagePreview] = useState(null);
 
+
+
+
+
   // Case Studies State
   const [caseStudies, setCaseStudies] = useState([]);
   const [csFormData, setCsFormData] = useState({
-    title: "", overview: "", challenge: "", myRole: "", solution: "", results: "", image: null
+    title: "", overview: "", challenge: "", myRole: "", solution: "", results: "", likes: 0, image: null
   });
   const [csEditMode, setCsEditMode] = useState(false);
   const [csEditId, setCsEditId] = useState(null);
   const [csImagePreview, setCsImagePreview] = useState(null);
+
+  const [viewComments, setViewComments] = useState(null);
+
+  const handleDeleteComment = async (parentId, commentId, type) => {
+    if (!window.confirm("Are you sure you want to delete this comment?")) return;
+    try {
+      await api.delete(`/${type}/${parentId}/comment/${commentId}`);
+      alert("Comment deleted");
+      if (type === 'blogs') fetchBlogs();
+      else fetchCaseStudies();
+    } catch (error) {
+      console.error("Error deleting comment", error);
+      alert("Failed to delete comment");
+    }
+  };
+
+  const handleToggleCommentVisibility = async (parentId, commentId, type) => {
+    try {
+      await api.put(`/${type}/${parentId}/comment/${commentId}/toggle`);
+      if (type === 'blogs') fetchBlogs();
+      else fetchCaseStudies();
+    } catch (error) {
+      console.error("Error toggling comment", error);
+      alert("Failed to toggle visibility");
+    }
+  };
 
   useEffect(() => {
     fetchProjects();
@@ -665,6 +695,7 @@ const Admin = () => {
             <input type="text" name="platform" placeholder="Platform (Medium, Dev.to)" value={blogFormData.platform} onChange={handleBlogInputChange} required />
             <input type="text" name="externalLink" placeholder="Link to Article" value={blogFormData.externalLink} onChange={handleBlogInputChange} required />
             <input type="text" name="keywords" placeholder="Keywords (SEO) [JSON Array]" value={blogFormData.keywords} onChange={handleBlogInputChange} />
+            <input type="number" name="likes" placeholder="Likes Count" value={blogFormData.likes} onChange={handleBlogInputChange} style={{ marginTop: '10px' }} />
 
             <div className="file-upload-container">
               <input type="file" accept="image/*" onChange={handleBlogFileChange} hidden id="blogFile" />
@@ -679,11 +710,43 @@ const Admin = () => {
               <div key={b._id} className="project-item">
                 <img src={b.image} alt={b.title} />
                 <h3>{b.title}</h3>
+                <p>Views: {b.views || 0}</p>
                 <p>{b.platform}</p>
                 <div className="buttons">
                   <button className="edit-btn" onClick={() => handleBlogEdit(b)}>Edit</button>
                   <button className="delete-btn" onClick={() => handleBlogDelete(b._id)}>Delete</button>
+                  <button className="view-btn" onClick={() => setViewComments(viewComments === b._id ? null : b._id)}>
+                    {viewComments === b._id ? "Close Comments" : `Comments (${b.comments?.length || 0})`}
+                  </button>
                 </div>
+
+                {viewComments === b._id && (
+                  <div className="comments-manager" style={{ marginTop: '15px', padding: '10px', background: '#f9f9f9', borderRadius: '5px' }}>
+                    <h4>Manage Comments</h4>
+                    {b.comments && b.comments.length > 0 ? (
+                      <ul style={{ listStyle: 'none', padding: 0 }}>
+                        {b.comments.map(c => (
+                          <li key={c._id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px', borderBottom: '1px solid #eee', background: c.hidden ? '#ffecec' : '#fff' }}>
+                            <div>
+                              <strong>{c.user}</strong>: {c.comment} <br />
+                              <small style={{ color: '#888' }}>{new Date(c.date).toLocaleDateString()} - {c.hidden ? "Hidden" : "Visible"}</small>
+                            </div>
+                            <div style={{ display: 'flex', gap: '5px' }}>
+                              <button onClick={() => handleToggleCommentVisibility(b._id, c._id, 'blogs')} style={{ fontSize: '0.8rem', padding: '5px' }}>
+                                {c.hidden ? "Unhide" : "Hide"}
+                              </button>
+                              <button onClick={() => handleDeleteComment(b._id, c._id, 'blogs')} style={{ fontSize: '0.8rem', padding: '5px', background: 'red', color: 'white' }}>
+                                Delete
+                              </button>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p>No comments yet.</p>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -700,6 +763,7 @@ const Admin = () => {
             <textarea name="myRole" placeholder="My Role / Contributions" value={csFormData.myRole} onChange={handleCsInputChange} />
             <textarea name="solution" placeholder="The Solution" value={csFormData.solution} onChange={handleCsInputChange} />
             <textarea name="results" placeholder="Results" value={csFormData.results} onChange={handleCsInputChange} />
+            <input type="number" name="likes" placeholder="Likes Count" value={csFormData.likes} onChange={handleCsInputChange} style={{ marginTop: '10px' }} />
 
             <div className="file-upload-container">
               <input type="file" accept="image/*" onChange={handleCsFileChange} hidden id="csFile" />
@@ -714,10 +778,42 @@ const Admin = () => {
               <div key={c._id} className="project-item">
                 <img src={c.image} alt={c.title} />
                 <h3>{c.title}</h3>
+                <p>Views: {c.views || 0}</p>
                 <div className="buttons">
                   <button className="edit-btn" onClick={() => handleCsEdit(c)}>Edit</button>
                   <button className="delete-btn" onClick={() => handleCsDelete(c._id)}>Delete</button>
+                  <button className="view-btn" onClick={() => setViewComments(viewComments === c._id ? null : c._id)}>
+                    {viewComments === c._id ? "Close Comments" : `Comments (${c.comments?.length || 0})`}
+                  </button>
                 </div>
+
+                {viewComments === c._id && (
+                  <div className="comments-manager" style={{ marginTop: '15px', padding: '10px', background: '#f9f9f9', borderRadius: '5px' }}>
+                    <h4>Manage Comments</h4>
+                    {c.comments && c.comments.length > 0 ? (
+                      <ul style={{ listStyle: 'none', padding: 0 }}>
+                        {c.comments.map(comment => (
+                          <li key={comment._id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px', borderBottom: '1px solid #eee', background: comment.hidden ? '#ffecec' : '#fff' }}>
+                            <div>
+                              <strong>{comment.user}</strong>: {comment.comment} <br />
+                              <small style={{ color: '#888' }}>{new Date(comment.date).toLocaleDateString()} - {comment.hidden ? "Hidden" : "Visible"}</small>
+                            </div>
+                            <div style={{ display: 'flex', gap: '5px' }}>
+                              <button onClick={() => handleToggleCommentVisibility(c._id, comment._id, 'casestudies')} style={{ fontSize: '0.8rem', padding: '5px' }}>
+                                {comment.hidden ? "Unhide" : "Hide"}
+                              </button>
+                              <button onClick={() => handleDeleteComment(c._id, comment._id, 'casestudies')} style={{ fontSize: '0.8rem', padding: '5px', background: 'red', color: 'white' }}>
+                                Delete
+                              </button>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p>No comments yet.</p>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>
