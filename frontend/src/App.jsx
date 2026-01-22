@@ -60,12 +60,12 @@ function App() {
             <Route path="/verify" element={<Verify />} />
             <Route path="/faq" element={<FAQ />} />
 
-            {/* <Route path="/admin" element={
+            <Route path="/admin" element={
             <ProtectedRoute>
               <Admin />
             </ProtectedRoute>
-          } /> */}
-            <Route path="/admin" element={<Admin />} />
+          } /> 
+            {/* <Route path="/admin" element={<Admin />} />*/}
           </Routes>
         </Suspense>
       </NotificationProvider>
