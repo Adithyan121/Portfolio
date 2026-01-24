@@ -24,14 +24,6 @@ const Footer = () => {
             MERN Stack Developer | Full Stack Web Developer
           </p>
           <p className="footer-location">Kerala, India</p>
-
-          {/* Plain text link helps Google */}
-          <p className="footer-website">
-            Portfolio:{" "}
-            <a href="https://adithyan-phi.vercel.app">
-              https://adithyan-phi.vercel.app
-            </a>
-          </p>
         </div>
 
         {/* Internal navigation */}

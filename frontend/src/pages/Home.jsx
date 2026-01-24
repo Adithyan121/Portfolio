@@ -11,8 +11,27 @@ import Projects from "../components/Projects";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 
+import { useLocation } from "react-router-dom";
+
 const Home = () => {
   const { scrollY } = useScroll();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const targetId = location.hash.replace("#", "");
+      setTimeout(() => {
+        const section = document.getElementById(targetId);
+        if (section) {
+          window.scrollTo({
+            top: section.offsetTop - 60,
+            behavior: "smooth",
+          });
+        }
+      }, 100);
+    }
+  }, [location]);
+
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 

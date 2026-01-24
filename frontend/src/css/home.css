@@ -90,6 +90,7 @@ h3 {
   justify-content: center;
   align-items: center;
   gap: 5px;
+  color: #06b6d4;
 }
 
 .typing-text {
@@ -141,6 +142,7 @@ h3 {
   .typewriter-container {
     font-size: 1.1rem;
     flex-wrap: wrap;
+    color: #06b6d4;
   }
 }
 
@@ -160,8 +162,8 @@ h3 {
   position: absolute;
   font-size: 3rem;
   color: var(--accent-color);
-  opacity: 0.15;
-  filter: blur(1px);
+  opacity: 0.8;
+  filter: none;
 }
 
 .icon-react {
@@ -229,8 +231,8 @@ h3 {
 
 .shape {
   position: absolute;
-  opacity: 0.25;
-  filter: blur(2px);
+  opacity: 0.5;
+  filter: blur(1px);
 }
 
 /* Glassy Cube */
