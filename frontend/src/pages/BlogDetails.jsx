@@ -91,6 +91,7 @@ const BlogDetails = () => {
                         type="Blog"
                         onLike={handleLike}
                         onComment={handleComment}
+                        shareUrl={`https://adithyan-phi.vercel.app/blogs/${blog.slug || blog._id}`}
                     />
 
                 </div>

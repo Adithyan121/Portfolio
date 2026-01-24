@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/admin.css";
 import api from '../assets/api';
+import { useNotification } from "../context/NotificationContext";
+
 const Admin = () => {
+  const { notify } = useNotification();
   const [projects, setProjects] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
@@ -41,10 +44,6 @@ const Admin = () => {
   const [blogEditId, setBlogEditId] = useState(null);
   const [blogImagePreview, setBlogImagePreview] = useState(null);
 
-
-
-
-
   // Case Studies State
   const [caseStudies, setCaseStudies] = useState([]);
   const [csFormData, setCsFormData] = useState({
@@ -60,23 +59,24 @@ const Admin = () => {
     if (!window.confirm("Are you sure you want to delete this comment?")) return;
     try {
       await api.delete(`/${type}/${parentId}/comment/${commentId}`);
-      alert("Comment deleted");
+      notify.success("Comment deleted");
       if (type === 'blogs') fetchBlogs();
       else fetchCaseStudies();
     } catch (error) {
       console.error("Error deleting comment", error);
-      alert("Failed to delete comment");
+      notify.error("Failed to delete comment");
     }
   };
 
   const handleToggleCommentVisibility = async (parentId, commentId, type) => {
     try {
       await api.put(`/${type}/${parentId}/comment/${commentId}/toggle`);
+      notify.info("Comment visibility toggled");
       if (type === 'blogs') fetchBlogs();
       else fetchCaseStudies();
     } catch (error) {
       console.error("Error toggling comment", error);
-      alert("Failed to toggle visibility");
+      notify.error("Failed to toggle visibility");
     }
   };
 
@@ -135,10 +135,6 @@ const Admin = () => {
     }
   };
 
-
-
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -164,12 +160,12 @@ const Admin = () => {
         await api.put(`/projects/${editId}`, form, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-        alert("Project updated successfully!");
+        notify.success("Project updated successfully!");
       } else {
         await api.post("/projects", form, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-        alert("Project added successfully!");
+        notify.success("Project added successfully!");
       }
 
       fetchProjects();
@@ -189,6 +185,7 @@ const Admin = () => {
       });
     } catch (error) {
       console.error("Error saving project", error);
+      notify.error("Error saving project");
     } finally {
       setLoading(false);
     }
@@ -216,12 +213,14 @@ const Admin = () => {
   };
 
   const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this project?")) return;
     try {
       await api.delete(`/projects/${id}`);
-      alert("Project deleted successfully!");
+      notify.success("Project deleted successfully!");
       fetchProjects();
     } catch (error) {
       console.error("Error deleting project", error);
+      notify.error("Error deleting project");
     }
   };
 
@@ -259,9 +258,10 @@ const Admin = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setProfileImage(res.data.imageUrl);
-      alert("Profile image updated!");
+      notify.success("Profile image updated!");
     } catch (error) {
       console.error("Error updating profile image", error);
+      notify.error("Error updating profile image");
     } finally {
       setLoading(false);
     }
@@ -272,9 +272,10 @@ const Admin = () => {
     try {
       await api.delete("/profile");
       setProfileImage(null);
-      alert("Profile image deleted!");
+      notify.success("Profile image deleted!");
     } catch (error) {
       console.error("Error deleting profile image", error);
+      notify.error("Error deleting profile image");
     }
   };
 
@@ -284,9 +285,10 @@ const Admin = () => {
       const res = await api.post("/skills", newSkill);
       setSkills([...skills, res.data.skill]);
       setNewSkill({ name: "", category: "", proficiency: "" });
-      alert("Skill added successfully!");
+      notify.success("Skill added successfully!");
     } catch (error) {
       console.error("Error adding skill", error);
+      notify.error("Error adding skill");
     }
   };
 
@@ -295,9 +297,10 @@ const Admin = () => {
     try {
       await api.delete(`/skills/${id}`);
       setSkills(skills.filter((skill) => skill._id !== id));
-      alert("Skill deleted successfully!");
+      notify.success("Skill deleted successfully!");
     } catch (error) {
       console.error("Error deleting skill", error);
+      notify.error("Error deleting skill");
     }
   };
 
@@ -308,7 +311,7 @@ const Admin = () => {
 
     // Check if file is PDF
     if (file.type !== 'application/pdf') {
-      alert('Please upload a PDF file');
+      notify.warning('Please upload a PDF file');
       return;
     }
 
@@ -320,10 +323,10 @@ const Admin = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setResumeUrl(res.data.resumeUrl);
-      alert("Resume updated successfully!");
+      notify.success("Resume updated successfully!");
     } catch (error) {
       console.error("Error uploading resume:", error);
-      alert("Error uploading resume. Please try again.");
+      notify.error("Error uploading resume. Please try again.");
     }
   };
 
@@ -352,16 +355,16 @@ const Admin = () => {
     try {
       if (blogEditMode) {
         await api.put(`/blogs/${blogEditId}`, form, { headers: { "Content-Type": "multipart/form-data" } });
-        alert("Blog updated!");
+        notify.success("Blog updated!");
       } else {
         await api.post("/blogs", form, { headers: { "Content-Type": "multipart/form-data" } });
-        alert("Blog added!");
+        notify.success("Blog added!");
       }
       fetchBlogs();
       setBlogEditMode(false);
       setBlogImagePreview(null);
       setBlogFormData({ title: "", summary: "", platform: "", externalLink: "", keywords: "", image: null });
-    } catch (err) { console.error(err); alert("Error saving blog"); } finally { setLoading(false); }
+    } catch (err) { console.error(err); notify.error("Error saving blog"); } finally { setLoading(false); }
   };
   const handleBlogEdit = (blog) => {
     setBlogFormData({ ...blog, image: null, keywords: JSON.stringify(blog.keywords || []) });
@@ -371,7 +374,7 @@ const Admin = () => {
   };
   const handleBlogDelete = async (id) => {
     if (!window.confirm("Delete this blog?")) return;
-    try { await api.delete(`/blogs/${id}`); fetchBlogs(); } catch (err) { console.error(err); }
+    try { await api.delete(`/blogs/${id}`); fetchBlogs(); notify.success('Blog deleted'); } catch (err) { console.error(err); notify.error('Failed to delete blog'); }
   };
 
 
@@ -399,16 +402,16 @@ const Admin = () => {
     try {
       if (csEditMode) {
         await api.put(`/casestudies/${csEditId}`, form, { headers: { "Content-Type": "multipart/form-data" } });
-        alert("Case Study updated!");
+        notify.success("Case Study updated!");
       } else {
         await api.post("/casestudies", form, { headers: { "Content-Type": "multipart/form-data" } });
-        alert("Case Study added!");
+        notify.success("Case Study added!");
       }
       fetchCaseStudies();
       setCsEditMode(false);
       setCsImagePreview(null);
       setCsFormData({ title: "", overview: "", challenge: "", myRole: "", solution: "", results: "", image: null });
-    } catch (err) { console.error(err); alert("Error saving case study"); } finally { setLoading(false); }
+    } catch (err) { console.error(err); notify.error("Error saving case study"); } finally { setLoading(false); }
   };
   const handleCsEdit = (cs) => {
     setCsFormData({
@@ -422,7 +425,14 @@ const Admin = () => {
   };
   const handleCsDelete = async (id) => {
     if (!window.confirm("Delete this case study?")) return;
-    try { await api.delete(`/casestudies/${id}`); fetchCaseStudies(); } catch (err) { console.error(err); }
+    try {
+      await api.delete(`/casestudies/${id}`);
+      fetchCaseStudies();
+      notify.success('Case study deleted');
+    } catch (err) {
+      console.error(err);
+      notify.error('Failed to delete case study');
+    }
   };
 
   return (

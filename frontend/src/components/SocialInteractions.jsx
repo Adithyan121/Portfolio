@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
-import { FaHeart, FaRegHeart, FaShareAlt, FaComment } from 'react-icons/fa';
+import { FaHeart, FaRegHeart, FaShareAlt, FaComment, FaWhatsapp, FaLinkedin, FaTwitter, FaCopy, FaTimes } from 'react-icons/fa';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
 import emailjs from '@emailjs/browser';
 import '../css/social.css';
+import { useNotification } from '../context/NotificationContext';
 
-const SocialInteractions = ({ item, type, onLike, onComment }) => {
+const SocialInteractions = ({ item, type, onLike, onComment, shareUrl }) => {
+    const { notify } = useNotification();
     const [likes, setLikes] = useState(item.likes || 0);
     const [liked, setLiked] = useState(false);
     const [comments, setComments] = useState(item.comments || []);
     const [showComments, setShowComments] = useState(false);
     const [newComment, setNewComment] = useState({ user: '', comment: '' });
     const [submitting, setSubmitting] = useState(false);
+    const [showShareModal, setShowShareModal] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
 
     // Effect to check if this item has been liked in local storage
@@ -33,22 +36,33 @@ const SocialInteractions = ({ item, type, onLike, onComment }) => {
         await onLike(item._id);
     };
 
-    const handleShare = async () => {
-        const url = window.location.href;
-        if (navigator.share) {
-            try {
-                await navigator.share({
-                    title: item.title,
-                    text: `Check out this ${type}: ${item.title}`,
-                    url: url,
-                });
-            } catch (err) {
-                console.log('Error sharing', err);
-            }
-        } else {
-            navigator.clipboard.writeText(url);
-            alert('Link copied to clipboard!');
-        }
+    const finalShareUrl = shareUrl || (typeof window !== 'undefined' ? window.location.href : '');
+
+    const handleShare = () => {
+        setShowShareModal(true);
+    };
+
+    const copyLink = () => {
+        navigator.clipboard.writeText(finalShareUrl);
+        notify.success('Link copied to clipboard!');
+        setShowShareModal(false);
+    };
+
+    const shareToWA = () => {
+        const text = `Check out this ${type}: ${item.title}`;
+        window.open(`https://wa.me/?text=${encodeURIComponent(text)}%20${encodeURIComponent(finalShareUrl)}`, '_blank');
+        setShowShareModal(false);
+    };
+
+    const shareToLI = () => {
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(finalShareUrl)}`, '_blank');
+        setShowShareModal(false);
+    };
+
+    const shareToTwitter = () => {
+        const text = `Check out this ${type}: ${item.title}`;
+        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(finalShareUrl)}`, '_blank');
+        setShowShareModal(false);
     };
 
     React.useEffect(() => {
@@ -71,11 +85,12 @@ const SocialInteractions = ({ item, type, onLike, onComment }) => {
         setCurrentUser(user);
         sessionStorage.setItem('google_user', JSON.stringify(user));
         setNewComment(prev => ({ ...prev, user: decoded.name }));
+        notify.success(`Welcome, ${decoded.name}!`);
     };
 
     const handleGoogleError = () => {
         console.log('Login Failed');
-        alert("Google Login Failed");
+        notify.error("Google Login Failed");
     };
 
     const sendThankYouEmail = (userEmail, userName, userComment) => {
@@ -120,9 +135,10 @@ const SocialInteractions = ({ item, type, onLike, onComment }) => {
             }
 
             setNewComment({ user: currentUser ? currentUser.name : '', comment: '' });
+            notify.success('Comment posted successfully!');
         } catch (err) {
             console.error(err);
-            alert('Failed to post comment');
+            notify.error('Failed to post comment');
         } finally {
             setSubmitting(false);
         }
@@ -218,6 +234,35 @@ const SocialInteractions = ({ item, type, onLike, onComment }) => {
                         )}
                     </div>
 
+                </div>
+            )}
+
+            {showShareModal && (
+                <div className="share-overlay" onClick={() => setShowShareModal(false)}>
+                    <div className="share-modal" onClick={(e) => e.stopPropagation()}>
+                        <button className="close-share" onClick={() => setShowShareModal(false)}>
+                            <FaTimes />
+                        </button>
+                        <h3>Share this {type}</h3>
+                        <div className="share-options">
+                            <div className="share-option-btn share-wa" onClick={shareToWA}>
+                                <FaWhatsapp />
+                                <span>WhatsApp</span>
+                            </div>
+                            <div className="share-option-btn share-li" onClick={shareToLI}>
+                                <FaLinkedin />
+                                <span>LinkedIn</span>
+                            </div>
+                            <div className="share-option-btn share-tw" onClick={shareToTwitter}>
+                                <FaTwitter />
+                                <span>Twitter</span>
+                            </div>
+                            <div className="share-option-btn share-copy" onClick={copyLink}>
+                                <FaCopy />
+                                <span>Copy Link</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             )}
         </div>

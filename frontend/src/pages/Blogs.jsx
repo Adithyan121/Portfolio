@@ -5,9 +5,11 @@ import Footer from "../components/Footer";
 import api from "../assets/api";
 import '../css/blogs.css';
 import { motion } from "framer-motion";
-import { FaMedium, FaDev, FaExternalLinkAlt } from "react-icons/fa";
+import { FaMedium, FaDev, FaExternalLinkAlt, FaShareAlt } from "react-icons/fa";
+import { useNotification } from "../context/NotificationContext";
 
 const Blogs = () => {
+    const { notify } = useNotification();
     const [blogs, setBlogs] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -27,6 +29,13 @@ const Blogs = () => {
         if (platform?.toLowerCase().includes('medium')) return <FaMedium />;
         if (platform?.toLowerCase().includes('dev')) return <FaDev />;
         return <FaExternalLinkAlt />;
+    };
+
+    const handleCopyLink = (e, blog) => {
+        e.stopPropagation();
+        const link = `https://adithyan-phi.vercel.app/blogs/${blog.slug || blog._id}`;
+        navigator.clipboard.writeText(link);
+        notify.success("Link copied to clipboard!");
     };
 
     return (
@@ -63,7 +72,7 @@ const Blogs = () => {
                                 onClick={() => window.location.href = `/blogs/${blog.slug || blog._id}`}
                                 className="blog-card"
                                 key={blog._id}
-                                style={{ cursor: 'pointer' }}
+                                style={{ cursor: 'pointer', position: 'relative' }}
                                 whileHover={{ y: -5 }}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -74,6 +83,29 @@ const Blogs = () => {
                                     <div className="platform-badge">
                                         {getPlatformIcon(blog.platform)} {blog.platform}
                                     </div>
+                                    <button
+                                        className="share-icon-btn"
+                                        onClick={(e) => handleCopyLink(e, blog)}
+                                        title="Copy Link"
+                                        style={{
+                                            position: 'absolute',
+                                            top: '10px',
+                                            right: '10px',
+                                            background: 'rgba(255, 255, 255, 0.9)',
+                                            border: 'none',
+                                            borderRadius: '50%',
+                                            padding: '8px',
+                                            cursor: 'pointer',
+                                            boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+                                            zIndex: 10,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            color: '#333'
+                                        }}
+                                    >
+                                        <FaShareAlt />
+                                    </button>
                                 </div>
                                 <div className="blog-content">
                                     <h3 className="blog-title">{blog.title}</h3>

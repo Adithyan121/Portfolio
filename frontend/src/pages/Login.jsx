@@ -5,7 +5,10 @@ import { useNavigate } from "react-router-dom";
 import "../css/login.css";
 import api from "../assets/api"
 
+import { useNotification } from "../context/NotificationContext";
+
 const Login = () => {
+  const { notify } = useNotification();
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -16,6 +19,7 @@ const Login = () => {
 
     if (!userId || !password) {
       setError("Please enter both User ID and Password");
+      notify.warning("Please enter both User ID and Password");
       return;
     }
 
@@ -25,12 +29,17 @@ const Login = () => {
       if (response.data.success) {
         localStorage.setItem("isAuthenticated", "true"); // Direct auth
         localStorage.setItem("userId", userId);
+        notify.success("Login successful!");
         navigate("/admin");
       } else {
-        setError(response.data.error || "Invalid credentials");
+        const msg = response.data.error || "Invalid credentials";
+        setError(msg);
+        notify.error(msg);
       }
     } catch (error) {
-      setError("Login failed. Please check credentials.");
+      const msg = "Login failed. Please check credentials.";
+      setError(msg);
+      notify.error(msg);
       console.error("Login error:", error);
     }
   };

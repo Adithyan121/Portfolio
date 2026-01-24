@@ -6,9 +6,11 @@ import api from "../assets/api";
 import '../css/casestudies.css';
 import { motion } from "framer-motion";
 import { Link } from 'react-router-dom';
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight, FaShareAlt } from "react-icons/fa";
+import { useNotification } from "../context/NotificationContext";
 
 const CaseStudies = () => {
+    const { notify } = useNotification();
     const [caseStudies, setCaseStudies] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -23,6 +25,13 @@ const CaseStudies = () => {
                 setLoading(false);
             });
     }, []);
+
+    const handleCopyLink = (e, cs) => {
+        e.stopPropagation();
+        const link = `https://adithyan-phi.vercel.app/casestudies/${cs.slug || cs._id}`;
+        navigator.clipboard.writeText(link);
+        notify.success("Link copied to clipboard!");
+    };
 
     return (
         <div className="page-wrapper">
@@ -80,12 +89,36 @@ const CaseStudies = () => {
                             <motion.div
                                 className="cs-card"
                                 key={cs._id}
+                                style={{ position: 'relative' }}
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.3 }}
                             >
                                 <div className="cs-image-wrapper">
                                     <img src={cs.image} alt={cs.title} className="cs-image" />
+                                    <button
+                                        className="share-icon-btn"
+                                        onClick={(e) => handleCopyLink(e, cs)}
+                                        title="Copy Link"
+                                        style={{
+                                            position: 'absolute',
+                                            top: '10px',
+                                            right: '10px',
+                                            background: 'rgba(255, 255, 255, 0.9)',
+                                            border: 'none',
+                                            borderRadius: '50%',
+                                            padding: '8px',
+                                            cursor: 'pointer',
+                                            boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+                                            zIndex: 10,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            color: '#333'
+                                        }}
+                                    >
+                                        <FaShareAlt />
+                                    </button>
                                 </div>
                                 <div className="cs-content">
                                     <h3 className="cs-title">{cs.title}</h3>
