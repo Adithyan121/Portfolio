@@ -1,3 +1,11 @@
+/* Page Layout */
+.page-wrapper {
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .projects-container {
   padding: 100px 8%;
   background-color: var(--bg-color);
@@ -139,4 +147,29 @@
   .projects-container {
     padding: 60px 20px;
   }
+}
+
+/* Show More Button */
+.show-more-container {
+  margin-top: 40px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.show-more-btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  color: white;
+  font-weight: 600;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.show-more-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
 }

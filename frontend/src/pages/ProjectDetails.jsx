@@ -97,12 +97,14 @@ const ProjectDetails = () => {
 
 
         <div className="btn-div">
-          <a href={project.previewLink} target="_blank" rel="noopener noreferrer">
-            <button className="btn">
-              Live Website
-              <FaArrowUpRightFromSquare className="git-icon" />
-            </button>
-          </a>
+          {project.previewLink && (
+            <a href={project.previewLink} target="_blank" rel="noopener noreferrer">
+              <button className="btn">
+                Live Website
+                <FaArrowUpRightFromSquare className="git-icon" />
+              </button>
+            </a>
+          )}
 
           <a href={project.gitLink} target="_blank" rel="noopener noreferrer">
             <button className="btn">

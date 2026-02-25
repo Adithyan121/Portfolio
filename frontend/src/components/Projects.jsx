@@ -6,6 +6,7 @@ import api from "../assets/api"; // Import the Axios instance
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
+  const [limit, setLimit] = useState(6);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -18,6 +19,17 @@ const Projects = () => {
     };
 
     fetchProjects();
+  }, []);
+
+  // Handle screen resize to adjust limit
+  useEffect(() => {
+    const handleResize = () => {
+      setLimit(window.innerWidth < 768 ? 4 : 6);
+    };
+
+    handleResize(); // Initial check
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Mouse Parallax
@@ -78,7 +90,7 @@ const Projects = () => {
         viewport={{ once: false, amount: 0.1 }}
       >
         {projects.length > 0 ? (
-          projects.map((project, index) => (
+          projects.slice(0, limit).map((project, index) => (
             <motion.div variants={cardVariants} key={project._id}>
               <Link to={`/project/${project.slug || project._id}`} className="project-card">
                 <img
@@ -100,6 +112,19 @@ const Projects = () => {
           </div>
         )}
       </motion.div>
+
+      {projects.length > limit && (
+        <motion.div
+          className="show-more-container"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <Link to="/all-projects" className="show-more-btn">
+            Show More
+          </Link>
+        </motion.div>
+      )}
     </div>
   );
 };

@@ -22,6 +22,7 @@ const Blogs = lazy(() => import("./pages/Blogs"));
 const CaseStudies = lazy(() => import("./pages/CaseStudies"));
 const CaseStudyDetails = lazy(() => import("./pages/CaseStudyDetails"));
 const BlogDetails = lazy(() => import("./pages/BlogDetails"));
+const AllProjects = lazy(() => import("./pages/AllProjects"));
 
 const LoadingFallback = () => (
   <div style={{
@@ -50,6 +51,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/project/:id" element={<ProjectDetails />} />
+            <Route path="/all-projects" element={<AllProjects />} />
             <Route path="/preview/:id" element={<PreviewSite />} />
 
             <Route path="/blogs" element={<Blogs />} />

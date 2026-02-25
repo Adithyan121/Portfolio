@@ -606,7 +606,6 @@ const Admin = () => {
               name="previewLink"
               placeholder="Preview Link"
               value={formData.previewLink}
-              required
               onChange={handleInputChange}
             />
             <input

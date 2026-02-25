@@ -72,7 +72,7 @@ const Home = () => {
   return (
     <div className="home-wrapper">
       <Helmet>
-        <title>Adithyan G - MERN Stack Developer | React & Node.js Developer</title>
+        <title>Adithyan G | MERN Stack Developer from Kerala, India</title>
         <meta name="description" content="Looking for a MERN Stack Developer? I build scalable, high-performance web applications using React, Node.js, and MongoDB. Check out my portfolio and hire me today!" />
         <meta name="keywords" content="MERN Stack Developer, React Developer, Node.js Developer, Full Stack Developer, JavaScript Developer, Frontend Developer, Entry Level MERN Developer, Adithyan G, Web Developer, Portfolio" />
         <link rel="canonical" href="https://adithyan-phi.vercel.app/" />
@@ -226,11 +226,6 @@ const Home = () => {
             />
           </div>
 
-          <p className="hero-description" style={{ display: "none" }} >
-            Adithyan G is a <b>MERN Stack Developer based in Kerala, India</b>, specializing
-            in React, Node.js, MongoDB, and Express. I build fast, scalable web applications
-            and I am open to entry-level roles and freelance projects.
-          </p>
         </motion.div>
 
         {/* 5. Overlay - Particles */}
