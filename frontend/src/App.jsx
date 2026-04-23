@@ -11,6 +11,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import FAQ from "./pages/FAQ";
+import FloatingQuoteEstimator from "./components/FloatingQuoteEstimator";
 
 // Lazy load other pages
 const ProjectDetails = lazy(() => import("./pages/ProjectDetails"));
@@ -47,6 +48,7 @@ function App() {
         <Analytics />
         <SpeedInsights />
         <TrackPageViews />
+        <FloatingQuoteEstimator />
         <Suspense fallback={<LoadingFallback />}>
           <Routes>
             <Route path="/" element={<Home />} />

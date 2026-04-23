@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../css/admin.css";
 import api from '../assets/api';
 import { useNotification } from "../context/NotificationContext";
+import { getQuoteConfig, saveQuoteConfig } from '../config/quoteConfig';
 
 const Admin = () => {
   const { notify } = useNotification();
@@ -54,6 +55,41 @@ const Admin = () => {
   const [csImagePreview, setCsImagePreview] = useState(null);
 
   const [viewComments, setViewComments] = useState(null);
+
+  // Quote Config State
+  const [quoteConfig, setQuoteConfig] = useState(() => getQuoteConfig());
+
+  const handleQuoteConfigSave = (e) => {
+    e?.preventDefault();
+    saveQuoteConfig(quoteConfig);
+    window.dispatchEvent(new Event('quoteConfigUpdated')); // to notify floating bubble
+    notify.success("Quote Config updated successfully!");
+  };
+
+  const handleQuoteFeatureChange = (index, field, value) => {
+    const newConfig = { ...quoteConfig };
+    newConfig.features[index][field] = field === 'price' ? Number(value) : value;
+    setQuoteConfig(newConfig);
+  };
+
+  const handleQuoteProjectTypeChange = (index, field, value) => {
+    const newConfig = { ...quoteConfig };
+    newConfig.projectTypes[index][field] = field === 'basePrice' ? Number(value) : value;
+    setQuoteConfig(newConfig);
+  };
+
+  const addFeatureQuote = () => {
+    setQuoteConfig({
+      ...quoteConfig,
+      features: [...quoteConfig.features, { id: 'new_feature_' + Date.now(), name: 'New Feature', price: 0 }]
+    });
+  };
+
+  const removeFeatureQuote = (index) => {
+    const newConfig = { ...quoteConfig };
+    newConfig.features.splice(index, 1);
+    setQuoteConfig(newConfig);
+  };
 
   const handleDeleteComment = async (parentId, commentId, type) => {
     if (!window.confirm("Are you sure you want to delete this comment?")) return;
@@ -443,6 +479,7 @@ const Admin = () => {
         <option value="projects">Project Section</option>
         <option value="blogs">Blogs Section</option>
         <option value="casestudies">Case Studies Section</option>
+        <option value="estimator">Quote Estimator Section</option>
       </select>
 
       {activeSection === "about" && (
@@ -828,6 +865,85 @@ const Admin = () => {
           </div>
         </section>
       )}
+
+      {activeSection === "estimator" && (
+        <section id="estimator-section">
+          <h2 className="hd">Quote Estimator Config</h2>
+          <form className="project-form" onSubmit={handleQuoteConfigSave}>
+            <h3>Project Types Pricing</h3>
+            {quoteConfig.projectTypes.map((type, index) => (
+              <div key={`project-${index}`} style={{ marginBottom: '15px', padding: '10px', background: '#f8fafc', borderRadius: '8px' }}>
+                <strong style={{ color: '#000' }}>{type.name}</strong>
+                <input
+                  type="number"
+                  placeholder="Base Price (₹)"
+                  value={type.basePrice}
+                  onChange={(e) => handleQuoteProjectTypeChange(index, 'basePrice', e.target.value)}
+                  required
+                  style={{ display: 'block', margin: '5px 0' }}
+                />
+                <input
+                  type="text"
+                  placeholder="Timeline (e.g. 2-4 weeks)"
+                  value={type.timeline || ''}
+                  onChange={(e) => handleQuoteProjectTypeChange(index, 'timeline', e.target.value)}
+                  required
+                  style={{ display: 'block', margin: '5px 0' }}
+                />
+                <input
+                  type="text"
+                  placeholder="Tooltip Text (e.g. Multi-page site...)"
+                  value={type.tooltip || ''}
+                  onChange={(e) => handleQuoteProjectTypeChange(index, 'tooltip', e.target.value)}
+                  style={{ display: 'block', margin: '5px 0', width: '100%' }}
+                />
+                <input
+                  type="text"
+                  placeholder="Why You Need This (e.g. Build trust...)"
+                  value={type.whyYouNeedThis || ''}
+                  onChange={(e) => handleQuoteProjectTypeChange(index, 'whyYouNeedThis', e.target.value)}
+                  style={{ display: 'block', margin: '5px 0', width: '100%' }}
+                />
+              </div>
+            ))}
+
+            <h3 style={{ marginTop: '20px' }}>Features Pricing</h3>
+            {quoteConfig.features.map((feature, index) => (
+              <div key={`feature-${index}`} style={{ marginBottom: '15px', padding: '10px', background: '#f8fafc', borderRadius: '8px' }}>
+                <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '5px' }}>
+                  <input
+                    type="text"
+                    value={feature.name}
+                    onChange={(e) => handleQuoteFeatureChange(index, 'name', e.target.value)}
+                    required
+                    style={{ flex: 2 }}
+                  />
+                  <input
+                    type="number"
+                    value={feature.price}
+                    onChange={(e) => handleQuoteFeatureChange(index, 'price', e.target.value)}
+                    required
+                    style={{ flex: 1 }}
+                  />
+                  <button type="button" onClick={() => removeFeatureQuote(index)} style={{ background: 'red', color: 'white', border: 'none', padding: '12px 16px', borderRadius: '5px', cursor: 'pointer' }}>Remove</button>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Tooltip Text (Optional explanation)"
+                  value={feature.tooltip || ''}
+                  onChange={(e) => handleQuoteFeatureChange(index, 'tooltip', e.target.value)}
+                  style={{ display: 'block', width: '100%' }}
+                />
+              </div>
+            ))}
+
+            <button type="button" onClick={addFeatureQuote} style={{ background: '#06b6d4', marginBottom: '20px' }}>+ Add Feature</button>
+
+            <button type="submit" style={{ display: 'block', width: '100%', marginTop: '10px' }}>Save Estimator Config</button>
+          </form>
+        </section>
+      )}
+
       <button className="logout" onClick={handleLogout}>Logout</button>
     </div>
   );
