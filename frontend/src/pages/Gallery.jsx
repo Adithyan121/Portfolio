@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../css/gallery.css"; // We will create this
+import api from "../assets/api"; // adjust path if needed
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const Gallery = () => {
   const [posts, setPosts] = useState([]);
@@ -12,7 +12,7 @@ const Gallery = () => {
   useEffect(() => {
     const fetchInstagramPosts = async () => {
       try {
-        const res = await axios.get(`${API_BASE_URL}/api/instagram/posts`);
+        const res = await api.get("/instagram/posts");
         setPosts(res.data);
       } catch (err) {
         setError(err.response?.data?.error || err.response?.data?.message || err.message || "Failed to fetch Instagram posts");
@@ -28,13 +28,13 @@ const Gallery = () => {
     <div className="gallery-page">
       <div className="gallery-header">
         <h1 className="gallery-title">Gallery</h1>
-        <p className="gallery-subtitle">Latest updates from Instagram</p>
+        <p className="gallery-subtitle">Latest Posts</p>
       </div>
 
       {loading ? (
         <div className="gallery-loading">
           <div className="spinner"></div>
-          <h2>Loading Instagram posts...</h2>
+          <h2>Loading Gallery...</h2>
         </div>
       ) : error ? (
         <div className="gallery-error">
