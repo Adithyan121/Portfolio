@@ -24,6 +24,7 @@ const CaseStudies = lazy(() => import("./pages/CaseStudies"));
 const CaseStudyDetails = lazy(() => import("./pages/CaseStudyDetails"));
 const BlogDetails = lazy(() => import("./pages/BlogDetails"));
 const AllProjects = lazy(() => import("./pages/AllProjects"));
+const Gallery = lazy(() => import("./pages/Gallery"));
 
 const LoadingFallback = () => (
   <div style={{
@@ -63,6 +64,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/verify" element={<Verify />} />
             <Route path="/faq" element={<FAQ />} />
+            <Route path="/gallery" element={<Gallery />} />
 
             <Route path="/admin" element={
               <ProtectedRoute>

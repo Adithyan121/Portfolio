@@ -13,6 +13,7 @@ const authRoutes = require("./routes/authRoutes")
 
 const blogRoutes = require("./routes/blogRoutes");
 const caseStudyRoutes = require("./routes/caseStudyRoutes");
+const instagramRoutes = require("./routes/instagramRoutes");
 
 const app = express();
 
@@ -37,6 +38,11 @@ app.use(cors(corsOptions));
 
 connectDB();
 
+// optional health check
+app.get("/", (req, res) => {
+  res.send("Instagram API Backend Running");
+});
+
 app.use("/api/projects", projectRoutes);
 app.use("/api/skills", skillRoutes);
 app.use("/api/profile", profileRoutes);
@@ -44,6 +50,7 @@ app.use("/api", authRoutes);
 app.use("/api/resume", resumeRoutes);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/casestudies", caseStudyRoutes);
+app.use("/api/instagram", instagramRoutes);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
