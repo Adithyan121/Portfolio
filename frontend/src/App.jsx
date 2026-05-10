@@ -11,6 +11,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import FAQ from "./pages/FAQ";
+import ServiceAd from "./components/ServiceAd";
 
 // Lazy load other pages
 const ProjectDetails = lazy(() => import("./pages/ProjectDetails"));
@@ -48,6 +49,7 @@ function App() {
         <Analytics />
         <SpeedInsights />
         <TrackPageViews />
+        <ServiceAd />
         <Suspense fallback={<LoadingFallback />}>
           <Routes>
             <Route path="/" element={<Home />} />
