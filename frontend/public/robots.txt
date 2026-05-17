@@ -1,5 +1,25 @@
-User-agent: *
-Allow: /
+# robots.txt for https://adithyan-phi.vercel.app/
+# Owner: Adithyan G
 
+User-agent: *
+
+# Allow main content
+Allow: /
+Allow: /project/
+Allow: /blogs/
+Allow: /about/
+Allow: /skills/
+
+# Block non-public or system paths
 Disallow: /api/
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /private/
+
+# Optional: block temporary or dev paths if they exist
+Disallow: /_next/
+Disallow: /temp/
+Disallow: /draft/
+
+# Sitemap
 Sitemap: https://adithyan-phi.vercel.app/sitemap.xml
