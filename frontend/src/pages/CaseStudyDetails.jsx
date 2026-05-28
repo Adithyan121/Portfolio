@@ -45,13 +45,13 @@ const CaseStudyDetails = () => {
             <Helmet>
                 <title>{cs.title} | Case Study | Adithyan G</title>
                 <meta name="description" content={`Case study: ${cs.title}. ${cs.overview}`} />
-                <link rel="canonical" href={`https://adithyan-phi.vercel.app/casestudies/${cs.slug || cs._id}`} />
+                <link rel="canonical" href={`https://adithyang.qzz.io/casestudies/${cs.slug || cs._id}`} />
 
                 {/* Open Graph */}
                 <meta property="og:type" content="article" />
                 <meta property="og:title" content={`${cs.title} - Case Study`} />
                 <meta property="og:description" content={cs.overview} />
-                <meta property="og:url" content={`https://adithyan-phi.vercel.app/casestudies/${cs.slug || cs._id}`} />
+                <meta property="og:url" content={`https://adithyang.qzz.io/casestudies/${cs.slug || cs._id}`} />
                 <meta property="og:image" content={cs.image} />
 
                 {/* Twitter */}

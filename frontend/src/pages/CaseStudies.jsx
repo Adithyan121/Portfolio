@@ -28,7 +28,7 @@ const CaseStudies = () => {
 
     const handleCopyLink = (e, cs) => {
         e.stopPropagation();
-        const link = `https://adithyan-phi.vercel.app/casestudies/${cs.slug || cs._id}`;
+        const link = `https://adithyang.qzz.io/casestudies/${cs.slug || cs._id}`;
         navigator.clipboard.writeText(link);
         notify.success("Link copied to clipboard!");
     };
@@ -38,20 +38,20 @@ const CaseStudies = () => {
             <Helmet>
                 <title>Case Studies | Adithyan G</title>
                 <meta name="description" content="In-depth case studies of my software engineering projects." />
-                <link rel="canonical" href="https://adithyan-phi.vercel.app/casestudies" />
+                <link rel="canonical" href="https://adithyang.qzz.io/casestudies" />
 
                 {/* Open Graph */}
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content="Case Studies | Adithyan G" />
                 <meta property="og:description" content="In-depth case studies of my software engineering projects, detailing challenges, solutions, and impact." />
-                <meta property="og:url" content="https://adithyan-phi.vercel.app/casestudies" />
-                <meta property="og:image" content="https://adithyan-phi.vercel.app/og-image.png" />
+                <meta property="og:url" content="https://adithyang.qzz.io/casestudies" />
+                <meta property="og:image" content="https://adithyang.qzz.io/og-image.png" />
 
                 {/* Twitter */}
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="Case Studies | Adithyan G" />
                 <meta name="twitter:description" content="In-depth case studies of my software engineering projects." />
-                <meta name="twitter:image" content="https://adithyan-phi.vercel.app/og-image.png" />
+                <meta name="twitter:image" content="https://adithyang.qzz.io/og-image.png" />
                 <script type="application/ld+json">
                     {`
                     {
@@ -59,7 +59,7 @@ const CaseStudies = () => {
                         "@type": "CollectionPage",
                         "name": "Case Studies - Adithyan G",
                         "description": "In-depth case studies of my software engineering projects.",
-                        "url": "https://adithyan-phi.vercel.app/casestudies",
+                        "url": "https://adithyang.qzz.io/casestudies",
                         "hasPart": [
                             {
                                 "@type": "CreativeWork",

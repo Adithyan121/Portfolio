@@ -10,20 +10,20 @@ const FAQ = () => {
             <Helmet>
                 <title>Frequently Asked Questions | Adithyan G</title>
                 <meta name="description" content="Common questions about Adithyan G's skills, experience, and services as a MERN Stack Developer." />
-                <link rel="canonical" href="https://adithyan-phi.vercel.app/faq" />
+                <link rel="canonical" href="https://adithyang.qzz.io/faq" />
 
                 {/* Open Graph */}
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content="FAQ | Adithyan G" />
                 <meta property="og:description" content="Common questions about Adithyan G's skills, experience, and services." />
-                <meta property="og:url" content="https://adithyan-phi.vercel.app/faq" />
-                <meta property="og:image" content="https://adithyan-phi.vercel.app/og-image.png" />
+                <meta property="og:url" content="https://adithyang.qzz.io/faq" />
+                <meta property="og:image" content="https://adithyang.qzz.io/og-image.png" />
 
                 {/* Twitter */}
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="FAQ | Adithyan G" />
                 <meta name="twitter:description" content="Common questions about Adithyan G's skills, experience, and services." />
-                <meta name="twitter:image" content="https://adithyan-phi.vercel.app/og-image.png" />
+                <meta name="twitter:image" content="https://adithyang.qzz.io/og-image.png" />
 
                 <script type="application/ld+json">
                     {`

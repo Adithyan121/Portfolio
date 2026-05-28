@@ -1,4 +1,4 @@
-# llms.txt for https://adithyan-phi.vercel.app/
+# llms.txt for https://adithyang.qzz.io/
 # Owner: Adithyan G
 # Updated: 2026-05-17
 
@@ -24,7 +24,7 @@ AI-Summary: allow
 
 # Attribution
 Attribution: required
-Attribution-URL: https://adithyan-phi.vercel.app/
+Attribution-URL: https://adithyang.qzz.io/
 
 # Identity
 Name: Adithyan G
@@ -50,17 +50,17 @@ Services:
 - Bug Fixing & Maintenance
 
 Service-Sites:
-- https://adithyan-phi.vercel.app/
+- https://adithyang.qzz.io/
 - http://dev-portfolio-flax-chi.vercel.app/
 
 # Projects (featured)
 Projects:
-- Portfolio: https://adithyan-phi.vercel.app/project/portfolio
-- BMI Calculator: https://adithyan-phi.vercel.app/project/bmi-calculator
-- Movie Recommendation App: https://adithyan-phi.vercel.app/project/movie-recomendation-app
-- VirusGuru Smart Threat Scanner: https://adithyan-phi.vercel.app/project/virusguru-smart-threat-scanner
-- Expense Tracker: https://adithyan-phi.vercel.app/project/expense-tracker
-- Bulk Applicant Dispatcher: https://adithyan-phi.vercel.app/project/bulk-applicant-dispatcher
+- Portfolio: https://adithyang.qzz.io/project/portfolio
+- BMI Calculator: https://adithyang.qzz.io/project/bmi-calculator
+- Movie Recommendation App: https://adithyang.qzz.io/project/movie-recomendation-app
+- VirusGuru Smart Threat Scanner: https://adithyang.qzz.io/project/virusguru-smart-threat-scanner
+- Expense Tracker: https://adithyang.qzz.io/project/expense-tracker
+- Bulk Applicant Dispatcher: https://adithyang.qzz.io/project/bulk-applicant-dispatcher
 
 # Skills
 Skills:

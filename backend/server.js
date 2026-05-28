@@ -13,7 +13,6 @@ const authRoutes = require("./routes/authRoutes")
 
 const blogRoutes = require("./routes/blogRoutes");
 const caseStudyRoutes = require("./routes/caseStudyRoutes");
-const instagramRoutes = require("./routes/instagramRoutes");
 
 const app = express();
 
@@ -25,7 +24,7 @@ app.use(express.json());
 
 const corsOptions = {
   origin: [
-    "https://adithyan-phi.vercel.app",
+    "https://adithyang.qzz.io",
     "http://localhost:5173",
     "http://localhost:3000"
   ],
@@ -40,7 +39,7 @@ connectDB();
 
 // optional health check
 app.get("/", (req, res) => {
-  res.send("Instagram API Backend Running");
+  res.send("Portfolio Backend Running");
 });
 
 app.use("/api/projects", projectRoutes);
@@ -50,7 +49,6 @@ app.use("/api", authRoutes);
 app.use("/api/resume", resumeRoutes);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/casestudies", caseStudyRoutes);
-app.use("/api/instagram", instagramRoutes);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

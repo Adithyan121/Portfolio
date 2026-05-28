@@ -43,13 +43,13 @@ const BlogDetails = () => {
             <Helmet>
                 <title>{blog.title} | Blog | Adithyan G</title>
                 <meta name="description" content={blog.summary} />
-                <link rel="canonical" href={`https://adithyan-phi.vercel.app/blogs/${blog.slug || blog._id}`} />
+                <link rel="canonical" href={`https://adithyang.qzz.io/blogs/${blog.slug || blog._id}`} />
 
                 {/* Open Graph */}
                 <meta property="og:type" content="article" />
                 <meta property="og:title" content={blog.title} />
                 <meta property="og:description" content={blog.summary} />
-                <meta property="og:url" content={`https://adithyan-phi.vercel.app/blogs/${blog.slug || blog._id}`} />
+                <meta property="og:url" content={`https://adithyang.qzz.io/blogs/${blog.slug || blog._id}`} />
                 <meta property="og:image" content={blog.image} />
                 <meta property="article:published_time" content={blog.date} />
                 <meta property="article:author" content="Adithyan G" />
@@ -91,7 +91,7 @@ const BlogDetails = () => {
                         type="Blog"
                         onLike={handleLike}
                         onComment={handleComment}
-                        shareUrl={`https://adithyan-phi.vercel.app/blogs/${blog.slug || blog._id}`}
+                        shareUrl={`https://adithyang.qzz.io/blogs/${blog.slug || blog._id}`}
                     />
 
                 </div>

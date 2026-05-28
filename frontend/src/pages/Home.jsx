@@ -75,18 +75,18 @@ const Home = () => {
         <title>Adithyan G | MERN Stack Developer from Kerala, India</title>
         <meta name="description" content="Looking for a MERN Stack Developer? I build scalable, high-performance web applications using React, Node.js, and MongoDB. Check out my portfolio and hire me today!" />
         <meta name="keywords" content="MERN Stack Developer, React Developer, Node.js Developer, Full Stack Developer, JavaScript Developer, Frontend Developer, Entry Level MERN Developer, Adithyan G, Web Developer, Portfolio" />
-        <link rel="canonical" href="https://adithyan-phi.vercel.app/" />
+        <link rel="canonical" href="https://adithyang.qzz.io/" />
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://adithyan-phi.vercel.app/" />
+        <meta property="og:url" content="https://adithyang.qzz.io/" />
         <meta property="og:title" content="Adithyan G | MERN Stack Developer" />
         <meta property="og:description" content="Explore the portfolio of Adithyan G, featuring premium web designs and full-stack applications." />
         <meta property="og:image" content="/nav.png" />
 
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://adithyan-phi.vercel.app/" />
+        <meta property="twitter:url" content="https://adithyang.qzz.io/" />
         <meta property="twitter:title" content="Adithyan G | MERN Stack Developer" />
         <meta property="twitter:description" content="Explore the portfolio of Adithyan G, featuring premium web designs and full-stack applications." />
         <meta property="twitter:image" content="/nav.png" />

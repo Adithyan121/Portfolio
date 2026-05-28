@@ -33,7 +33,7 @@ const Blogs = () => {
 
     const handleCopyLink = (e, blog) => {
         e.stopPropagation();
-        const link = `https://adithyan-phi.vercel.app/blogs/${blog.slug || blog._id}`;
+        const link = `https://adithyang.qzz.io/blogs/${blog.slug || blog._id}`;
         navigator.clipboard.writeText(link);
         notify.success("Link copied to clipboard!");
     };
@@ -43,20 +43,20 @@ const Blogs = () => {
             <Helmet>
                 <title>Blogs | Adithyan G</title>
                 <meta name="description" content="Read my latest articles on Web Development, React, Node.js and more." />
-                <link rel="canonical" href="https://adithyan-phi.vercel.app/blogs" />
+                <link rel="canonical" href="https://adithyang.qzz.io/blogs" />
 
                 {/* Open Graph */}
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content="Blogs | Adithyan G" />
                 <meta property="og:description" content="Read my latest articles on Web Development, React, Node.js and more." />
-                <meta property="og:url" content="https://adithyan-phi.vercel.app/blogs" />
-                <meta property="og:image" content="https://adithyan-phi.vercel.app/og-image.png" />
+                <meta property="og:url" content="https://adithyang.qzz.io/blogs" />
+                <meta property="og:image" content="https://adithyang.qzz.io/og-image.png" />
 
                 {/* Twitter */}
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="Blogs | Adithyan G" />
                 <meta name="twitter:description" content="Read my latest articles on Web Development, React, Node.js and more." />
-                <meta name="twitter:image" content="https://adithyan-phi.vercel.app/og-image.png" />
+                <meta name="twitter:image" content="https://adithyang.qzz.io/og-image.png" />
             </Helmet>
             <Navbar />
             <section className="blogs-section">

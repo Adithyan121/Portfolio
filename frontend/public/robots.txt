@@ -1,4 +1,4 @@
-# robots.txt for https://adithyan-phi.vercel.app/
+# robots.txt for https://adithyang.qzz.io/
 # Owner: Adithyan G
 
 User-agent: *
@@ -22,4 +22,4 @@ Disallow: /temp/
 Disallow: /draft/
 
 # Sitemap
-Sitemap: https://adithyan-phi.vercel.app/sitemap.xml
+Sitemap: https://adithyang.qzz.io/sitemap.xml

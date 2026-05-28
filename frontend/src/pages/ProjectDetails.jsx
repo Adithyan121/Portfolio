@@ -41,7 +41,7 @@ const ProjectDetails = () => {
         <meta property="og:description" content={`Discover how I built ${project.name}, a high-performance web app solving complex user problems.`} />
         <meta property="og:image" content={project.image} />
         <meta property="twitter:card" content="summary_large_image" />
-        <link rel="canonical" href={`https://adithyan-phi.vercel.app/project/${project.slug || project._id}`} />
+        <link rel="canonical" href={`https://adithyang.qzz.io/project/${project.slug || project._id}`} />
       </Helmet>
       <div className="project-details-container">
         <button className="back-btn" onClick={() => navigate(-1)}>
