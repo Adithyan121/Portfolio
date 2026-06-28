@@ -25,6 +25,7 @@ app.use(express.json());
 const corsOptions = {
   origin: [
     "https://adithyang.qzz.io",
+    "https://adithyan-phi.vercel.app",
     "http://localhost:5173",
     "http://localhost:3000"
   ],
