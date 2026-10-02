@@ -244,6 +244,24 @@ const About = () => {
           <h3>Experience & Certifications</h3>
           <ul className="experience-list" style={{ listStyleType: 'none', padding: 0 }}>
             <li style={{ marginBottom: "15px" }}>
+  <div style={{ display: "flex", alignItems: "center", marginBottom: "5px" }}>
+    <i className="fas fa-plane" style={{ color: "#646cff", marginRight: "10px" }}></i>
+    <strong>Aviation Sales Associate</strong>
+  </div>
+
+  <div style={{ marginLeft: "26px", color: "#000000ff" }}>
+    <a
+      href="https://helixaircorp.com/"
+      target="_blank"
+      rel="noopener noreferrer nofollow"
+      aria-label="Helix AirCorp official website"
+    >
+      Helix AirCorp
+    </a>{" "}
+    • Ajman, UAE • Oct 2026 – Present
+  </div>
+</li>
+            <li style={{ marginBottom: "15px" }}>
               <div style={{ display: "flex", alignItems: "center", marginBottom: "5px" }}>
                 <i className="fas fa-briefcase" style={{ color: "#646cff", marginRight: "10px" }}></i>
                 <strong>MERN Stack Web Development Intern</strong>
