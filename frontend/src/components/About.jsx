@@ -184,16 +184,16 @@ const About = () => {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
           viewport={{ once: true, amount: 0.2 }}
         >
-          <h2>About Me | Full Stack Developer</h2>
+          <h2>About Me</h2>
           <p>
-            I'm <b>Adithyan G</b>, a MERN Stack Developer specializing in React, Node.js, MongoDB, and Express.js. I build scalable, high-performance web applications for startups and businesses.
-            <br /><br />
-            My journey into the world of software development started with a curiosity for how things work, leading me from <b>Aeronautical Engineering</b> to the logical and creative realm of <b>Full Stack Development</b>.
-            <br /><br />
-            I believe that great software is not just about writing clean code—it's about creating <b>seamless user experiences</b> that solve real-world problems. Whether it's designing a pixel-perfect front-end or architecting a robust backend API, I bring a unique analytical approach to every project.
-            <br /><br />
-            When I'm not coding, you can find me exploring the latest in <b>UI/UX trends</b>, contributing to open-source projects, or optimizing application performance for speed and efficiency. Based in <b>Kerala, India</b>, I am available for <b>remote and freelance MERN Stack development</b> projects globally.
-          </p>
+  I'm <b>Adithyan G</b>, an <b>Aviation Sales Associate</b> with a background in <b>Aeronautical Engineering</b> and strong technical skills in <b>Full Stack Web Development</b>. I currently work at <b>Helix AirCorp</b> in Ajman, UAE, where I am building my career in the aviation industry.
+  <br /><br />
+  My journey started with <b>Aeronautical Engineering</b>, which gave me a strong foundation in aviation, technical concepts, and analytical problem-solving. Along the way, my curiosity for technology led me to learn <b>MERN Stack Development</b>, gaining hands-on experience with React, Node.js, Express.js, and MongoDB.
+  <br /><br />
+  Today, I combine my <b>aviation knowledge, sales and communication skills, and technical background</b> to approach problems from both business and technical perspectives. My web development experience also allows me to understand digital products, websites, and technology-driven solutions beyond the aviation domain.
+  <br /><br />
+  Outside of my aviation career, I continue to work on <b>web development projects</b>, explore modern UI/UX trends, and build websites for personal and freelance projects. I am always interested in opportunities where <b>aviation, technology, and business</b> come together.
+</p>
 
           <h3>Contact</h3>
           <ul className="contact-list">
@@ -283,7 +283,7 @@ const About = () => {
             {/* Add other certifications here if suitable */}
           </ul>
 
-          <h3>Web Development Services</h3>
+          {/* <h3>Web Development Services</h3>
           <ul className="services-list" style={{ listStyleType: 'none', padding: 0 }}>
             {['MERN Stack Web Application Development', 'React Frontend Development', 'Node.js Backend APIs', 'Portfolio & Business Websites', 'Static Webpages'].map((service, index) => (
               <li key={index} style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
@@ -291,7 +291,7 @@ const About = () => {
                 {service}
               </li>
             ))}
-          </ul>
+          </ul> */}
 
           <h3>Skills</h3>
           {loading ? (
