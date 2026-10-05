@@ -460,7 +460,7 @@ return (
           duration: 0.8,
         }}
       >
-        Adithyan G
+        
       </motion.h1>
 
 
@@ -483,7 +483,7 @@ return (
           fontWeight: 600,
         }}
       >
-        Aviation Procurement Associate
+    Adithyan G
       </motion.h2>
 
 
@@ -577,7 +577,7 @@ return (
         }}
       >
 
-        <span className="hero-tag">
+        {/* <span className="hero-tag">
           Aviation Procurement
         </span>
 
@@ -595,7 +595,8 @@ return (
 
         <span className="hero-tag">
           Aeronautical Engineering
-        </span>
+        </span> */}
+        
 
       </motion.div>
 
