@@ -550,13 +550,6 @@ return (
           color: "#010101ff",
         }}
       >
-
-        Aviation Procurement Associate with a background in{" "}
-        <b>Aeronautical Engineering</b> and{" "}
-        <b>Full-Stack Web Development</b>. Experienced in aviation
-        procurement, aircraft parts sourcing, supplier coordination,
-        RFQs, quotations, and procurement documentation.
-
       </motion.p>
 
 
