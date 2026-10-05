@@ -353,50 +353,62 @@ return (
         FLOATING TECHNOLOGY ICONS
     ========================== */}
 
-    <div className="floating-icons">
+   <div className="floating-icons">
 
-      <motion.div
-        style={{
-          y: yIcon1,
-          x: iconX,
-        }}
-        className="icon icon-react"
-      >
-        <FaReact />
-      </motion.div>
+  <motion.div
+    style={{ y: yIcon1, x: iconX }}
+    className="icon icon-react"
+  >
+    <FaReact />
+  </motion.div>
 
-      <motion.div
-        style={{
-          y: yIcon2,
-          x: useTransform(iconX, (v) => -v),
-        }}
-        className="icon icon-node"
-      >
-        <FaNodeJs />
-      </motion.div>
+  <motion.div
+    style={{
+      y: yIcon2,
+      x: useTransform(iconX, (v) => -v)
+    }}
+    className="icon icon-node"
+  >
+    <FaNodeJs />
+  </motion.div>
 
-      <motion.div
-        style={{
-          y: yIcon3,
-          x: iconX,
-        }}
-        className="icon icon-js"
-      >
-        <SiJavascript />
-      </motion.div>
+  <motion.div
+    style={{ y: yIcon3, x: iconX }}
+    className="icon icon-js"
+  >
+    <SiJavascript />
+  </motion.div>
 
-      <motion.div
-        style={{
-          y: yIcon4,
-          x: useTransform(iconX, (v) => -v),
-        }}
-        className="icon icon-db"
-      >
-        <SiMongodb />
-      </motion.div>
+  <motion.div
+    style={{
+      y: yIcon4,
+      x: useTransform(iconX, (v) => -v)
+    }}
+    className="icon icon-db"
+  >
+    <SiMongodb />
+  </motion.div>
 
+  {/* Aircraft */}
+  <motion.div
+    style={{
+      y: yIcon4,
+      x: useTransform(iconX, (v) => v * 0.8),
+    }}
+    className="icon icon-aircraft"
+  >
+    <div className="aircraft-3d">
+      <div className="aircraft-body"></div>
+      <div className="aircraft-wing aircraft-wing-left"></div>
+      <div className="aircraft-wing aircraft-wing-right"></div>
+      <div className="aircraft-tail"></div>
+      <div className="aircraft-fin"></div>
+      <div className="aircraft-engine aircraft-engine-left"></div>
+      <div className="aircraft-engine aircraft-engine-right"></div>
     </div>
+  </motion.div>
 
+</div>
 
     {/* =========================
         HERO CONTENT
