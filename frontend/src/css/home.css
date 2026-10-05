@@ -9,6 +9,298 @@
   /* Oceanic Tech Background */
   background: radial-gradient(circle at top right, #e0f2fe 0%, #f0f9ff 50%, #ffffff 100%);
 }
+/* =========================================
+   3D AIRCRAFT
+========================================= */
+
+.icon-aircraft {
+  width: 120px;
+  height: 120px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  perspective: 800px;
+
+  z-index: 5;
+}
+
+.aircraft-3d {
+  position: relative;
+
+  width: 100px;
+  height: 100px;
+
+  transform-style: preserve-3d;
+
+  transform:
+    rotateX(65deg)
+    rotateZ(-25deg)
+    rotateY(-10deg);
+
+  animation: aircraftFloat 6s ease-in-out infinite;
+}
+
+
+/* Aircraft fuselage */
+
+.aircraft-body {
+  position: absolute;
+
+  width: 18px;
+  height: 92px;
+
+  left: 41px;
+  top: 4px;
+
+  border-radius: 50% 50% 45% 45%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #777,
+      #f5f5f5,
+      #aaa
+    );
+
+  box-shadow:
+    inset -4px 0 5px rgba(0, 0, 0, 0.25),
+    0 8px 15px rgba(0, 0, 0, 0.2);
+
+  transform: translateZ(12px);
+}
+
+
+/* Nose */
+
+.aircraft-body::before {
+  content: "";
+
+  position: absolute;
+
+  width: 18px;
+  height: 25px;
+
+  top: -10px;
+  left: 0;
+
+  border-radius: 50% 50% 30% 30%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #666,
+      #f8f8f8,
+      #aaa
+    );
+}
+
+
+/* Main wings */
+
+.aircraft-wing {
+  position: absolute;
+
+  width: 75px;
+  height: 14px;
+
+  top: 35px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #888,
+      #eee,
+      #999
+    );
+
+  border-radius: 50% 10% 10% 50%;
+
+  transform-origin: center;
+}
+
+
+/* Left wing */
+
+.aircraft-wing-left {
+  left: -27px;
+
+  clip-path: polygon(
+    0 100%,
+    100% 0,
+    100% 100%
+  );
+
+  transform:
+    rotateZ(-5deg)
+    translateZ(3px);
+}
+
+
+/* Right wing */
+
+.aircraft-wing-right {
+  right: -27px;
+
+  clip-path: polygon(
+    0 0,
+    100% 100%,
+    0 100%
+  );
+
+  transform:
+    rotateZ(5deg)
+    translateZ(3px);
+}
+
+
+/* Tail horizontal stabilizer */
+
+.aircraft-tail {
+  position: absolute;
+
+  width: 42px;
+  height: 9px;
+
+  left: 29px;
+  bottom: 14px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #888,
+      #eee,
+      #999
+    );
+
+  clip-path: polygon(
+    0 100%,
+    50% 0,
+    100% 100%
+  );
+
+  transform: translateZ(8px);
+}
+
+
+/* Vertical tail */
+
+.aircraft-fin {
+  position: absolute;
+
+  width: 13px;
+  height: 30px;
+
+  left: 43px;
+  bottom: 18px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #777,
+      #eee,
+      #999
+    );
+
+  clip-path: polygon(
+    0 100%,
+    40% 0,
+    100% 100%
+  );
+
+  transform:
+    rotateX(-15deg)
+    translateZ(10px);
+}
+
+
+/* Engines */
+
+.aircraft-engine {
+  position: absolute;
+
+  width: 12px;
+  height: 25px;
+
+  top: 43px;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #555,
+      #ddd,
+      #777
+    );
+
+  box-shadow:
+    inset -2px 0 3px rgba(0, 0, 0, 0.35);
+
+  transform: translateZ(8px);
+}
+
+
+/* Engine positions */
+
+.aircraft-engine-left {
+  left: 22px;
+}
+
+.aircraft-engine-right {
+  right: 22px;
+}
+
+
+/* Aircraft animation */
+
+@keyframes aircraftFloat {
+
+  0% {
+    transform:
+      rotateX(65deg)
+      rotateZ(-25deg)
+      rotateY(-10deg)
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      rotateX(65deg)
+      rotateZ(-18deg)
+      rotateY(8deg)
+      translateY(-10px);
+  }
+
+  100% {
+    transform:
+      rotateX(65deg)
+      rotateZ(-25deg)
+      rotateY(-10deg)
+      translateY(0);
+  }
+
+}
+
+
+/* Mobile */
+
+@media (max-width: 768px) {
+
+  .icon-aircraft {
+    width: 90px;
+    height: 90px;
+  }
+
+  .aircraft-3d {
+    transform:
+      scale(0.75)
+      rotateX(65deg)
+      rotateZ(-25deg);
+  }
+
+}
 
 /* Parallax Blobs */
 .blob {
