@@ -14,270 +14,697 @@ import Footer from "../components/Footer";
 import { useLocation } from "react-router-dom";
 
 const Home = () => {
-  const { scrollY } = useScroll();
-  const location = useLocation();
+const { scrollY } = useScroll();
+const location = useLocation();
 
-  useEffect(() => {
-    if (location.hash) {
-      const targetId = location.hash.replace("#", "");
-      setTimeout(() => {
-        const section = document.getElementById(targetId);
-        if (section) {
-          window.scrollTo({
-            top: section.offsetTop - 60,
-            behavior: "smooth",
-          });
-        }
-      }, 100);
+useEffect(() => {
+if (location.hash) {
+const targetId = location.hash.replace("#", "");
+
+  setTimeout(() => {
+    const section = document.getElementById(targetId);
+
+    if (section) {
+      window.scrollTo({
+        top: section.offsetTop - 60,
+        behavior: "smooth",
+      });
     }
-  }, [location]);
+  }, 100);
+}
 
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+}, [location]);
 
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
+const mouseX = useMotionValue(0);
+const mouseY = useMotionValue(0);
 
-  // Mouse Parallax Transforms
-  const shapeX = useTransform(mouseX, [0, window.innerWidth], [-20, 20]);
-  const shapeY = useTransform(mouseY, [0, window.innerHeight], [-20, 20]);
-  const iconX = useTransform(mouseX, [0, window.innerWidth], [-40, 40]);
-  const iconY = useTransform(mouseY, [0, window.innerHeight], [-40, 40]);
+useEffect(() => {
+const handleMouseMove = (e) => {
+mouseX.set(e.clientX);
+mouseY.set(e.clientY);
+};
 
-  // Scroll Parallax Transforms
-  const textY = useTransform(scrollY, [0, 500], [0, 200]);
-  const yBlob1 = useTransform(scrollY, [0, 1000], [0, 400]);
-  const yBlob2 = useTransform(scrollY, [0, 1000], [0, -300]);
+window.addEventListener("mousemove", handleMouseMove);
 
-  // 3D Shapes Parallax (Scroll + Mouse)
-  const yShape1 = useTransform(scrollY, [0, 1000], [0, 200]);
-  const yShape2 = useTransform(scrollY, [0, 1000], [0, -200]);
-  const yShape3 = useTransform(scrollY, [0, 1000], [0, 150]);
+return () => {
+  window.removeEventListener("mousemove", handleMouseMove);
+};
 
-  // Floating Icons Parallax
-  const yIcon1 = useTransform(scrollY, [0, 800], [0, -400]);
-  const yIcon2 = useTransform(scrollY, [0, 800], [0, 300]);
-  const yIcon3 = useTransform(scrollY, [0, 800], [0, -200]);
-  const yIcon4 = useTransform(scrollY, [0, 800], [0, 250]);
+}, [mouseX, mouseY]);
 
-  // Particles
-  const particles = Array.from({ length: 20 });
+// Mouse Parallax Transforms
+const shapeX = useTransform(
+mouseX,
+[0, window.innerWidth],
+[-20, 20]
+);
 
-  return (
-    <div className="home-wrapper">
-      <Helmet>
-        <title>Adithyan G | MERN Stack Developer from Kerala, India</title>
-        <meta name="description" content="Looking for a MERN Stack Developer? I build scalable, high-performance web applications using React, Node.js, and MongoDB. Check out my portfolio and hire me today!" />
-        <meta name="keywords" content="MERN Stack Developer, React Developer, Node.js Developer, Full Stack Developer, JavaScript Developer, Frontend Developer, Entry Level MERN Developer, Adithyan G, Web Developer, Portfolio" />
-        <link rel="canonical" href="https://adithyang.qzz.io/" />
+const shapeY = useTransform(
+mouseY,
+[0, window.innerHeight],
+[-20, 20]
+);
 
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://adithyang.qzz.io/" />
-        <meta property="og:title" content="Adithyan G | MERN Stack Developer" />
-        <meta property="og:description" content="Explore the portfolio of Adithyan G, featuring premium web designs and full-stack applications." />
-        <meta property="og:image" content="/nav.png" />
+const iconX = useTransform(
+mouseX,
+[0, window.innerWidth],
+[-40, 40]
+);
 
-        {/* Twitter */}
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://adithyang.qzz.io/" />
-        <meta property="twitter:title" content="Adithyan G | MERN Stack Developer" />
-        <meta property="twitter:description" content="Explore the portfolio of Adithyan G, featuring premium web designs and full-stack applications." />
-        <meta property="twitter:image" content="/nav.png" />
-      </Helmet>
-      <Navbar />
-      <section id="home">
-        {/* 1. Deep Background - Blobs */}
-        <motion.div style={{ y: yBlob1, x: shapeX }} className="blob blob-1" />
-        <motion.div style={{ y: yBlob2, x: useTransform(shapeX, v => -v) }} className="blob blob-2" />
+const iconY = useTransform(
+mouseY,
+[0, window.innerHeight],
+[-40, 40]
+);
 
-        {/* 2. 3D CSS Shapes Layer */}
-        <div className="shapes-container">
-          <motion.div
-            style={{ y: yShape1, x: shapeX, rotate: 45 }}
-            animate={{ rotate: [45, 90, 45] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-            className="shape shape-cube"
-          />
-          <motion.div
-            style={{ y: yShape2, x: useTransform(shapeX, v => -v), rotate: -30 }}
-            animate={{ rotate: [-30, 0, -30] }}
-            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-            className="shape shape-triangle"
-          />
-          <motion.div
-            style={{ y: yShape3, x: shapeX, rotate: 90 }}
-            animate={{ rotate: [90, 180, 90] }}
-            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            className="shape shape-ring"
-          />
-          {/* New Shape: Orb */}
-          <motion.div
-            style={{ y: yShape1, x: useTransform(shapeX, v => v * 1.5) }}
-            className="shape shape-orb"
-          />
-        </div>
+// Scroll Parallax Transforms
+const textY = useTransform(scrollY, [0, 500], [0, 200]);
 
-        {/* 3. Mid Layer - Floating Tech Icons */}
-        <div className="floating-icons">
-          <motion.div style={{ y: yIcon1, x: iconX }} className="icon icon-react"><FaReact /></motion.div>
-          <motion.div style={{ y: yIcon2, x: useTransform(iconX, v => -v) }} className="icon icon-node"><FaNodeJs /></motion.div>
-          <motion.div style={{ y: yIcon3, x: iconX }} className="icon icon-js"><SiJavascript /></motion.div>
-          <motion.div style={{ y: yIcon4, x: useTransform(iconX, v => -v) }} className="icon icon-db"><SiMongodb /></motion.div>
-        </div>
+const yBlob1 = useTransform(
+scrollY,
+[0, 1000],
+[0, 400]
+);
 
-        {/* 4. Foreground - Main Content */}
-        {/* <motion.div
-          className="content"
-          style={{ y: textY }}
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-        >
-          <motion.h3
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            Hello, I am
-          </motion.h3>
+const yBlob2 = useTransform(
+scrollY,
+[0, 1000],
+[0, -300]
+);
 
-          <motion.h1
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
-          >
-            Adithyan G
-            <span style={{ fontSize: '0.5em', display: 'block', marginTop: '10px' }}>MERN Stack Developer</span>
-          </motion.h1>
+// 3D Shapes Parallax
+const yShape1 = useTransform(
+scrollY,
+[0, 1000],
+[0, 200]
+);
 
-          <motion.div
-            className="typewriter-container"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-          >
-            <Typewriter
-              options={{
-                strings: [
-                  'MERN Stack Developer',
-                  'React Developer',
-                  'Node.js Developer',
-                  'Full Stack Developer',
-                  'JavaScript Developer',
-                  'Frontend Developer'
-                ],
-                autoStart: true,
-                loop: true,
-                wrapperClassName: "typing-text",
-                cursorClassName: "typing-cursor",
-              }}
-            />
-          </motion.div>
+const yShape2 = useTransform(
+scrollY,
+[0, 1000],
+[0, -200]
+);
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 0.8 }}
-            className="hero-description"
-            style={{
-              maxWidth: '600px',
-              margin: '20px auto 0',
-              fontSize: '1.1rem',
-              lineHeight: '1.6',
-              color: '#010101ff'
-            }}
-          >
-            Crafting high-performance web applications as a <b>Full Stack Developer</b>. I specialize in modern technologies like React, Node.js, and MongoDB. Open to <b>Entry Level MERN Developer</b> roles and freelance projects.
-          </motion.p>
-        </motion.div> */}
-        <motion.div
-          className="content"
-          style={{ y: textY }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          <h3>Hello, I am</h3>
+const yShape3 = useTransform(
+scrollY,
+[0, 1000],
+[0, 150]
+);
 
-          <h1>
-            Adithyan G
-          </h1>
+// Floating Icons Parallax
+const yIcon1 = useTransform(
+scrollY,
+[0, 800],
+[0, -400]
+);
 
-          <div className="typewriter-container">
-            <Typewriter
-              options={{
-                strings: [
-                  "Aeronautical Engineer",
-                  "Aviation Sales Associate",
-                  "MERN Stack Developer",
-                  "React Developer",
-                  "Full Stack Developer",
-                  
-                ],
-                autoStart: true,
-                loop: true,
-              }}
-            />
-          </div>
+const yIcon2 = useTransform(
+scrollY,
+[0, 800],
+[0, 300]
+);
 
-        </motion.div>
+const yIcon3 = useTransform(
+scrollY,
+[0, 800],
+[0, -200]
+);
 
-        {/* 5. Overlay - Particles */}
-        {particles.map((_, i) => (
-          <motion.div
-            key={i}
-            className="particle"
-            initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
-              opacity: 0
-            }}
-            animate={{
-              y: [null, Math.random() * -100],
-              opacity: [0.1, 0.4, 0]
-            }}
-            transition={{
-              duration: Math.random() * 5 + 5,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-            style={{
-              width: Math.random() * 8 + 4,
-              height: Math.random() * 8 + 4,
-            }}
-          />
-        ))}
+const yIcon4 = useTransform(
+scrollY,
+[0, 800],
+[0, 250]
+);
 
-        {/* Scroll Indicator */}
-        <motion.div
-          className="scroll-indicator"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-        >
-          <span>Scroll Down</span>
-          <i className="fas fa-chevron-down"></i>
-        </motion.div>
-      </section>
-      <section id="about">
-        <About />
-      </section>
-      <section id="projects">
-        <Projects />
-      </section>
+// Particles
+const particles = Array.from({ length: 20 });
 
-      <section id="contact">
-        <Contact />
-      </section>
-      <Footer />
+return (
+<div className="home-wrapper">
+
+  {/* =========================
+      SEO / META DATA
+  ========================== */}
+
+  <Helmet>
+
+    <title>
+      Adithyan G | Aviation Procurement Associate
+    </title>
+
+    <meta
+      name="description"
+      content="Adithyan G is an Aviation Procurement Associate from Kerala, India, with a background in Aeronautical Engineering and Full-Stack Web Development. Experienced in aviation procurement, aircraft parts sourcing, supplier coordination, RFQs, quotations, and documentation."
+    />
+
+    <meta
+      name="keywords"
+      content="Adithyan G, Aviation Procurement Associate, aviation procurement, aviation procurement Kerala, aviation procurement India, aircraft parts procurement, aircraft parts sourcing, aviation sourcing, supplier coordination, aviation RFQ, aviation quotations, procurement documentation, aviation supply chain, aerospace procurement, Aeronautical Engineer, aviation professional India, full stack developer Kerala, React developer India, Node.js developer, MERN Stack Developer"
+    />
+
+    <meta
+      name="author"
+      content="Adithyan G"
+    />
+
+    <meta
+      name="robots"
+      content="index, follow"
+    />
+
+    <link
+      rel="canonical"
+      href="https://adithyang.qzz.io/"
+    />
+
+    {/* Open Graph */}
+
+    <meta
+      property="og:type"
+      content="website"
+    />
+
+    <meta
+      property="og:url"
+      content="https://adithyang.qzz.io/"
+    />
+
+    <meta
+      property="og:title"
+      content="Adithyan G | Aviation Procurement Associate"
+    />
+
+    <meta
+      property="og:description"
+      content="Aviation Procurement Associate from Kerala, India, with a background in Aeronautical Engineering and Full-Stack Web Development. Experienced in aviation procurement, sourcing, supplier coordination, RFQs, quotations, and documentation."
+    />
+
+    <meta
+      property="og:image"
+      content="https://adithyang.qzz.io/nav.png"
+    />
+
+    <meta
+      property="og:image:alt"
+      content="Adithyan G - Aviation Procurement Associate"
+    />
+
+    <meta
+      property="og:locale"
+      content="en_IN"
+    />
+
+    {/* Twitter / X */}
+
+    <meta
+      name="twitter:card"
+      content="summary_large_image"
+    />
+
+    <meta
+      name="twitter:url"
+      content="https://adithyang.qzz.io/"
+    />
+
+    <meta
+      name="twitter:title"
+      content="Adithyan G | Aviation Procurement Associate"
+    />
+
+    <meta
+      name="twitter:description"
+      content="Aviation Procurement Associate with a background in Aeronautical Engineering and Full-Stack Web Development."
+    />
+
+    <meta
+      name="twitter:image"
+      content="https://adithyang.qzz.io/nav.png"
+    />
+
+    <meta
+      name="twitter:image:alt"
+      content="Adithyan G - Aviation Procurement Associate"
+    />
+
+  </Helmet>
+
+
+  {/* =========================
+      NAVBAR
+  ========================== */}
+
+  <Navbar />
+
+
+  {/* =========================
+      HERO SECTION
+  ========================== */}
+
+  <section id="home">
+
+    {/* Background Blobs */}
+
+    <motion.div
+      style={{
+        y: yBlob1,
+        x: shapeX,
+      }}
+      className="blob blob-1"
+    />
+
+    <motion.div
+      style={{
+        y: yBlob2,
+        x: useTransform(shapeX, (v) => -v),
+      }}
+      className="blob blob-2"
+    />
+
+
+    {/* =========================
+        3D SHAPES
+    ========================== */}
+
+    <div className="shapes-container">
+
+      <motion.div
+        style={{
+          y: yShape1,
+          x: shapeX,
+          rotate: 45,
+        }}
+        animate={{
+          rotate: [45, 90, 45],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+        className="shape shape-cube"
+      />
+
+      <motion.div
+        style={{
+          y: yShape2,
+          x: useTransform(shapeX, (v) => -v),
+          rotate: -30,
+        }}
+        animate={{
+          rotate: [-30, 0, -30],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+        className="shape shape-triangle"
+      />
+
+      <motion.div
+        style={{
+          y: yShape3,
+          x: shapeX,
+          rotate: 90,
+        }}
+        animate={{
+          rotate: [90, 180, 90],
+        }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+        className="shape shape-ring"
+      />
+
+      <motion.div
+        style={{
+          y: yShape1,
+          x: useTransform(shapeX, (v) => v * 1.5),
+        }}
+        className="shape shape-orb"
+      />
+
     </div>
-  );
+
+
+    {/* =========================
+        FLOATING TECHNOLOGY ICONS
+    ========================== */}
+
+    <div className="floating-icons">
+
+      <motion.div
+        style={{
+          y: yIcon1,
+          x: iconX,
+        }}
+        className="icon icon-react"
+      >
+        <FaReact />
+      </motion.div>
+
+      <motion.div
+        style={{
+          y: yIcon2,
+          x: useTransform(iconX, (v) => -v),
+        }}
+        className="icon icon-node"
+      >
+        <FaNodeJs />
+      </motion.div>
+
+      <motion.div
+        style={{
+          y: yIcon3,
+          x: iconX,
+        }}
+        className="icon icon-js"
+      >
+        <SiJavascript />
+      </motion.div>
+
+      <motion.div
+        style={{
+          y: yIcon4,
+          x: useTransform(iconX, (v) => -v),
+        }}
+        className="icon icon-db"
+      >
+        <SiMongodb />
+      </motion.div>
+
+    </div>
+
+
+    {/* =========================
+        HERO CONTENT
+    ========================== */}
+
+    <motion.div
+      className="content"
+      style={{
+        y: textY,
+      }}
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+      }}
+      transition={{
+        duration: 1,
+      }}
+    >
+
+      <motion.h3
+        initial={{
+          opacity: 0,
+          y: 20,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 0.8,
+        }}
+      >
+        Hello, I am
+      </motion.h3>
+
+
+      <motion.h1
+        initial={{
+          opacity: 0,
+          scale: 0.9,
+        }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+        }}
+        transition={{
+          duration: 0.8,
+        }}
+      >
+        Adithyan G
+      </motion.h1>
+
+
+      {/* Primary Professional Identity */}
+
+      <motion.h2
+        initial={{
+          opacity: 0,
+          y: 20,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          delay: 0.3,
+          duration: 0.8,
+        }}
+        style={{
+          fontWeight: 600,
+        }}
+      >
+        Aviation Procurement Associate
+      </motion.h2>
+
+
+      {/* Typewriter */}
+
+      <motion.div
+        className="typewriter-container"
+        initial={{
+          opacity: 0,
+        }}
+        animate={{
+          opacity: 1,
+        }}
+        transition={{
+          delay: 0.6,
+          duration: 0.8,
+        }}
+      >
+
+        <Typewriter
+          options={{
+            strings: [
+              "Aviation Procurement Professional",
+              "Aircraft Parts Sourcing",
+              "Supplier Coordination",
+              "RFQ & Quotation Management",
+              "Procurement & Documentation",
+              "Aeronautical Engineering Background",
+              "Full-Stack Web Development"
+            ],
+
+            autoStart: true,
+            loop: true,
+
+            wrapperClassName: "typing-text",
+            cursorClassName: "typing-cursor",
+          }}
+        />
+
+      </motion.div>
+
+
+      {/* Hero Description */}
+
+      <motion.p
+        className="hero-description"
+        initial={{
+          opacity: 0,
+          y: 20,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          delay: 1,
+          duration: 0.8,
+        }}
+        style={{
+          maxWidth: "700px",
+          margin: "20px auto 0",
+          fontSize: "1.1rem",
+          lineHeight: "1.7",
+          color: "#010101ff",
+        }}
+      >
+
+        Aviation Procurement Associate with a background in{" "}
+        <b>Aeronautical Engineering</b> and{" "}
+        <b>Full-Stack Web Development</b>. Experienced in aviation
+        procurement, aircraft parts sourcing, supplier coordination,
+        RFQs, quotations, and procurement documentation.
+
+      </motion.p>
+
+
+      {/* Professional Keywords / Highlights */}
+
+      <motion.div
+        initial={{
+          opacity: 0,
+          y: 20,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          delay: 1.3,
+          duration: 0.8,
+        }}
+        style={{
+          marginTop: "25px",
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          gap: "10px",
+        }}
+      >
+
+        <span className="hero-tag">
+          Aviation Procurement
+        </span>
+
+        <span className="hero-tag">
+          Aircraft Parts
+        </span>
+
+        <span className="hero-tag">
+          Supplier Coordination
+        </span>
+
+        <span className="hero-tag">
+          RFQ & Quotations
+        </span>
+
+        <span className="hero-tag">
+          Aeronautical Engineering
+        </span>
+
+      </motion.div>
+
+    </motion.div>
+
+
+    {/* =========================
+        PARTICLES
+    ========================== */}
+
+    {particles.map((_, i) => (
+
+      <motion.div
+        key={i}
+        className="particle"
+
+        initial={{
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          opacity: 0,
+        }}
+
+        animate={{
+          y: [
+            null,
+            Math.random() * -100,
+          ],
+
+          opacity: [
+            0.1,
+            0.4,
+            0,
+          ],
+        }}
+
+        transition={{
+          duration: Math.random() * 5 + 5,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+
+        style={{
+          width: Math.random() * 8 + 4,
+          height: Math.random() * 8 + 4,
+        }}
+      />
+
+    ))}
+
+
+    {/* =========================
+        SCROLL INDICATOR
+    ========================== */}
+
+    <motion.div
+      className="scroll-indicator"
+
+      animate={{
+        y: [0, 10, 0],
+      }}
+
+      transition={{
+        repeat: Infinity,
+        duration: 2,
+      }}
+    >
+
+      <span>
+        Scroll Down
+      </span>
+
+      <i className="fas fa-chevron-down"></i>
+
+    </motion.div>
+
+  </section>
+
+
+  {/* =========================
+      ABOUT
+  ========================== */}
+
+  <section id="about">
+    <About />
+  </section>
+
+
+  {/* =========================
+      PROJECTS
+  ========================== */}
+
+  <section id="projects">
+    <Projects />
+  </section>
+
+
+  {/* =========================
+      CONTACT
+  ========================== */}
+
+  <section id="contact">
+    <Contact />
+  </section>
+
+
+  {/* =========================
+      FOOTER
+  ========================== */}
+
+  <Footer />
+
+</div>
+
+);
 };
 
 export default Home;
